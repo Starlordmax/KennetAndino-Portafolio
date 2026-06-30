@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kennet Andino — Desarrollador de Software</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #070E1A;
+    --navy-2: #0D1B2E;
+    --navy-3: #132440;
+    --navy-4: #1A3055;
+    --border: rgba(0,190,210,0.15);
+    --border-2: rgba(0,190,210,0.3);
+    --cyan: #00D4E0;
+    --cyan-2: #00A8B4;
+    --cyan-glow: rgba(0,212,224,0.08);
+    --cyan-glow-2: rgba(0,212,224,0.15);
+    --text: #E8F2FC;
+    --text-2: #7EAAC8;
+    --text-3: #4A7A9B;
+    --green: #00FF88;
+  }
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--navy);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+    height: 60px;
+    background: rgba(7,14,26,0.9);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 3rem;
+  }
+  .nav-logo {
+    font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1rem;
+    color: var(--cyan); letter-spacing: -0.02em;
+  }
+  .nav-links { display: flex; gap: 1.75rem; list-style: none; }
+  .nav-links a {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; letter-spacing: 0.05em;
+    color: var(--text-2); text-decoration: none; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--cyan); }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh; position: relative; overflow: hidden;
+    display: flex; align-items: center;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 60% 70% at 75% 45%, rgba(0,212,224,0.07) 0%, transparent 65%),
+      radial-gradient(ellipse 50% 50% at 15% 80%, rgba(0,80,130,0.1) 0%, transparent 60%);
+  }
+  .dots {
+    position: absolute; inset: 0;
+    background-image: radial-gradient(circle, rgba(30,58,92,0.8) 1px, transparent 1px);
+    background-size: 38px 38px;
+  }
+  .geo {
+    position: absolute; right: 4%; top: 50%; transform: translateY(-50%);
+    width: 420px; height: 420px; opacity: 0.07;
+    animation: spin 40s linear infinite; pointer-events: none;
+  }
+  @keyframes spin {
+    from { transform: translateY(-50%) rotate(0deg); }
+    to   { transform: translateY(-50%) rotate(360deg); }
+  }
+  .hero-inner {
+    position: relative; z-index: 2;
+    padding: 6rem 3rem 3rem;
+    width: 100%; max-width: 1080px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr auto;
+    gap: 4rem; align-items: center;
+  }
+  .hero-photo-wrap {
+    position: relative; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .hero-photo-ring {
+    position: absolute; inset: -14px;
+    border-radius: 50%; border: 1px solid var(--border-2);
+    animation: pulse-ring 3s ease-in-out infinite;
+  }
+  .hero-photo-ring-2 {
+    position: absolute; inset: -28px;
+    border-radius: 50%; border: 1px solid var(--border);
+    animation: pulse-ring 3s ease-in-out infinite 0.8s;
+  }
+  @keyframes pulse-ring {
+    0%,100% { opacity: 0.5; transform: scale(1); }
+    50%      { opacity: 1; transform: scale(1.02); }
+  }
+  .hero-photo {
+    width: 300px; height: 300px;
+    border-radius: 50%; object-fit: cover; object-position: top center;
+    border: 2px solid var(--cyan-2);
+    box-shadow: 0 0 40px rgba(0,212,224,0.2), 0 0 80px rgba(0,212,224,0.08);
+    display: block;
+  }
+  .hero-photo-badge {
+    position: absolute; bottom: 8px; right: 8px;
+    background: var(--navy-2); border: 1px solid var(--border-2);
+    border-radius: 20px; padding: 0.3rem 0.75rem;
+    font-family: 'JetBrains Mono', monospace; font-size: 0.65rem;
+    color: var(--cyan); display: flex; align-items: center; gap: 0.4rem;
+  }
+  .badge-dot { width: 6px; height: 6px; border-radius: 50%; background: #00FF88; animation: blink 2s ease-in-out infinite; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.72rem;
+    color: var(--cyan); letter-spacing: 0.15em; text-transform: uppercase;
+    display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem;
+  }
+  .eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--cyan); }
+  .hero-name {
+    font-family: 'Space Grotesk', sans-serif; font-weight: 700;
+    font-size: clamp(3.2rem, 8vw, 5.5rem); line-height: 0.95;
+    letter-spacing: -0.035em; margin-bottom: 1.5rem;
+  }
+  .hero-name .w { color: var(--text); display: block; }
+  .hero-name .c { color: var(--cyan); display: block; }
+  .hero-roles { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-bottom: 1.75rem; }
+  .role {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.7rem;
+    padding: 0.3rem 0.8rem; border-radius: 4px;
+    border: 1px solid var(--border); color: var(--text-2); background: var(--navy-2);
+    letter-spacing: 0.04em;
+  }
+  .role.hi { border-color: var(--cyan-2); color: var(--cyan); background: var(--cyan-glow); }
+  .hero-bio { font-size: 1rem; color: var(--text-2); max-width: 500px; line-height: 1.8; margin-bottom: 2.5rem; }
+  .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-p {
+    padding: 0.75rem 1.75rem; background: var(--cyan); color: var(--navy); font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700; font-size: 0.9rem; border: none; border-radius: 6px;
+    text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;
+    transition: all 0.2s; cursor: pointer;
+  }
+  .btn-p:hover { background: #00b8c4; transform: translateY(-2px); }
+  .btn-o {
+    padding: 0.75rem 1.75rem; background: transparent; color: var(--text); font-family: 'Space Grotesk', sans-serif;
+    font-weight: 500; font-size: 0.9rem; border: 1px solid var(--border-2); border-radius: 6px;
+    text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; transition: all 0.2s;
+  }
+  .btn-o:hover { border-color: var(--cyan-2); color: var(--cyan); }
+  .scroll-hint {
+    position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+    font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em;
+    color: var(--text-3); display: flex; flex-direction: column; align-items: center; gap: 6px;
+    animation: float 2.5s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%,100% { transform: translateX(-50%) translateY(0); }
+    50%      { transform: translateX(-50%) translateY(6px); }
+  }
+
+  /* ── SECTIONS ── */
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 3rem; }
+  section { padding: 6rem 0; }
+  .sec-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.7rem;
+    color: var(--cyan); letter-spacing: 0.15em; text-transform: uppercase;
+    display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.6rem;
+  }
+  .sec-label::before { content: ''; width: 22px; height: 1px; background: var(--cyan); }
+  .sec-title {
+    font-family: 'Space Grotesk', sans-serif; font-weight: 700;
+    font-size: clamp(1.75rem, 4vw, 2.5rem); letter-spacing: -0.025em;
+    margin-bottom: 3rem; color: var(--text);
+  }
+  .divider { border: none; border-top: 1px solid var(--border); margin: 0; }
+
+  /* ── ABOUT ── */
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3.5rem; align-items: start; }
+  .about-text p { color: var(--text-2); line-height: 1.85; margin-bottom: 1.25rem; font-size: 0.95rem; }
+  .contact-row { display: flex; align-items: center; gap: 0.7rem; font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: var(--text-2); margin-bottom: 0.6rem; }
+  .contact-row .lbl { color: var(--cyan); width: 18px; text-align: center; }
+  .skills-box { background: var(--navy-2); border: 1px solid var(--border); border-radius: 12px; padding: 1.75rem; }
+  .sk-cat { margin-bottom: 1.4rem; }
+  .sk-cat h4 { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; color: var(--cyan); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.7rem; }
+  .sk-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .sk-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; padding: 0.22rem 0.6rem; background: var(--navy); border: 1px solid var(--border); border-radius: 4px; color: var(--text-2); }
+
+  /* ── TIMELINE ── */
+  .timeline { position: relative; padding-left: 2rem; }
+  .timeline::before {
+    content: ''; position: absolute; left: 0; top: 10px; bottom: 0;
+    width: 1px; background: linear-gradient(to bottom, var(--cyan), transparent);
+  }
+  .tl-item { position: relative; margin-bottom: 2.75rem; }
+  .tl-dot {
+    position: absolute; left: -2rem; top: 10px;
+    width: 10px; height: 10px; border-radius: 50%; background: var(--cyan);
+    transform: translateX(-4.5px);
+    box-shadow: 0 0 0 3px var(--navy), 0 0 0 4px var(--border-2);
+  }
+  .tl-dot.dim { background: var(--navy-4); box-shadow: 0 0 0 3px var(--navy), 0 0 0 4px var(--border); }
+  .tl-period { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--cyan-2); margin-bottom: 0.3rem; }
+  .tl-role { font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; font-weight: 600; color: var(--text); margin-bottom: 0.15rem; }
+  .tl-co { font-size: 0.85rem; color: var(--text-3); margin-bottom: 0.65rem; }
+  .tl-desc { list-style: none; }
+  .tl-desc li { font-size: 0.88rem; color: var(--text-2); line-height: 1.7; margin-bottom: 0.35rem; padding-left: 1.1rem; position: relative; }
+  .tl-desc li::before { content: '→'; position: absolute; left: 0; color: var(--cyan-2); font-size: 0.78rem; }
+
+  /* ── PROJECTS ── */
+  .proj-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.4rem; }
+  .proj-card {
+    background: var(--navy-2); border: 1px solid var(--border); border-radius: 12px;
+    padding: 1.75rem; position: relative; overflow: hidden; transition: all 0.3s;
+  }
+  .proj-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(to right, var(--cyan), transparent); opacity: 0; transition: opacity 0.3s;
+  }
+  .proj-card:hover { border-color: var(--cyan-2); transform: translateY(-4px); box-shadow: 0 20px 48px rgba(0,0,0,0.4); }
+  .proj-card:hover::before { opacity: 1; }
+  .proj-num { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; color: var(--cyan-2); opacity: 0.5; margin-bottom: 0.6rem; }
+  .proj-title { font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; font-weight: 600; color: var(--text); margin-bottom: 0.6rem; }
+  .proj-chips { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.9rem; }
+  .chip { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; padding: 0.18rem 0.5rem; border-radius: 3px; background: var(--cyan-glow); border: 1px solid var(--border-2); color: var(--cyan-2); }
+  .proj-desc { font-size: 0.86rem; color: var(--text-2); line-height: 1.65; }
+
+  /* ── CERTS ── */
+  .certs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
+  .cert-card {
+    background: var(--navy-2); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.2rem 1.4rem; display: flex; align-items: center; gap: 1rem;
+  }
+  .cert-icon {
+    width: 40px; height: 40px; background: var(--cyan-glow-2); border-radius: 8px;
+    display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0;
+  }
+  .cert-name { font-family: 'Space Grotesk', sans-serif; font-size: 0.88rem; font-weight: 500; color: var(--text); }
+
+  /* ── STRENGTHS ── */
+  .str-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; }
+  .str-card {
+    background: var(--navy-2); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem; text-align: center;
+  }
+  .str-icon { font-size: 1.75rem; margin-bottom: 0.5rem; }
+  .str-label { font-family: 'Space Grotesk', sans-serif; font-size: 0.85rem; font-weight: 500; color: var(--text-2); }
+
+  /* ── MUSIC ── */
+  #music { background: var(--navy-2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 5rem 0; }
+  .music-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3.5rem; align-items: center; }
+  .music-text h2 { font-family: 'Space Grotesk', sans-serif; font-size: 2rem; font-weight: 700; letter-spacing: -0.025em; margin-bottom: 1rem; line-height: 1.2; }
+  .music-text p { color: var(--text-2); line-height: 1.8; font-size: 0.95rem; margin-bottom: 0.75rem; }
+  .sp-widget {
+    background: var(--navy); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; overflow: hidden;
+  }
+  .sp-head { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.25rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
+  .sp-logo { width: 32px; height: 32px; background: #1DB954; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 0.75rem; flex-shrink: 0; }
+  .sp-headtext strong { display: block; font-size: 0.9rem; color: var(--text); font-family: 'Space Grotesk', sans-serif; }
+  .sp-headtext span { font-size: 0.75rem; color: var(--text-3); font-family: 'JetBrains Mono', monospace; }
+  .sp-track { display: flex; align-items: center; gap: 0.75rem; padding: 0.55rem 0; border-bottom: 1px solid var(--border); }
+  .sp-track:last-child { border-bottom: none; }
+  .sp-n { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: var(--text-3); width: 14px; text-align: center; flex-shrink: 0; }
+  .sp-art { width: 34px; height: 34px; background: var(--navy-3); border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; flex-shrink: 0; }
+  .sp-info { flex: 1; }
+  .sp-song { font-size: 0.82rem; color: var(--text); }
+  .sp-artist { font-size: 0.72rem; color: var(--text-3); font-family: 'JetBrains Mono', monospace; }
+  .sp-bar { width: 52px; height: 3px; background: var(--navy-3); border-radius: 2px; flex-shrink: 0; }
+  .sp-fill { height: 100%; border-radius: 2px; background: #1DB954; }
+  .sp-note { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: var(--text-3); text-align: center; margin-top: 1rem; }
+  /* Actual Spotify embed zone */
+  .sp-embed-zone { margin-top: 1.25rem; border-radius: 8px; overflow: hidden; }
+
+  /* ── TRAVELS ── */
+  .travel-intro { color: var(--text-2); max-width: 600px; margin-bottom: 2.5rem; line-height: 1.8; font-size: 0.95rem; }
+  .travel-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+  .travel-card {
+    border-radius: 10px; overflow: hidden; aspect-ratio: 4/3;
+    background: var(--navy-3); border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center; position: relative;
+    transition: all 0.3s; cursor: pointer;
+  }
+  .travel-card:first-child { grid-column: span 2; aspect-ratio: 16/9; }
+  .travel-card:hover { border-color: var(--cyan-2); transform: scale(1.02); }
+  .travel-card img { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; }
+  .travel-ph { font-size: 2rem; opacity: 0.25; }
+  .travel-badge {
+    position: absolute; bottom: 0; left: 0; right: 0; padding: 0.6rem 0.85rem;
+    background: linear-gradient(to top, rgba(7,14,26,0.92), transparent);
+    font-family: 'Space Grotesk', sans-serif; font-size: 0.78rem; font-weight: 500; color: var(--text);
+  }
+  .travel-add-note {
+    grid-column: 1 / -1; font-family: 'JetBrains Mono', monospace; font-size: 0.72rem;
+    color: var(--text-3); text-align: center; padding: 1rem;
+    border: 1px dashed var(--border); border-radius: 8px; margin-top: 0.25rem;
+  }
+
+  /* ── RETRO ── */
+  #retro { background: var(--navy-2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 5rem 0; }
+  .retro-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+  .retro-text h2 { font-family: 'Space Grotesk', sans-serif; font-size: 2rem; font-weight: 700; letter-spacing: -0.025em; margin-bottom: 1rem; line-height: 1.2; }
+  .retro-text p { color: var(--text-2); line-height: 1.8; font-size: 0.95rem; margin-bottom: 1.25rem; }
+  .game-tags { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+  .game-tag {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; padding: 0.3rem 0.75rem;
+    border-radius: 4px; border: 1px solid rgba(0,255,136,0.25); background: rgba(0,255,136,0.05); color: #00cc66;
+  }
+  .terminal {
+    background: var(--navy); border: 1px solid var(--border); border-radius: 10px; overflow: hidden;
+    font-family: 'JetBrains Mono', monospace; font-size: 0.78rem;
+  }
+  .term-bar { display: flex; align-items: center; gap: 0.4rem; padding: 0.6rem 1rem; background: var(--navy-3); border-bottom: 1px solid var(--border); }
+  .dot-r { width: 10px; height: 10px; border-radius: 50%; background: #FF5F57; }
+  .dot-y { width: 10px; height: 10px; border-radius: 50%; background: #FFBC2E; }
+  .dot-g { width: 10px; height: 10px; border-radius: 50%; background: #28C840; }
+  .term-body { padding: 1.25rem; line-height: 1.9; color: #00cc66; }
+  .term-body .tc { color: var(--cyan); }
+  .term-body .tw { color: var(--text); }
+  .cursor { display: inline-block; width: 8px; height: 14px; background: #00cc66; vertical-align: text-bottom; animation: blink 1s steps(1) infinite; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+  /* ── CONTACT ── */
+  .contact-center { text-align: center; padding: 5rem 2rem; }
+  .contact-center h2 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 700; letter-spacing: -0.03em; margin-bottom: 1rem; }
+  .contact-center p { color: var(--text-2); max-width: 460px; margin: 0 auto 2.5rem; line-height: 1.75; }
+  .contact-links { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border); padding: 1.75rem 3rem;
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; color: var(--text-3);
+  }
+  footer .fc { color: var(--cyan); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .hero-inner { grid-template-columns: 1fr; text-align: center; padding: 5rem 1.5rem 3rem; }
+    .hero-photo-wrap { justify-content: center; order: -1; }
+    .hero-photo { width: 220px; height: 220px; }
+    .eyebrow { justify-content: center; }
+    .hero-roles { justify-content: center; }
+    .hero-cta { justify-content: center; }
+    .hero-bio { margin-left: auto; margin-right: auto; }
+  }
+  @media (max-width: 768px) {
+    nav { padding: 0 1.5rem; }
+    .nav-links { gap: 1rem; }
+    .wrap { padding: 0 1.5rem; }
+    section { padding: 4rem 0; }
+    .about-grid, .proj-grid, .music-grid, .retro-grid { grid-template-columns: 1fr; }
+    .travel-grid { grid-template-columns: 1fr 1fr; }
+    .travel-card:first-child { grid-column: span 2; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; padding: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">KA.dev</div>
+  <ul class="nav-links">
+    <li><a href="#about">// about</a></li>
+    <li><a href="#experience">// exp</a></li>
+    <li><a href="#projects">// projects</a></li>
+    <li><a href="#music">// music</a></li>
+    <li><a href="#travels">// travels</a></li>
+    <li><a href="#contact">// contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div id="hero">
+  <div class="hero-bg"></div>
+  <div class="dots"></div>
+
+  <!-- Geometric polygon -->
+  <svg class="geo" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <polygon points="150,8 285,78 285,222 150,292 15,222 15,78" stroke="#00D4E0" stroke-width="0.8" fill="none"/>
+    <polygon points="150,38 258,100 258,200 150,262 42,200 42,100" stroke="#00D4E0" stroke-width="0.5" fill="none" opacity="0.6"/>
+    <polygon points="150,68 231,122 231,178 150,232 69,178 69,122" stroke="#00D4E0" stroke-width="0.5" fill="none" opacity="0.4"/>
+    <line x1="150" y1="8" x2="150" y2="68" stroke="#00D4E0" stroke-width="0.4" opacity="0.4"/>
+    <line x1="285" y1="78" x2="231" y2="122" stroke="#00D4E0" stroke-width="0.4" opacity="0.4"/>
+    <line x1="285" y1="222" x2="231" y2="178" stroke="#00D4E0" stroke-width="0.4" opacity="0.4"/>
+    <line x1="150" y1="292" x2="150" y2="232" stroke="#00D4E0" stroke-width="0.4" opacity="0.4"/>
+    <line x1="15" y1="222" x2="69" y2="178" stroke="#00D4E0" stroke-width="0.4" opacity="0.4"/>
+    <line x1="15" y1="78" x2="69" y2="122" stroke="#00D4E0" stroke-width="0.4" opacity="0.4"/>
+    <circle cx="150" cy="150" r="5" fill="#00D4E0" opacity="0.9"/>
+    <circle cx="150" cy="8" r="3" fill="#00D4E0" opacity="0.6"/>
+    <circle cx="285" cy="78" r="3" fill="#00D4E0" opacity="0.6"/>
+    <circle cx="285" cy="222" r="3" fill="#00D4E0" opacity="0.6"/>
+    <circle cx="150" cy="292" r="3" fill="#00D4E0" opacity="0.6"/>
+    <circle cx="15" cy="222" r="3" fill="#00D4E0" opacity="0.6"/>
+    <circle cx="15" cy="78" r="3" fill="#00D4E0" opacity="0.6"/>
+  </svg>
+
+  <div class="hero-inner">
+    <!-- Text -->
+    <div class="hero-content">
+      <div class="eyebrow">Disponible para proyectos</div>
+      <div class="hero-name">
+        <span class="w">Kennet</span>
+        <span class="c">Andino</span>
+      </div>
+      <div class="hero-roles">
+        <span class="role hi">Backend Dev</span>
+        <span class="role hi">Salesforce / Apex</span>
+        <span class="role hi">UX / UI</span>
+        <span class="role">Node.js</span>
+        <span class="role">Supabase</span>
+        <span class="role">APIs REST</span>
+        <span class="role">LWC</span>
+      </div>
+      <p class="hero-bio">
+        Desarrollador de software con experiencia en backend, web y diseño UX/UI. Convierto ideas de negocio en aplicaciones prácticas, atractivas y fáciles de usar.
+      </p>
+      <div class="hero-cta">
+        <a href="#projects" class="btn-p">Ver proyectos →</a>
+        <a href="mailto:kennethandino71@gmail.com" class="btn-o">✉ Escribirme</a>
+      </div>
+    </div>
+    <!-- Photo -->
+    <div class="hero-photo-wrap">
+      <div class="hero-photo-ring-2"></div>
+      <div class="hero-photo-ring"></div>
+      <img class="hero-photo" src="kennet.jpg" alt="Kennet Andino">
+      <div class="hero-photo-badge">
+        <div class="badge-dot"></div>
+        Disponible
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    scroll
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><path d="M7 9.5L2 4.5h10L7 9.5z"/></svg>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap">
+    <div class="sec-label">Sobre mí</div>
+    <h2 class="sec-title">Quién soy</h2>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>Soy desarrollador de software con experiencia en backend, desarrollo web y diseño UX/UI. Disfruto convertir ideas y necesidades de negocio en aplicaciones prácticas, atractivas y fáciles de usar.</p>
+        <p>Trabajo con Salesforce, Apex, LWC, JavaScript, Node.js, Supabase, SQL, APIs e integraciones con servicios externos. Me considero una persona creativa, adaptable y comprometida con el aprendizaje continuo.</p>
+        <p>Mi mayor satisfacción es ver una solución que diseñé y construí generando impacto real en el día a día de un equipo.</p>
+        <br>
+        <div class="contact-row"><span class="lbl">📍</span> Managua, Nicaragua</div>
+        <div class="contact-row"><span class="lbl">📱</span> +505 7782-4787</div>
+        <div class="contact-row"><span class="lbl">✉</span> kennethandino71@gmail.com</div>
+      </div>
+      <div class="skills-box">
+        <div class="sk-cat">
+          <h4>Salesforce</h4>
+          <div class="sk-tags">
+            <span class="sk-tag">CRM</span><span class="sk-tag">Apex</span><span class="sk-tag">LWC</span><span class="sk-tag">SOQL</span><span class="sk-tag">SOSL</span>
+          </div>
+        </div>
+        <div class="sk-cat">
+          <h4>Web / Backend</h4>
+          <div class="sk-tags">
+            <span class="sk-tag">JavaScript</span><span class="sk-tag">Node.js</span><span class="sk-tag">HTML</span><span class="sk-tag">CSS</span><span class="sk-tag">APIs REST</span><span class="sk-tag">OAuth 2.0</span><span class="sk-tag">Webhooks</span>
+          </div>
+        </div>
+        <div class="sk-cat">
+          <h4>Datos & DevOps</h4>
+          <div class="sk-tags">
+            <span class="sk-tag">Supabase</span><span class="sk-tag">PostgreSQL</span><span class="sk-tag">SQL</span><span class="sk-tag">Git / GitHub</span><span class="sk-tag">Postman</span>
+          </div>
+        </div>
+        <div class="sk-cat">
+          <h4>Diseño & Herramientas</h4>
+          <div class="sk-tags">
+            <span class="sk-tag">UX / UI</span><span class="sk-tag">Web Components</span><span class="sk-tag">React</span><span class="sk-tag">shadcn/ui</span><span class="sk-tag">Lovable</span><span class="sk-tag">Vite</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="wrap">
+    <div class="sec-label">Trayectoria</div>
+    <h2 class="sec-title">Experiencia</h2>
+    <div class="timeline">
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-period">Sep 2023 — Jun 2026</div>
+        <div class="tl-role">Desarrollador Web / Backend & Diseñador UX/UI</div>
+        <div class="tl-co">Pangea Financial Group · Managua</div>
+        <ul class="tl-desc">
+          <li>Diseñé y desarrollé herramientas web e interfaces internas para mejorar procesos operativos y administrativos.</li>
+          <li>Implementé lógica backend, estructuras de datos y automatizaciones para centralizar información y reducir tareas manuales.</li>
+          <li>Integré APIs REST, autenticación OAuth y servicios de terceros; realicé pruebas, diagnóstico de errores y documentación técnica.</li>
+          <li>Transformé necesidades del negocio en funcionalidades concretas, participando en todo el ciclo: análisis, diseño, desarrollo, validación y mejora continua.</li>
+        </ul>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot dim"></div>
+        <div class="tl-period">May 2023 — Ago 2023</div>
+        <div class="tl-role">Asesor Comercial</div>
+        <div class="tl-co">Lendinero · Managua</div>
+        <ul class="tl-desc">
+          <li>Venta telefónica de créditos y soluciones de financiamiento para negocios en EE. UU.</li>
+          <li>Contacto y calificación de clientes potenciales, manejo de objeciones y seguimiento del proceso de venta.</li>
+        </ul>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot dim"></div>
+        <div class="tl-period">Oct 2022 — Abr 2023</div>
+        <div class="tl-role">Jefe de Ventas</div>
+        <div class="tl-co">Globalpro · Managua</div>
+        <ul class="tl-desc">
+          <li>Atención y asesoría a clientes, seguimiento comercial y gestión de ventas de equipos portátiles.</li>
+        </ul>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot dim"></div>
+        <div class="tl-period">Mar 2020</div>
+        <div class="tl-role">Administrador de Base de Datos</div>
+        <div class="tl-co">Proyecto "El Éxito" · Managua</div>
+        <ul class="tl-desc">
+          <li>Diseño de base de datos para sistema de control y ventas; definición de estructura y organización de la información.</li>
+        </ul>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot dim"></div>
+        <div class="tl-period">Ago 2018</div>
+        <div class="tl-role">Desarrollador de Software · Geolator</div>
+        <div class="tl-co">Proyecto Académico UNI · Managua</div>
+        <ul class="tl-desc">
+          <li>App educativa para cálculo de figuras geométricas, diseñada como apoyo al aprendizaje de estudiantes de primaria.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="wrap">
+    <div class="sec-label">Portafolio</div>
+    <h2 class="sec-title">Proyectos destacados</h2>
+    <div class="proj-grid">
+
+      <div class="proj-card">
+        <div class="proj-num">01 / RFP PLATFORM</div>
+        <div class="proj-title">Plataforma Request for Proposal</div>
+        <div class="proj-chips">
+          <span class="chip">Salesforce</span><span class="chip">Apex</span><span class="chip">LWC</span><span class="chip">APIs REST</span><span class="chip">Webhooks</span>
+        </div>
+        <p class="proj-desc">Automatización de solicitudes a carriers de seguros: mapea el censo del grupo, genera automáticamente los archivos Excel requeridos y los adjunta al correo. Módulo de IA que procesa PDFs de cotización y genera resúmenes de los planes más convenientes según el perfil de cada empleado.</p>
+      </div>
+
+      <div class="proj-card">
+        <div class="proj-num">02 / BUSINESS CARD CONNECT</div>
+        <div class="proj-title">Business Card Connect</div>
+        <div class="proj-chips">
+          <span class="chip">React</span><span class="chip">TanStack</span><span class="chip">Supabase</span><span class="chip">QR Code API</span>
+        </div>
+        <p class="proj-desc">App web para crear y gestionar tarjetas de presentación digitales con perfil público shareable. Genera archivos VCF descargables automáticamente y un código QR único por perfil para facilitar el intercambio de contactos en reuniones y eventos.</p>
+      </div>
+
+      <div class="proj-card">
+        <div class="proj-num">03 / DESIGN SYSTEM</div>
+        <div class="proj-title">Librería de Cards · Design System</div>
+        <div class="proj-chips">
+          <span class="chip">Web Components</span><span class="chip">JavaScript</span><span class="chip">Remote Bundle</span>
+        </div>
+        <p class="proj-desc">Sistema de diseño centralizado con 11 tipos de Web Components embebibles para el módulo RFP. Arquitectura desacoplada — los componentes se cargan vía bundle remoto, garantizando consistencia visual en todo el ecosistema Pangea sin duplicar código.</p>
+      </div>
+
+      <div class="proj-card">
+        <div class="proj-num">04 / MEETING NOTES HUB</div>
+        <div class="proj-title">Meeting Notes Hub</div>
+        <div class="proj-chips">
+          <span class="chip">React</span><span class="chip">Vite</span><span class="chip">Salesforce Lookup</span><span class="chip">shadcn/ui</span>
+        </div>
+        <p class="proj-desc">Herramienta interna para capturar y organizar notas de reuniones con clientes, incluyendo fechas, estados de revisión y períodos de inscripción. Asignación de tareas a usuarios de Salesforce mediante lookup integrado, centralizando la trazabilidad de acuerdos.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- CERTIFICATIONS -->
+<section id="certs">
+  <div class="wrap">
+    <div class="sec-label">Formación</div>
+    <h2 class="sec-title">Certificaciones</h2>
+    <div class="certs-grid">
+      <div class="cert-card"><div class="cert-icon">☁️</div><div class="cert-name">Salesforce Certified Administrator</div></div>
+      <div class="cert-card"><div class="cert-icon">🌐</div><div class="cert-name">Diseñador de Páginas Web</div></div>
+      <div class="cert-card"><div class="cert-icon">🇺🇸</div><div class="cert-name">Curso de Inglés · Cornerstone</div></div>
+      <div class="cert-card"><div class="cert-icon">🤖</div><div class="cert-name">Curso de IA · Skool</div></div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- STRENGTHS -->
+<section>
+  <div class="wrap">
+    <div class="sec-label">Competencias</div>
+    <h2 class="sec-title">Fortalezas</h2>
+    <div class="str-grid">
+      <div class="str-card"><div class="str-icon">🎨</div><div class="str-label">Diseño UX / UI</div></div>
+      <div class="str-card"><div class="str-icon">🏗</div><div class="str-label">Arquitectura de soluciones</div></div>
+      <div class="str-card"><div class="str-icon">🗄</div><div class="str-label">Modelado de datos</div></div>
+      <div class="str-card"><div class="str-icon">⚡</div><div class="str-label">Automatización de procesos</div></div>
+      <div class="str-card"><div class="str-icon">🔍</div><div class="str-label">Resolución de problemas</div></div>
+      <div class="str-card"><div class="str-icon">📚</div><div class="str-label">Adaptabilidad y aprendizaje</div></div>
+      <div class="str-card"><div class="str-icon">🤝</div><div class="str-label">Trabajo colaborativo</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- MUSIC -->
+<div id="music">
+  <div class="wrap">
+    <div class="sec-label">Lo que suena</div>
+    <div class="music-grid">
+      <div class="music-text">
+        <h2>La música que<br><span style="color:var(--cyan)">me acompaña</span></h2>
+        <p>Entre commits, diseños y cafés. Esto es lo que está en rotación mientras trabajo o simplemente descanso.</p>
+        <p style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--text-3);">
+          → Para personalizar: abre Spotify, busca tu playlist o álbum favorito, haz clic en los tres puntos → "Compartir" → "Copiar código de inserción" y reemplaza el iframe de abajo.
+        </p>
+      </div>
+      <div class="sp-widget">
+        <div class="sp-head">
+          <div class="sp-logo">♫</div>
+          <div class="sp-headtext">
+            <strong>Spotify · Now Playing</strong>
+            <span>→ Reemplaza con tu embed real</span>
+          </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════════════
+             REEMPLAZA ESTE BLOQUE con tu embed real de Spotify.
+             Ejemplo:
+             <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/TU_PLAYLIST_ID?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        ═══════════════════════════════════════════════════════════════ -->
+        <div class="sp-embed-zone">
+          <!-- PLACEHOLDER - reemplaza con tu iframe de Spotify -->
+          <div class="sp-track"><span class="sp-n">♪</span><div class="sp-art">🎵</div><div class="sp-info"><div class="sp-song">Tu canción favorita</div><div class="sp-artist">Artista · 2024</div></div><div class="sp-bar"><div class="sp-fill" style="width:70%"></div></div></div>
+          <div class="sp-track"><span class="sp-n">2</span><div class="sp-art">🎶</div><div class="sp-info"><div class="sp-song">Segundo track</div><div class="sp-artist">Artista · 2024</div></div><div class="sp-bar"><div class="sp-fill" style="width:45%"></div></div></div>
+          <div class="sp-track"><span class="sp-n">3</span><div class="sp-art">🎵</div><div class="sp-info"><div class="sp-song">Tercer track</div><div class="sp-artist">Artista · 2023</div></div><div class="sp-bar"><div class="sp-fill" style="width:90%"></div></div></div>
+        </div>
+        <p class="sp-note">// Pega tu iframe de Spotify aquí para ver tu música real</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TRAVELS -->
+<section id="travels">
+  <div class="wrap">
+    <div class="sec-label">Fuera del código</div>
+    <h2 class="sec-title">Viajes & Lugares</h2>
+    <p class="travel-intro">
+      La vida no es solo código. Estos son algunos de los lugares que me han inspirado, dado perspectiva y recordado que el mundo es enorme — y que vale la pena explorarlo.
+    </p>
+    <div class="travel-grid">
+      <!-- INSTRUCCIONES: Reemplaza las tarjetas de abajo con tus fotos reales.
+           Agrega <img src="ruta_a_tu_foto.jpg" alt="descripcion"> dentro de cada .travel-card
+           y ajusta el texto del .travel-badge con el nombre del lugar. -->
+      <div class="travel-card">
+        <div class="travel-ph">🌄</div>
+        <div class="travel-badge">📸 Tu foto destacada — lugar principal</div>
+      </div>
+      <div class="travel-card">
+        <div class="travel-ph">🌊</div>
+        <div class="travel-badge">📸 Lugar 2</div>
+      </div>
+      <div class="travel-card">
+        <div class="travel-ph">🏔</div>
+        <div class="travel-badge">📸 Lugar 3</div>
+      </div>
+      <div class="travel-card">
+        <div class="travel-ph">🌇</div>
+        <div class="travel-badge">📸 Lugar 4</div>
+      </div>
+      <div class="travel-card">
+        <div class="travel-ph">🏝</div>
+        <div class="travel-badge">📸 Lugar 5</div>
+      </div>
+      <div class="travel-add-note">
+        → Agrega más fotos duplicando el bloque &lt;div class="travel-card"&gt; y poniendo tu imagen adentro
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RETRO / GAMING -->
+<div id="retro">
+  <div class="wrap">
+    <div class="retro-grid">
+      <div class="retro-text">
+        <div class="sec-label">Side quests</div>
+        <h2>RetroArch<br><span style="color:var(--cyan)">&amp; Gaming</span></h2>
+        <p>Cuando no estoy programando, me encontrarás en RetroArch recorriendo clásicos de SNES, GBA y PS1. Los videojuegos retro me enseñaron pensamiento sistémico, paciencia y resolución de problemas mucho antes que cualquier curso.</p>
+        <div class="game-tags">
+          <span class="game-tag">🎮 SNES</span>
+          <span class="game-tag">🟡 GBA</span>
+          <span class="game-tag">🔵 PS1</span>
+          <span class="game-tag">🎯 N64</span>
+          <span class="game-tag">⚡ RetroArch</span>
+          <span class="game-tag">📺 EmulationStation</span>
+        </div>
+      </div>
+      <div class="terminal">
+        <div class="term-bar">
+          <div class="dot-r"></div><div class="dot-y"></div><div class="dot-g"></div>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--text-3);margin-left:0.5rem;">kennet@portfolio ~ $</span>
+        </div>
+        <div class="term-body">
+<span style="color:var(--text-3)">$</span> kennet <span class="tc">--status</span><br>
+<br>
+<span class="tc">NAME     </span><span class="tw"> Kennet Andino</span><br>
+<span class="tc">ROLE     </span><span class="tw"> Software Developer</span><br>
+<span class="tc">LOCATION </span><span class="tw"> Managua, NI 🇳🇮</span><br>
+<span class="tc">STATUS   </span><span style="color:#00FF88"> ● Available</span><br>
+<span class="tc">STACK    </span><span class="tw"> Salesforce / Node / React</span><br>
+<span class="tc">CERTS    </span><span class="tw"> Salesforce Admin ✓</span><br>
+<span class="tc">HOBBY    </span><span class="tw"> RetroGaming 🎮</span><br>
+<span class="tc">VIBE     </span><span class="tw"> Building things that matter</span><br>
+<br>
+<span style="color:var(--text-3)">$</span> <span class="cursor"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="wrap">
+    <div class="contact-center">
+      <div class="sec-label" style="justify-content:center;">Hablemos</div>
+      <h2>¿Tienes un proyecto<br><span style="color:var(--cyan)">en mente?</span></h2>
+      <p>Estoy disponible para proyectos freelance, colaboraciones y oportunidades. Escríbeme y lo conversamos.</p>
+      <div class="contact-links">
+        <a href="mailto:kennethandino71@gmail.com" class="btn-p">✉ kennethandino71@gmail.com</a>
+        <a href="tel:+50577824787" class="btn-o">📱 +505 7782-4787</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="fc">KA.dev</span>
+  <span>Diseñado con ♥ — <span class="fc">Kennet Andino</span> · 2026</span>
+  <span>Managua, Nicaragua 🇳🇮</span>
+</footer>
+
+<script>
+  // Nav highlight on scroll
+  const allSections = document.querySelectorAll('[id]');
+  const links = document.querySelectorAll('.nav-links a');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        links.forEach(l => {
+          l.style.color = l.getAttribute('href') === '#' + e.target.id ? 'var(--cyan)' : '';
+        });
+      }
+    });
+  }, { threshold: 0.35 });
+  allSections.forEach(s => obs.observe(s));
+
+  // Scroll reveal — fade in sections
+  const revealObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.style.opacity = '1'; e.target.style.transform = 'translateY(0)'; }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.proj-card, .cert-card, .str-card, .tl-item, .travel-card').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    revealObs.observe(el);
+  });
+</script>
+</body>
+</html>
