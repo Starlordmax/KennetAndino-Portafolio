@@ -46,12 +46,23 @@
     font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1rem;
     color: var(--cyan); letter-spacing: -0.02em;
   }
+  .nav-right { display: flex; align-items: center; gap: 1.75rem; }
   .nav-links { display: flex; gap: 1.75rem; list-style: none; }
   .nav-links a {
     font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; letter-spacing: 0.05em;
     color: var(--text-2); text-decoration: none; transition: color 0.2s;
   }
   .nav-links a:hover { color: var(--cyan); }
+  .lang-switch {
+    display: flex; align-items: center; gap: 2px;
+    background: var(--navy-2); border: 1px solid var(--border); border-radius: 20px;
+    padding: 3px; cursor: pointer; user-select: none;
+  }
+  .lang-opt {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; font-weight: 500;
+    padding: 0.3rem 0.6rem; border-radius: 16px; color: var(--text-3); transition: all 0.2s;
+  }
+  .lang-opt.active { background: var(--cyan); color: var(--navy); }
 
   /* ── HERO ── */
   #hero {
@@ -363,6 +374,7 @@
   }
   @media (max-width: 768px) {
     nav { padding: 0 1.5rem; }
+    .nav-right { gap: 0.85rem; }
     .nav-links { gap: 1rem; }
     .wrap { padding: 0 1.5rem; }
     section { padding: 4rem 0; }
@@ -378,14 +390,20 @@
 <!-- NAV -->
 <nav>
   <div class="nav-logo">KA.dev</div>
-  <ul class="nav-links">
-    <li><a href="#about">// about</a></li>
-    <li><a href="#experience">// exp</a></li>
-    <li><a href="#projects">// projects</a></li>
-    <li><a href="#music">// music</a></li>
-    <li><a href="#travels">// travels</a></li>
-    <li><a href="#contact">// contact</a></li>
-  </ul>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="#about">// about</a></li>
+      <li><a href="#experience">// exp</a></li>
+      <li><a href="#projects">// projects</a></li>
+      <li><a href="#music">// music</a></li>
+      <li><a href="#travels">// travels</a></li>
+      <li><a href="#contact">// contact</a></li>
+    </ul>
+    <div class="lang-switch" id="langSwitch" role="button" aria-label="Cambiar idioma / Switch language">
+      <span class="lang-opt active" data-lang="es">ES</span>
+      <span class="lang-opt" data-lang="en">EN</span>
+    </div>
+  </div>
 </nav>
 
 <!-- HERO -->
@@ -416,7 +434,7 @@
   <div class="hero-inner">
     <!-- Text -->
     <div class="hero-content">
-      <div class="eyebrow">Disponible para proyectos</div>
+      <div class="eyebrow" data-en="Available for projects">Disponible para proyectos</div>
       <div class="hero-name">
         <span class="w">Kennet</span>
         <span class="c">Andino</span>
@@ -427,15 +445,15 @@
         <span class="role hi">UX / UI</span>
         <span class="role">Node.js</span>
         <span class="role">Supabase</span>
-        <span class="role">APIs REST</span>
+        <span class="role" data-en="REST APIs">APIs REST</span>
         <span class="role">LWC</span>
       </div>
-      <p class="hero-bio">
+      <p class="hero-bio" data-en="Software developer experienced in backend, web development, and UX/UI design. I turn business ideas into practical, appealing, and easy-to-use applications.">
         Desarrollador de software con experiencia en backend, web y diseño UX/UI. Convierto ideas de negocio en aplicaciones prácticas, atractivas y fáciles de usar.
       </p>
       <div class="hero-cta">
-        <a href="#projects" class="btn-p">Ver proyectos →</a>
-        <a href="mailto:kennethandino71@gmail.com" class="btn-o">✉ Escribirme</a>
+        <a href="#projects" class="btn-p" data-en="View projects →">Ver proyectos →</a>
+        <a href="mailto:kennethandino71@gmail.com" class="btn-o" data-en="✉ Email me">✉ Escribirme</a>
         <a href="https://www.linkedin.com/in/kenneth-andino-7247b113a/" target="_blank" rel="noopener" class="btn-o">in LinkedIn</a>
       </div>
     </div>
@@ -446,7 +464,7 @@
       <img class="hero-photo" src="kennet.jpeg" alt="Kennet Andino">
       <div class="hero-photo-badge">
         <div class="badge-dot"></div>
-        Disponible
+        <span data-en="Available">Disponible</span>
       </div>
     </div>
   </div>
@@ -460,13 +478,13 @@
 <!-- ABOUT -->
 <section id="about">
   <div class="wrap">
-    <div class="sec-label">Sobre mí</div>
-    <h2 class="sec-title">Quién soy</h2>
+    <div class="sec-label" data-en="About me">Sobre mí</div>
+    <h2 class="sec-title" data-en="Who I am">Quién soy</h2>
     <div class="about-grid">
       <div class="about-text">
-        <p>Soy desarrollador de software con experiencia en backend, desarrollo web y diseño UX/UI. Disfruto convertir ideas y necesidades de negocio en aplicaciones prácticas, atractivas y fáciles de usar.</p>
-        <p>Trabajo con Salesforce, Apex, LWC, JavaScript, Node.js, Supabase, SQL, APIs e integraciones con servicios externos. Me considero una persona creativa, adaptable y comprometida con el aprendizaje continuo.</p>
-        <p>Mi mayor satisfacción es ver una solución que diseñé y construí generando impacto real en el día a día de un equipo.</p>
+        <p data-en="I'm a software developer experienced in backend, web development, and UX/UI design. I enjoy turning business ideas and needs into practical, appealing, and easy-to-use applications.">Soy desarrollador de software con experiencia en backend, desarrollo web y diseño UX/UI. Disfruto convertir ideas y necesidades de negocio en aplicaciones prácticas, atractivas y fáciles de usar.</p>
+        <p data-en="I work with Salesforce, Apex, LWC, JavaScript, Node.js, Supabase, SQL, APIs, and integrations with external services. I consider myself creative, adaptable, and committed to continuous learning.">Trabajo con Salesforce, Apex, LWC, JavaScript, Node.js, Supabase, SQL, APIs e integraciones con servicios externos. Me considero una persona creativa, adaptable y comprometida con el aprendizaje continuo.</p>
+        <p data-en="My greatest satisfaction is seeing a solution I designed and built create real impact in a team's day-to-day work.">Mi mayor satisfacción es ver una solución que diseñé y construí generando impacto real en el día a día de un equipo.</p>
         <br>
         <div class="contact-row"><span class="lbl">📍</span> Managua, Nicaragua</div>
         <div class="contact-row"><span class="lbl">📱</span> +505 7782-4787</div>
@@ -483,17 +501,17 @@
         <div class="sk-cat">
           <h4>Web / Backend</h4>
           <div class="sk-tags">
-            <span class="sk-tag">JavaScript</span><span class="sk-tag">Node.js</span><span class="sk-tag">HTML</span><span class="sk-tag">CSS</span><span class="sk-tag">APIs REST</span><span class="sk-tag">OAuth 2.0</span><span class="sk-tag">Webhooks</span>
+            <span class="sk-tag">JavaScript</span><span class="sk-tag">Node.js</span><span class="sk-tag">HTML</span><span class="sk-tag">CSS</span><span class="sk-tag" data-en="REST APIs">APIs REST</span><span class="sk-tag">OAuth 2.0</span><span class="sk-tag">Webhooks</span>
           </div>
         </div>
         <div class="sk-cat">
-          <h4>Datos & DevOps</h4>
+          <h4 data-en="Data & DevOps">Datos & DevOps</h4>
           <div class="sk-tags">
             <span class="sk-tag">Supabase</span><span class="sk-tag">PostgreSQL</span><span class="sk-tag">SQL</span><span class="sk-tag">Git / GitHub</span><span class="sk-tag">Postman</span>
           </div>
         </div>
         <div class="sk-cat">
-          <h4>Diseño & Herramientas</h4>
+          <h4 data-en="Design & Tools">Diseño & Herramientas</h4>
           <div class="sk-tags">
             <span class="sk-tag">UX / UI</span><span class="sk-tag">Web Components</span><span class="sk-tag">React</span><span class="sk-tag">shadcn/ui</span><span class="sk-tag">Lovable</span><span class="sk-tag">Vite</span>
           </div>
@@ -508,61 +526,61 @@
 <!-- EXPERIENCE -->
 <section id="experience">
   <div class="wrap">
-    <div class="sec-label">Trayectoria</div>
-    <h2 class="sec-title">Experiencia</h2>
+    <div class="sec-label" data-en="Journey">Trayectoria</div>
+    <h2 class="sec-title" data-en="Experience">Experiencia</h2>
     <div class="timeline">
 
       <div class="tl-item">
         <div class="tl-dot"></div>
         <div class="tl-period">Sep 2023 — Jun 2026</div>
-        <div class="tl-role">Desarrollador Web / Backend & Diseñador UX/UI</div>
+        <div class="tl-role" data-en="Web / Backend Developer & UX/UI Designer">Desarrollador Web / Backend & Diseñador UX/UI</div>
         <div class="tl-co">Pangea Financial Group · Managua</div>
         <ul class="tl-desc">
-          <li>Diseñé y desarrollé herramientas web e interfaces internas para mejorar procesos operativos y administrativos.</li>
-          <li>Implementé lógica backend, estructuras de datos y automatizaciones para centralizar información y reducir tareas manuales.</li>
-          <li>Integré APIs REST, autenticación OAuth y servicios de terceros; realicé pruebas, diagnóstico de errores y documentación técnica.</li>
-          <li>Transformé necesidades del negocio en funcionalidades concretas, participando en todo el ciclo: análisis, diseño, desarrollo, validación y mejora continua.</li>
+          <li data-en="Designed and developed web tools and internal interfaces to improve operational and administrative processes.">Diseñé y desarrollé herramientas web e interfaces internas para mejorar procesos operativos y administrativos.</li>
+          <li data-en="Implemented backend logic, data structures, and automations to centralize information and reduce manual tasks.">Implementé lógica backend, estructuras de datos y automatizaciones para centralizar información y reducir tareas manuales.</li>
+          <li data-en="Integrated REST APIs, OAuth authentication, and third-party services; performed testing, error diagnosis, and technical documentation.">Integré APIs REST, autenticación OAuth y servicios de terceros; realicé pruebas, diagnóstico de errores y documentación técnica.</li>
+          <li data-en="Turned business needs into concrete features, participating in the full cycle: analysis, design, development, validation, and continuous improvement.">Transformé necesidades del negocio en funcionalidades concretas, participando en todo el ciclo: análisis, diseño, desarrollo, validación y mejora continua.</li>
         </ul>
       </div>
 
       <div class="tl-item">
         <div class="tl-dot dim"></div>
-        <div class="tl-period">May 2023 — Ago 2023</div>
-        <div class="tl-role">Asesor Comercial</div>
+        <div class="tl-period" data-en="May 2023 — Aug 2023">May 2023 — Ago 2023</div>
+        <div class="tl-role" data-en="Sales Advisor">Asesor Comercial</div>
         <div class="tl-co">Lendinero · Managua</div>
         <ul class="tl-desc">
-          <li>Venta telefónica de créditos y soluciones de financiamiento para negocios en EE. UU.</li>
-          <li>Contacto y calificación de clientes potenciales, manejo de objeciones y seguimiento del proceso de venta.</li>
+          <li data-en="Phone sales of credit and financing solutions for businesses in the U.S.">Venta telefónica de créditos y soluciones de financiamiento para negocios en EE. UU.</li>
+          <li data-en="Contacted and qualified leads, handled objections, and followed up on the sales process.">Contacto y calificación de clientes potenciales, manejo de objeciones y seguimiento del proceso de venta.</li>
         </ul>
       </div>
 
       <div class="tl-item">
         <div class="tl-dot dim"></div>
-        <div class="tl-period">Oct 2022 — Abr 2023</div>
-        <div class="tl-role">Jefe de Ventas</div>
+        <div class="tl-period" data-en="Oct 2022 — Apr 2023">Oct 2022 — Abr 2023</div>
+        <div class="tl-role" data-en="Sales Manager">Jefe de Ventas</div>
         <div class="tl-co">Globalpro · Managua</div>
         <ul class="tl-desc">
-          <li>Atención y asesoría a clientes, seguimiento comercial y gestión de ventas de equipos portátiles.</li>
+          <li data-en="Customer service and advisory, sales follow-up, and management of laptop sales.">Atención y asesoría a clientes, seguimiento comercial y gestión de ventas de equipos portátiles.</li>
         </ul>
       </div>
 
       <div class="tl-item">
         <div class="tl-dot dim"></div>
         <div class="tl-period">Mar 2020</div>
-        <div class="tl-role">Administrador de Base de Datos</div>
-        <div class="tl-co">Proyecto "El Éxito" · Managua</div>
+        <div class="tl-role" data-en="Database Administrator">Administrador de Base de Datos</div>
+        <div class="tl-co" data-en='"El Éxito" Project · Managua'>Proyecto "El Éxito" · Managua</div>
         <ul class="tl-desc">
-          <li>Diseño de base de datos para sistema de control y ventas; definición de estructura y organización de la información.</li>
+          <li data-en="Designed a database for a control and sales system; defined the structure and organization of information.">Diseño de base de datos para sistema de control y ventas; definición de estructura y organización de la información.</li>
         </ul>
       </div>
 
       <div class="tl-item">
         <div class="tl-dot dim"></div>
-        <div class="tl-period">Ago 2018</div>
+        <div class="tl-period" data-en="Aug 2018">Ago 2018</div>
         <div class="tl-role">Desarrollador de Software · Geolator</div>
-        <div class="tl-co">Proyecto Académico UNI · Managua</div>
+        <div class="tl-co" data-en="UNI Academic Project · Managua">Proyecto Académico UNI · Managua</div>
         <ul class="tl-desc">
-          <li>App educativa para cálculo de figuras geométricas, diseñada como apoyo al aprendizaje de estudiantes de primaria.</li>
+          <li data-en="Educational app for calculating geometric shapes, designed to support elementary students' learning.">App educativa para cálculo de figuras geométricas, diseñada como apoyo al aprendizaje de estudiantes de primaria.</li>
         </ul>
       </div>
 
@@ -575,8 +593,8 @@
 <!-- PROJECTS -->
 <section id="projects">
   <div class="wrap">
-    <div class="sec-label">Portafolio</div>
-    <h2 class="sec-title">Proyectos destacados</h2>
+    <div class="sec-label" data-en="Portfolio">Portafolio</div>
+    <h2 class="sec-title" data-en="Featured projects">Proyectos destacados</h2>
     <div class="proj-grid">
 
       <div class="proj-card">
@@ -589,11 +607,11 @@
         </div>
         <div class="proj-body">
           <div class="proj-num">01 / RFP PLATFORM</div>
-          <div class="proj-title">Plataforma Request for Proposal</div>
+          <div class="proj-title" data-en="Request for Proposal Platform">Plataforma Request for Proposal</div>
           <div class="proj-chips">
-            <span class="chip">Salesforce</span><span class="chip">Apex</span><span class="chip">LWC</span><span class="chip">APIs REST</span><span class="chip">Webhooks</span>
+            <span class="chip">Salesforce</span><span class="chip">Apex</span><span class="chip">LWC</span><span class="chip" data-en="REST APIs">APIs REST</span><span class="chip">Webhooks</span>
           </div>
-          <p class="proj-desc">Automatización de solicitudes a carriers de seguros: mapea el censo del grupo, genera automáticamente los archivos Excel requeridos y los adjunta al correo. Módulo de IA que procesa PDFs de cotización y genera resúmenes de los planes más convenientes según el perfil de cada empleado.</p>
+          <p class="proj-desc" data-en="Automates requests to insurance carriers: maps the group census, automatically generates the required Excel files, and attaches them to the email. AI module that processes quote PDFs and generates summaries of the most suitable plans based on each employee's profile.">Automatización de solicitudes a carriers de seguros: mapea el censo del grupo, genera automáticamente los archivos Excel requeridos y los adjunta al correo. Módulo de IA que procesa PDFs de cotización y genera resúmenes de los planes más convenientes según el perfil de cada empleado.</p>
         </div>
       </div>
 
@@ -608,7 +626,7 @@
           <div class="proj-chips">
             <span class="chip">React</span><span class="chip">TanStack</span><span class="chip">Supabase</span><span class="chip">QR Code API</span>
           </div>
-          <p class="proj-desc">App web para crear y gestionar tarjetas de presentación digitales con perfil público shareable. Genera archivos VCF descargables automáticamente y un código QR único por perfil para facilitar el intercambio de contactos en reuniones y eventos.</p>
+          <p class="proj-desc" data-en="Web app to create and manage digital business cards with a shareable public profile. Automatically generates downloadable VCF files and a unique QR code per profile to make exchanging contacts at meetings and events easier.">App web para crear y gestionar tarjetas de presentación digitales con perfil público shareable. Genera archivos VCF descargables automáticamente y un código QR único por perfil para facilitar el intercambio de contactos en reuniones y eventos.</p>
         </div>
       </div>
 
@@ -621,11 +639,11 @@
         </div>
         <div class="proj-body">
           <div class="proj-num">03 / DESIGN SYSTEM</div>
-          <div class="proj-title">Librería de Cards · Design System</div>
+          <div class="proj-title" data-en="Card Library · Design System">Librería de Cards · Design System</div>
           <div class="proj-chips">
             <span class="chip">Web Components</span><span class="chip">JavaScript</span><span class="chip">Remote Bundle</span>
           </div>
-          <p class="proj-desc">Sistema de diseño centralizado con 11 tipos de Web Components embebibles para el módulo RFP. Arquitectura desacoplada — los componentes se cargan vía bundle remoto, garantizando consistencia visual en todo el ecosistema Pangea sin duplicar código.</p>
+          <p class="proj-desc" data-en="Centralized design system with 11 embeddable Web Component types for the RFP module. Decoupled architecture — components load via a remote bundle, ensuring visual consistency across the entire Pangea ecosystem without duplicating code.">Sistema de diseño centralizado con 11 tipos de Web Components embebibles para el módulo RFP. Arquitectura desacoplada — los componentes se cargan vía bundle remoto, garantizando consistencia visual en todo el ecosistema Pangea sin duplicar código.</p>
         </div>
       </div>
 
@@ -640,7 +658,7 @@
           <div class="proj-chips">
             <span class="chip">React</span><span class="chip">Vite</span><span class="chip">Salesforce Lookup</span><span class="chip">shadcn/ui</span>
           </div>
-          <p class="proj-desc">Herramienta interna para capturar y organizar notas de reuniones con clientes, incluyendo fechas, estados de revisión y períodos de inscripción. Asignación de tareas a usuarios de Salesforce mediante lookup integrado, centralizando la trazabilidad de acuerdos.</p>
+          <p class="proj-desc" data-en="Internal tool to capture and organize client meeting notes, including dates, review statuses, and enrollment periods. Assigns tasks to Salesforce users via integrated lookup, centralizing agreement tracking.">Herramienta interna para capturar y organizar notas de reuniones con clientes, incluyendo fechas, estados de revisión y períodos de inscripción. Asignación de tareas a usuarios de Salesforce mediante lookup integrado, centralizando la trazabilidad de acuerdos.</p>
         </div>
       </div>
 
@@ -653,13 +671,13 @@
 <!-- CERTIFICATIONS -->
 <section id="certs">
   <div class="wrap">
-    <div class="sec-label">Formación</div>
-    <h2 class="sec-title">Certificaciones</h2>
+    <div class="sec-label" data-en="Education">Formación</div>
+    <h2 class="sec-title" data-en="Certifications">Certificaciones</h2>
     <div class="certs-grid">
       <div class="cert-card"><div class="cert-icon">☁️</div><div class="cert-name">Salesforce Certified Administrator</div></div>
-      <div class="cert-card"><div class="cert-icon">🌐</div><div class="cert-name">Diseñador de Páginas Web</div></div>
-      <div class="cert-card"><div class="cert-icon">🇺🇸</div><div class="cert-name">Curso de Inglés · Cornerstone</div></div>
-      <div class="cert-card"><div class="cert-icon">🤖</div><div class="cert-name">Curso de IA · Skool</div></div>
+      <div class="cert-card"><div class="cert-icon">🌐</div><div class="cert-name" data-en="Web Page Designer">Diseñador de Páginas Web</div></div>
+      <div class="cert-card"><div class="cert-icon">🇺🇸</div><div class="cert-name" data-en="English Course · Cornerstone">Curso de Inglés · Cornerstone</div></div>
+      <div class="cert-card"><div class="cert-icon">🤖</div><div class="cert-name" data-en="AI Course · Skool">Curso de IA · Skool</div></div>
     </div>
   </div>
 </section>
@@ -669,16 +687,16 @@
 <!-- STRENGTHS -->
 <section>
   <div class="wrap">
-    <div class="sec-label">Competencias</div>
-    <h2 class="sec-title">Fortalezas</h2>
+    <div class="sec-label" data-en="Skills">Competencias</div>
+    <h2 class="sec-title" data-en="Strengths">Fortalezas</h2>
     <div class="str-grid">
-      <div class="str-card"><div class="str-icon">🎨</div><div class="str-label">Diseño UX / UI</div></div>
-      <div class="str-card"><div class="str-icon">🏗</div><div class="str-label">Arquitectura de soluciones</div></div>
-      <div class="str-card"><div class="str-icon">🗄</div><div class="str-label">Modelado de datos</div></div>
-      <div class="str-card"><div class="str-icon">⚡</div><div class="str-label">Automatización de procesos</div></div>
-      <div class="str-card"><div class="str-icon">🔍</div><div class="str-label">Resolución de problemas</div></div>
-      <div class="str-card"><div class="str-icon">📚</div><div class="str-label">Adaptabilidad y aprendizaje</div></div>
-      <div class="str-card"><div class="str-icon">🤝</div><div class="str-label">Trabajo colaborativo</div></div>
+      <div class="str-card"><div class="str-icon">🎨</div><div class="str-label" data-en="UX / UI Design">Diseño UX / UI</div></div>
+      <div class="str-card"><div class="str-icon">🏗</div><div class="str-label" data-en="Solution architecture">Arquitectura de soluciones</div></div>
+      <div class="str-card"><div class="str-icon">🗄</div><div class="str-label" data-en="Data modeling">Modelado de datos</div></div>
+      <div class="str-card"><div class="str-icon">⚡</div><div class="str-label" data-en="Process automation">Automatización de procesos</div></div>
+      <div class="str-card"><div class="str-icon">🔍</div><div class="str-label" data-en="Problem solving">Resolución de problemas</div></div>
+      <div class="str-card"><div class="str-icon">📚</div><div class="str-label" data-en="Adaptability & learning">Adaptabilidad y aprendizaje</div></div>
+      <div class="str-card"><div class="str-icon">🤝</div><div class="str-label" data-en="Collaborative work">Trabajo colaborativo</div></div>
     </div>
   </div>
 </section>
@@ -686,12 +704,12 @@
 <!-- MUSIC -->
 <div id="music">
   <div class="wrap">
-    <div class="sec-label">Lo que suena</div>
+    <div class="sec-label" data-en="What's playing">Lo que suena</div>
     <div class="music-grid">
       <div class="music-text">
-        <h2>La música que<br><span style="color:var(--cyan)">me acompaña</span></h2>
-        <p>Entre commits, diseños y cafés. Esto es lo que está en rotación mientras trabajo o simplemente descanso.</p>
-        <p style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--text-3);">
+        <h2 data-en-html='The music that<br><span style="color:var(--cyan)">keeps me company</span>'>La música que<br><span style="color:var(--cyan)">me acompaña</span></h2>
+        <p data-en="Between commits, designs, and coffee. This is what's in rotation while I work or just relax.">Entre commits, diseños y cafés. Esto es lo que está en rotación mientras trabajo o simplemente descanso.</p>
+        <p style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--text-3);" data-en='→ To customize: open Spotify, look for your favorite playlist or album, click the three dots → "Share" → "Copy embed code" and replace the iframe below.'>
           → Para personalizar: abre Spotify, busca tu playlist o álbum favorito, haz clic en los tres puntos → "Compartir" → "Copiar código de inserción" y reemplaza el iframe de abajo.
         </p>
       </div>
@@ -700,7 +718,7 @@
           <div class="sp-logo">♫</div>
           <div class="sp-headtext">
             <strong>Spotify · Now Playing</strong>
-            <span>→ Reemplaza con tu embed real</span>
+            <span data-en="→ Replace with your real embed">→ Reemplaza con tu embed real</span>
           </div>
         </div>
 
@@ -711,11 +729,11 @@
         ═══════════════════════════════════════════════════════════════ -->
         <div class="sp-embed-zone">
           <!-- PLACEHOLDER - reemplaza con tu iframe de Spotify -->
-          <div class="sp-track"><span class="sp-n">♪</span><div class="sp-art">🎵</div><div class="sp-info"><div class="sp-song">Tu canción favorita</div><div class="sp-artist">Artista · 2024</div></div><div class="sp-bar"><div class="sp-fill" style="width:70%"></div></div></div>
-          <div class="sp-track"><span class="sp-n">2</span><div class="sp-art">🎶</div><div class="sp-info"><div class="sp-song">Segundo track</div><div class="sp-artist">Artista · 2024</div></div><div class="sp-bar"><div class="sp-fill" style="width:45%"></div></div></div>
-          <div class="sp-track"><span class="sp-n">3</span><div class="sp-art">🎵</div><div class="sp-info"><div class="sp-song">Tercer track</div><div class="sp-artist">Artista · 2023</div></div><div class="sp-bar"><div class="sp-fill" style="width:90%"></div></div></div>
+          <div class="sp-track"><span class="sp-n">♪</span><div class="sp-art">🎵</div><div class="sp-info"><div class="sp-song" data-en="Your favorite song">Tu canción favorita</div><div class="sp-artist" data-en="Artist · 2024">Artista · 2024</div></div><div class="sp-bar"><div class="sp-fill" style="width:70%"></div></div></div>
+          <div class="sp-track"><span class="sp-n">2</span><div class="sp-art">🎶</div><div class="sp-info"><div class="sp-song" data-en="Second track">Segundo track</div><div class="sp-artist" data-en="Artist · 2024">Artista · 2024</div></div><div class="sp-bar"><div class="sp-fill" style="width:45%"></div></div></div>
+          <div class="sp-track"><span class="sp-n">3</span><div class="sp-art">🎵</div><div class="sp-info"><div class="sp-song" data-en="Third track">Tercer track</div><div class="sp-artist" data-en="Artist · 2023">Artista · 2023</div></div><div class="sp-bar"><div class="sp-fill" style="width:90%"></div></div></div>
         </div>
-        <p class="sp-note">// Pega tu iframe de Spotify aquí para ver tu música real</p>
+        <p class="sp-note" data-en="// Paste your Spotify iframe here to show your real music">// Pega tu iframe de Spotify aquí para ver tu música real</p>
       </div>
     </div>
   </div>
@@ -724,9 +742,9 @@
 <!-- TRAVELS -->
 <section id="travels">
   <div class="wrap">
-    <div class="sec-label">Fuera del código</div>
-    <h2 class="sec-title">Viajes & Lugares</h2>
-    <p class="travel-intro">
+    <div class="sec-label" data-en="Outside the code">Fuera del código</div>
+    <h2 class="sec-title" data-en="Travels & Places">Viajes & Lugares</h2>
+    <p class="travel-intro" data-en="Life isn't just code. These are some of the places that have inspired me, given me perspective, and reminded me that the world is huge — and worth exploring.">
       La vida no es solo código. Estos son algunos de los lugares que me han inspirado, dado perspectiva y recordado que el mundo es enorme — y que vale la pena explorarlo.
     </p>
     <div class="travel-grid">
@@ -735,25 +753,25 @@
            y ajusta el texto del .travel-badge con el nombre del lugar. -->
       <div class="travel-card">
         <div class="travel-ph">🌄</div>
-        <div class="travel-badge">📸 Tu foto destacada — lugar principal</div>
+        <div class="travel-badge" data-en="📸 Your featured photo — main place">📸 Tu foto destacada — lugar principal</div>
       </div>
       <div class="travel-card">
         <div class="travel-ph">🌊</div>
-        <div class="travel-badge">📸 Lugar 2</div>
+        <div class="travel-badge" data-en="📸 Place 2">📸 Lugar 2</div>
       </div>
       <div class="travel-card">
         <div class="travel-ph">🏔</div>
-        <div class="travel-badge">📸 Lugar 3</div>
+        <div class="travel-badge" data-en="📸 Place 3">📸 Lugar 3</div>
       </div>
       <div class="travel-card">
         <div class="travel-ph">🌇</div>
-        <div class="travel-badge">📸 Lugar 4</div>
+        <div class="travel-badge" data-en="📸 Place 4">📸 Lugar 4</div>
       </div>
       <div class="travel-card">
         <div class="travel-ph">🏝</div>
-        <div class="travel-badge">📸 Lugar 5</div>
+        <div class="travel-badge" data-en="📸 Place 5">📸 Lugar 5</div>
       </div>
-      <div class="travel-add-note">
+      <div class="travel-add-note" data-en='→ Add more photos by duplicating the &lt;div class="travel-card"&gt; block and putting your image inside'>
         → Agrega más fotos duplicando el bloque &lt;div class="travel-card"&gt; y poniendo tu imagen adentro
       </div>
     </div>
@@ -767,7 +785,7 @@
       <div class="retro-text">
         <div class="sec-label">Side quests</div>
         <h2>RetroArch<br><span style="color:var(--cyan)">&amp; Gaming</span></h2>
-        <p>Cuando no estoy programando, me encontrarás en RetroArch recorriendo clásicos de SNES, GBA y PS1. Los videojuegos retro me enseñaron pensamiento sistémico, paciencia y resolución de problemas mucho antes que cualquier curso.</p>
+        <p data-en="When I'm not coding, you'll find me in RetroArch going through classics from SNES, GBA, and PS1. Retro video games taught me systems thinking, patience, and problem-solving long before any course did.">Cuando no estoy programando, me encontrarás en RetroArch recorriendo clásicos de SNES, GBA y PS1. Los videojuegos retro me enseñaron pensamiento sistémico, paciencia y resolución de problemas mucho antes que cualquier curso.</p>
         <div class="game-tags">
           <span class="game-tag">🎮 SNES</span>
           <span class="game-tag">🟡 GBA</span>
@@ -805,9 +823,9 @@
 <section id="contact">
   <div class="wrap">
     <div class="contact-center">
-      <div class="sec-label" style="justify-content:center;">Hablemos</div>
-      <h2>¿Tienes un proyecto<br><span style="color:var(--cyan)">en mente?</span></h2>
-      <p>Estoy disponible para proyectos freelance, colaboraciones y oportunidades. Escríbeme y lo conversamos.</p>
+      <div class="sec-label" style="justify-content:center;" data-en="Let's talk">Hablemos</div>
+      <h2 data-en-html='Do you have a project<br><span style="color:var(--cyan)">in mind?</span>'>¿Tienes un proyecto<br><span style="color:var(--cyan)">en mente?</span></h2>
+      <p data-en="I'm available for freelance projects, collaborations, and opportunities. Reach out and let's talk.">Estoy disponible para proyectos freelance, colaboraciones y oportunidades. Escríbeme y lo conversamos.</p>
       <div class="contact-links">
         <a href="mailto:kennethandino71@gmail.com" class="btn-p">✉ kennethandino71@gmail.com</a>
         <a href="tel:+50577824787" class="btn-o">📱 +505 7782-4787</a>
@@ -820,7 +838,7 @@
 <!-- FOOTER -->
 <footer>
   <span class="fc">KA.dev</span>
-  <span>Diseñado con ♥ — <span class="fc">Kennet Andino</span> · 2026</span>
+  <span data-en-html='Designed with ♥ — <span class="fc">Kennet Andino</span> · 2026'>Diseñado con ♥ — <span class="fc">Kennet Andino</span> · 2026</span>
   <span>Managua, Nicaragua 🇳🇮</span>
 </footer>
 
@@ -876,6 +894,39 @@
       dots[idx].classList.add('active');
     }, 3200);
   });
+
+  // Language switch (ES / EN)
+  (function () {
+    const titles = {
+      es: 'Kennet Andino — Desarrollador de Software',
+      en: 'Kennet Andino — Software Developer'
+    };
+    const textEls = document.querySelectorAll('[data-en]');
+    const htmlEls = document.querySelectorAll('[data-en-html]');
+
+    textEls.forEach(el => { el.dataset.es = el.textContent; });
+    htmlEls.forEach(el => { el.dataset.esHtml = el.innerHTML; });
+
+    const switchEl = document.getElementById('langSwitch');
+    const opts = switchEl.querySelectorAll('.lang-opt');
+
+    function setLang(lang) {
+      textEls.forEach(el => { el.textContent = lang === 'en' ? el.dataset.en : el.dataset.es; });
+      htmlEls.forEach(el => { el.innerHTML = lang === 'en' ? el.dataset.enHtml : el.dataset.esHtml; });
+      document.documentElement.lang = lang;
+      document.title = titles[lang];
+      opts.forEach(o => o.classList.toggle('active', o.dataset.lang === lang));
+      localStorage.setItem('portfolio-lang', lang);
+    }
+
+    switchEl.addEventListener('click', () => {
+      const current = document.documentElement.lang === 'en' ? 'en' : 'es';
+      setLang(current === 'en' ? 'es' : 'en');
+    });
+
+    const saved = localStorage.getItem('portfolio-lang');
+    if (saved === 'en') setLang('en');
+  })();
 </script>
 </body>
 </html>
