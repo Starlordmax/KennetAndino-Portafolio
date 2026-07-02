@@ -1,5 +1,9 @@
 {
   "isPlaying": false,
-  "track": null,
-  "updatedAt": null
+  "track": "El Amor de Mi Vida",
+  "artist": "Camilo Sesto",
+  "album": "Sentimientos",
+  "albumArt": "https://i.scdn.co/image/ab67616d00001e02e8d0af56f0df1af30bf66fa1",
+  "url": "https://open.spotify.com/track/2D2GISPz94aFg526x54sfH",
+  "updatedAt": "2026-07-02T19:04:50.709Z"
 }
