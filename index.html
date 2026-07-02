@@ -300,6 +300,24 @@
   /* Actual Spotify embed zone */
   .sp-embed-zone { margin-top: 1.25rem; border-radius: 8px; overflow: hidden; }
 
+  /* ── LIVE NOW PLAYING ── */
+  .sp-now {
+    display: flex; align-items: center; gap: 0.75rem;
+    background: var(--navy-2); border: 1px solid var(--border); border-radius: 8px;
+    padding: 0.6rem 0.75rem; margin-top: 1rem;
+  }
+  .sp-now-art { width: 40px; height: 40px; border-radius: 4px; background: var(--navy-3); flex-shrink: 0; object-fit: cover; }
+  img.sp-now-art { display: block; }
+  .sp-now-info { flex: 1; min-width: 0; }
+  .sp-now-song { font-size: 0.82rem; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .sp-now-artist { font-size: 0.72rem; color: var(--text-3); font-family: 'JetBrains Mono', monospace; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .sp-now-badge {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; letter-spacing: 0.05em;
+    padding: 0.2rem 0.55rem; border-radius: 10px; flex-shrink: 0; white-space: nowrap;
+  }
+  .sp-now-badge.live { color: #00FF88; background: rgba(0,255,136,0.1); border: 1px solid rgba(0,255,136,0.25); }
+  .sp-now-badge.last { color: var(--text-3); background: var(--navy); border: 1px solid var(--border); }
+
   /* ── TRAVELS ── */
   .travel-intro { color: var(--text-2); max-width: 600px; margin-bottom: 2.5rem; line-height: 1.8; font-size: 0.95rem; }
   .travel-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
@@ -714,9 +732,17 @@
         <div class="sp-head">
           <div class="sp-logo">♫</div>
           <div class="sp-headtext">
-            <strong>Spotify · Playlist</strong>
+            <strong>Spotify</strong>
             <span data-en="What I'm listening to">Lo que estoy escuchando</span>
           </div>
+        </div>
+        <div class="sp-now" id="spNow" style="display:none;">
+          <div class="sp-now-art" id="spNowArt"></div>
+          <div class="sp-now-info">
+            <div class="sp-now-song" id="spNowSong"></div>
+            <div class="sp-now-artist" id="spNowArtist"></div>
+          </div>
+          <div class="sp-now-badge" id="spNowBadge"></div>
         </div>
         <div class="sp-embed-zone">
           <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1F5p3rmiWPIYgZ?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
@@ -904,6 +930,7 @@
       document.title = titles[lang];
       opts.forEach(o => o.classList.toggle('active', o.dataset.lang === lang));
       localStorage.setItem('portfolio-lang', lang);
+      document.dispatchEvent(new CustomEvent('langchange', { detail: { lang } }));
     }
 
     switchEl.addEventListener('click', () => {
@@ -913,6 +940,44 @@
 
     const saved = localStorage.getItem('portfolio-lang');
     if (saved === 'en') setLang('en');
+  })();
+
+  // Live "now playing" status, updated periodically by a GitHub Action
+  (function () {
+    const wrap = document.getElementById('spNow');
+    const artEl = document.getElementById('spNowArt');
+    const songEl = document.getElementById('spNowSong');
+    const artistEl = document.getElementById('spNowArtist');
+    const badgeEl = document.getElementById('spNowBadge');
+    let data = null;
+
+    function render(lang) {
+      if (!data || !data.track) return;
+      songEl.textContent = data.track;
+      artistEl.textContent = data.artist || '';
+      badgeEl.textContent = data.isPlaying
+        ? (lang === 'en' ? '● LIVE' : '● EN VIVO')
+        : (lang === 'en' ? 'LAST PLAYED' : 'ÚLTIMA VEZ');
+      badgeEl.className = 'sp-now-badge ' + (data.isPlaying ? 'live' : 'last');
+      if (data.albumArt && artEl.tagName === 'DIV') {
+        const img = document.createElement('img');
+        img.className = 'sp-now-art';
+        img.src = data.albumArt;
+        img.alt = data.track;
+        artEl.replaceWith(img);
+      }
+      wrap.style.display = 'flex';
+    }
+
+    fetch('spotify-now-playing.json', { cache: 'no-store' })
+      .then(r => (r.ok ? r.json() : null))
+      .then(json => {
+        data = json;
+        render(document.documentElement.lang === 'en' ? 'en' : 'es');
+      })
+      .catch(() => {});
+
+    document.addEventListener('langchange', e => render(e.detail.lang));
   })();
 </script>
 </body>
