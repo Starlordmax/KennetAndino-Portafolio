@@ -6,19 +6,26 @@ async function fetchRetroAchievements() {
   const { RA_USERNAME, RA_API_KEY } = process.env;
   if (!RA_USERNAME || !RA_API_KEY) return null;
 
-  const url = `https://retroachievements.org/API/API_GetUserSummary.php?u=${encodeURIComponent(RA_USERNAME)}&y=${RA_API_KEY}&g=1&a=1`;
+  const url = `https://retroachievements.org/API/API_GetUserSummary.php?u=${encodeURIComponent(RA_USERNAME)}&y=${RA_API_KEY}&g=5&a=1`;
   const res = await fetch(url);
   if (!res.ok) return null;
   const data = await res.json();
 
-  const recent = data.RecentlyPlayed?.[0];
+  const recentGames = (data.RecentlyPlayed ?? []).map(g => ({
+    title: g.Title,
+    console: g.ConsoleName,
+    image: g.ImageIcon ? `https://media.retroachievements.org${g.ImageIcon}` : null,
+    lastPlayed: g.LastPlayed
+  }));
+
   return {
     username: data.User ?? RA_USERNAME,
     points: data.TotalPoints ?? null,
     rank: data.Rank ?? null,
     totalRanked: data.TotalRanked ?? null,
     userPic: data.UserPic ? `https://media.retroachievements.org${data.UserPic}` : null,
-    recentGame: recent?.Title ?? null
+    recentGame: recentGames[0]?.title ?? null,
+    recentGames
   };
 }
 
@@ -26,7 +33,7 @@ async function fetchXbox() {
   const { XBL_API_KEY } = process.env;
   if (!XBL_API_KEY) return null;
 
-  const headers = { 'X-Authorization': XBL_API_KEY, Accept: 'application/json' };
+  const headers = { 'X-Authorization': XBL_API_KEY, Accept: 'application/json', 'Accept-Language': 'en-US' };
 
   const accRes = await fetch('https://xbl.io/api/v2/account', { headers });
   if (!accRes.ok) return null;

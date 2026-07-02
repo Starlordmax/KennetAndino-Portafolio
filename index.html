@@ -367,6 +367,13 @@
   .plat-name { font-family: 'Space Grotesk', sans-serif; font-size: 0.85rem; font-weight: 600; color: var(--text); }
   .plat-stat { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; color: var(--cyan-2); margin-left: auto; white-space: nowrap; }
   .plat-game { font-size: 0.8rem; color: var(--text-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .plat-ra-current { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.7rem; }
+  .plat-ra-current img { width: 38px; height: 38px; border-radius: 6px; object-fit: cover; flex-shrink: 0; background: var(--navy-3); }
+  .plat-ra-current-title { font-size: 0.8rem; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .plat-ra-list { display: flex; flex-direction: column; gap: 0.4rem; padding-top: 0.6rem; border-top: 1px solid var(--border); }
+  .plat-ra-item { display: flex; align-items: center; gap: 0.5rem; }
+  .plat-ra-item img { width: 20px; height: 20px; border-radius: 4px; object-fit: cover; flex-shrink: 0; background: var(--navy-3); }
+  .plat-ra-item span { font-size: 0.7rem; color: var(--text-3); font-family: 'JetBrains Mono', monospace; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
 
   /* ── CONTACT ── */
@@ -838,7 +845,8 @@
           <div class="plat-name">RetroAchievements</div>
           <div class="plat-stat" id="platRAStat"></div>
         </div>
-        <div class="plat-game" id="platRAGame"></div>
+        <div class="plat-ra-current" id="platRACurrent"></div>
+        <div class="plat-ra-list" id="platRAList"></div>
       </div>
       <div class="plat-card" id="platXbox" style="display:none;">
         <div class="plat-head">
@@ -1022,11 +1030,43 @@
         if (!data) return;
 
         if (data.retro && data.retro.points != null) {
-          showCard(
-            'platRA', 'platRAStat', 'platRAGame',
-            `${data.retro.points} pts`,
-            data.retro.recentGame ? `🎮 ${data.retro.recentGame}` : ''
-          );
+          document.getElementById('platRAStat').textContent = `${data.retro.points} pts`;
+
+          const games = data.retro.recentGames || [];
+          const current = games[0];
+          const currentEl = document.getElementById('platRACurrent');
+          if (current) {
+            currentEl.innerHTML = '';
+            if (current.image) {
+              const img = document.createElement('img');
+              img.src = current.image;
+              img.alt = current.title;
+              currentEl.appendChild(img);
+            }
+            const title = document.createElement('div');
+            title.className = 'plat-ra-current-title';
+            title.textContent = current.title;
+            currentEl.appendChild(title);
+          }
+
+          const listEl = document.getElementById('platRAList');
+          listEl.innerHTML = '';
+          games.slice(1, 4).forEach(g => {
+            const item = document.createElement('div');
+            item.className = 'plat-ra-item';
+            if (g.image) {
+              const img = document.createElement('img');
+              img.src = g.image;
+              img.alt = g.title;
+              item.appendChild(img);
+            }
+            const span = document.createElement('span');
+            span.textContent = g.title;
+            item.appendChild(span);
+            listEl.appendChild(item);
+          });
+
+          document.getElementById('platRA').style.display = 'block';
         }
 
         if (data.xbox && data.xbox.gamerscore != null) {
