@@ -302,18 +302,18 @@
 
   /* ── LIVE NOW PLAYING ── */
   .sp-now {
-    display: flex; align-items: center; gap: 0.75rem;
-    background: var(--navy-2); border: 1px solid var(--border); border-radius: 8px;
-    padding: 0.6rem 0.75rem; margin-top: 1rem;
+    display: flex; align-items: center; gap: 1.1rem;
+    background: var(--navy-2); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.1rem 1.25rem; margin-top: 1rem;
   }
-  .sp-now-art { width: 40px; height: 40px; border-radius: 4px; background: var(--navy-3); flex-shrink: 0; object-fit: cover; }
+  .sp-now-art { width: 64px; height: 64px; border-radius: 6px; background: var(--navy-3); flex-shrink: 0; object-fit: cover; }
   img.sp-now-art { display: block; }
   .sp-now-info { flex: 1; min-width: 0; }
-  .sp-now-song { font-size: 0.82rem; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .sp-now-artist { font-size: 0.72rem; color: var(--text-3); font-family: 'JetBrains Mono', monospace; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .sp-now-song { font-size: 1.05rem; font-weight: 600; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 0.2rem; }
+  .sp-now-artist { font-size: 0.85rem; color: var(--text-3); font-family: 'JetBrains Mono', monospace; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .sp-now-badge {
-    font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; letter-spacing: 0.05em;
-    padding: 0.2rem 0.55rem; border-radius: 10px; flex-shrink: 0; white-space: nowrap;
+    font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; letter-spacing: 0.05em;
+    padding: 0.32rem 0.75rem; border-radius: 12px; flex-shrink: 0; white-space: nowrap;
   }
   .sp-now-badge.live { color: #00FF88; background: rgba(0,255,136,0.1); border: 1px solid rgba(0,255,136,0.25); }
   .sp-now-badge.last { color: var(--text-3); background: var(--navy); border: 1px solid var(--border); }
@@ -359,6 +359,14 @@
   .term-body .tc { color: var(--cyan); }
   .term-body .tw { color: var(--text); }
   .cursor { display: inline-block; width: 8px; height: 14px; background: #00cc66; vertical-align: text-bottom; animation: blink 1s steps(1) infinite; }
+
+  .plat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 3rem; }
+  .plat-card { background: var(--navy); border: 1px solid var(--border); border-radius: 10px; padding: 1rem 1.1rem; }
+  .plat-head { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.6rem; }
+  .plat-icon { width: 30px; height: 30px; border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 0.95rem; flex-shrink: 0; }
+  .plat-name { font-family: 'Space Grotesk', sans-serif; font-size: 0.85rem; font-weight: 600; color: var(--text); }
+  .plat-stat { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; color: var(--cyan-2); margin-left: auto; white-space: nowrap; }
+  .plat-game { font-size: 0.8rem; color: var(--text-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
 
   /* ── CONTACT ── */
@@ -392,6 +400,7 @@
     .wrap { padding: 0 1.5rem; }
     section { padding: 4rem 0; }
     .about-grid, .proj-grid, .music-grid, .retro-grid { grid-template-columns: 1fr; }
+    .plat-grid { grid-template-columns: 1fr; }
     .travel-grid { grid-template-columns: 1fr 1fr; }
     .travel-card:first-child { grid-column: span 2; }
     footer { flex-direction: column; gap: 0.5rem; text-align: center; padding: 1.5rem; }
@@ -821,6 +830,33 @@
         </div>
       </div>
     </div>
+
+    <div class="plat-grid">
+      <div class="plat-card" id="platRA" style="display:none;">
+        <div class="plat-head">
+          <div class="plat-icon" style="background:rgba(201,166,74,0.15);color:#C9A64A;">🏆</div>
+          <div class="plat-name">RetroAchievements</div>
+          <div class="plat-stat" id="platRAStat"></div>
+        </div>
+        <div class="plat-game" id="platRAGame"></div>
+      </div>
+      <div class="plat-card" id="platXbox" style="display:none;">
+        <div class="plat-head">
+          <div class="plat-icon" style="background:rgba(16,124,16,0.15);color:#3BC33B;">🎮</div>
+          <div class="plat-name">Xbox</div>
+          <div class="plat-stat" id="platXboxStat"></div>
+        </div>
+        <div class="plat-game" id="platXboxGame"></div>
+      </div>
+      <div class="plat-card" id="platPsn" style="display:none;">
+        <div class="plat-head">
+          <div class="plat-icon" style="background:rgba(0,112,209,0.15);color:#2E9BFF;">🎮</div>
+          <div class="plat-name">PlayStation</div>
+          <div class="plat-stat" id="platPsnStat"></div>
+        </div>
+        <div class="plat-game" id="platPsnGame"></div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -970,6 +1006,49 @@
       .catch(() => {});
 
     document.addEventListener('langchange', e => render(e.detail.lang));
+  })();
+
+  // Gaming profile cards (RetroAchievements / Xbox / PlayStation)
+  (function () {
+    function showCard(cardId, statId, gameId, statText, gameText) {
+      document.getElementById(statId).textContent = statText;
+      document.getElementById(gameId).textContent = gameText || '';
+      document.getElementById(cardId).style.display = 'block';
+    }
+
+    fetch('gaming-status.json', { cache: 'no-store' })
+      .then(r => (r.ok ? r.json() : null))
+      .then(data => {
+        if (!data) return;
+
+        if (data.retro && data.retro.points != null) {
+          showCard(
+            'platRA', 'platRAStat', 'platRAGame',
+            `${data.retro.points} pts`,
+            data.retro.recentGame ? `🎮 ${data.retro.recentGame}` : ''
+          );
+        }
+
+        if (data.xbox && data.xbox.gamerscore != null) {
+          showCard(
+            'platXbox', 'platXboxStat', 'platXboxGame',
+            `⚡ ${data.xbox.gamerscore} GS`,
+            data.xbox.recentGame ? `🎮 ${data.xbox.recentGame}` : ''
+          );
+        }
+
+        if (data.psn && data.psn.level != null) {
+          const gameText = data.psn.isPlaying && data.psn.currentGame
+            ? `● ${data.psn.currentGame}`
+            : '';
+          showCard(
+            'platPsn', 'platPsnStat', 'platPsnGame',
+            `Lv. ${data.psn.level}`,
+            gameText
+          );
+        }
+      })
+      .catch(() => {});
   })();
 </script>
 </body>
