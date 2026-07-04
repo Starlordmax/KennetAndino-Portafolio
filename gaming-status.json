@@ -3,7 +3,7 @@
     "username": "Maximostarlord03",
     "points": 4,
     "rank": null,
-    "totalRanked": 151575,
+    "totalRanked": 151580,
     "userPic": "https://media.retroachievements.org/UserPic/Maximostarlord03.png",
     "recentGame": "New Super Mario Bros.",
     "recentGames": [
@@ -40,9 +40,9 @@
     ]
   },
   "xbox": {
-    "gamertag": null,
-    "gamerscore": null,
-    "gamerpic": null,
+    "gamertag": "StarlordMax1818",
+    "gamerscore": "1605",
+    "gamerpic": "https://images-eds-ssl.xboxlive.com/image?url=8Oaj9Ryq1G1_p3lLnXlsaZgGzAie6Mnu24_PawYuDYIoH77pJ.X5Z.MqQPibUVTcS9jr0n8i7LY1tL3U7AiafbJpCp1P4NE9.MGs216IQhsfpil.xkCidK6D.Ocu_4wN&format=png",
     "recentGame": "WUCHANG: Fallen Feathers"
   },
   "psn": {
@@ -57,5 +57,5 @@
     "isPlaying": false,
     "currentGame": null
   },
-  "updatedAt": "2026-07-04T13:59:38.701Z"
+  "updatedAt": "2026-07-04T15:05:11.968Z"
 }
