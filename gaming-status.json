@@ -1,5 +1,44 @@
 {
-  "retro": null,
+  "retro": {
+    "username": "Maximostarlord03",
+    "points": 4,
+    "rank": null,
+    "totalRanked": 151743,
+    "userPic": "https://media.retroachievements.org/UserPic/Maximostarlord03.png",
+    "recentGame": "New Super Mario Bros.",
+    "recentGames": [
+      {
+        "title": "New Super Mario Bros.",
+        "console": "Nintendo DS",
+        "image": "https://media.retroachievements.org/Images/046594.png",
+        "lastPlayed": "2026-06-29 04:47:11"
+      },
+      {
+        "title": "Pokémon HeartGold Version | Pokémon SoulSilver Version",
+        "console": "Nintendo DS",
+        "image": "https://media.retroachievements.org/Images/063592.png",
+        "lastPlayed": "2026-06-29 04:13:39"
+      },
+      {
+        "title": "Game & Watch Collection",
+        "console": "Nintendo DS",
+        "image": "https://media.retroachievements.org/Images/112770.png",
+        "lastPlayed": "2026-05-14 19:18:23"
+      },
+      {
+        "title": "The Legend of Zelda: Four Swords Anniversary Edition",
+        "console": "Nintendo DSi",
+        "image": "https://media.retroachievements.org/Images/067821.png",
+        "lastPlayed": "2026-05-14 06:16:41"
+      },
+      {
+        "title": "Mario Kart DS",
+        "console": "Nintendo DS",
+        "image": "https://media.retroachievements.org/Images/072928.png",
+        "lastPlayed": "2026-05-14 05:23:30"
+      }
+    ]
+  },
   "xbox": {
     "gamertag": "StarlordMax1818",
     "gamerscore": "1605",
@@ -18,5 +57,5 @@
     "isPlaying": false,
     "currentGame": null
   },
-  "updatedAt": "2026-07-05T15:54:56.670Z"
+  "updatedAt": "2026-07-05T16:52:00.159Z"
 }
