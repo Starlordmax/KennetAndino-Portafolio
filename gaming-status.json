@@ -3,7 +3,7 @@
     "username": "Maximostarlord03",
     "points": 4,
     "rank": null,
-    "totalRanked": 151801,
+    "totalRanked": 151811,
     "userPic": "https://media.retroachievements.org/UserPic/Maximostarlord03.png",
     "recentGame": "New Super Mario Bros.",
     "recentGames": [
@@ -45,17 +45,6 @@
     "gamerpic": null,
     "recentGame": "Minecraft for Android"
   },
-  "psn": {
-    "onlineId": "Maximostarlord",
-    "level": 177,
-    "trophies": {
-      "platinum": 1,
-      "gold": 25,
-      "silver": 117,
-      "bronze": 459
-    },
-    "isPlaying": false,
-    "currentGame": null
-  },
-  "updatedAt": "2026-07-05T23:18:50.985Z"
+  "psn": null,
+  "updatedAt": "2026-07-06T00:18:49.664Z"
 }
