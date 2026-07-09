@@ -1,1107 +1,706 @@
 <!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kennet Andino — Desarrollador de Software</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --navy: #070E1A;
-    --navy-2: #0D1B2E;
-    --navy-3: #132440;
-    --navy-4: #1A3055;
-    --border: rgba(0,190,210,0.15);
-    --border-2: rgba(0,190,210,0.3);
-    --cyan: #00D4E0;
-    --cyan-2: #00A8B4;
-    --cyan-glow: rgba(0,212,224,0.08);
-    --cyan-glow-2: rgba(0,212,224,0.15);
-    --text: #E8F2FC;
-    --text-2: #7EAAC8;
-    --text-3: #4A7A9B;
-    --green: #00FF88;
-  }
-  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body {
-    background: var(--navy);
-    color: var(--text);
-    font-family: 'Inter', sans-serif;
-    line-height: 1.6;
-    overflow-x: hidden;
-  }
+<html><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="assets/runtime.js"></script>
 
-  /* ── NAV ── */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-    height: 60px;
-    background: rgba(7,14,26,0.9);
-    backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--border);
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 0 3rem;
-  }
-  .nav-logo {
-    font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1rem;
-    color: var(--cyan); letter-spacing: -0.02em;
-  }
-  .nav-right { display: flex; align-items: center; gap: 1.75rem; }
-  .nav-links { display: flex; gap: 1.75rem; list-style: none; }
-  .nav-links a {
-    font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; letter-spacing: 0.05em;
-    color: var(--text-2); text-decoration: none; transition: color 0.2s;
-  }
-  .nav-links a:hover { color: var(--cyan); }
-  .lang-switch {
-    display: flex; align-items: center; gap: 2px;
-    background: var(--navy-2); border: 1px solid var(--border); border-radius: 20px;
-    padding: 3px; cursor: pointer; user-select: none;
-  }
-  .lang-opt {
-    font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; font-weight: 500;
-    padding: 0.3rem 0.6rem; border-radius: 16px; color: var(--text-3); transition: all 0.2s;
-  }
-  .lang-opt.active { background: var(--cyan); color: var(--navy); }
 
-  /* ── HERO ── */
-  #hero {
-    min-height: 100vh; position: relative; overflow: hidden;
-    display: flex; align-items: center;
-  }
-  .hero-bg {
-    position: absolute; inset: 0;
-    background:
-      radial-gradient(ellipse 60% 70% at 75% 45%, rgba(0,212,224,0.07) 0%, transparent 65%),
-      radial-gradient(ellipse 50% 50% at 15% 80%, rgba(0,80,130,0.1) 0%, transparent 60%);
-  }
-  .dots {
-    position: absolute; inset: 0;
-    background-image: radial-gradient(circle, rgba(30,58,92,0.8) 1px, transparent 1px);
-    background-size: 38px 38px;
-  }
-  .geo {
-    position: absolute; right: 4%; top: 50%; transform: translateY(-50%);
-    width: 420px; height: 420px; opacity: 0.07;
-    animation: spin 40s linear infinite; pointer-events: none;
-  }
-  @keyframes spin {
-    from { transform: translateY(-50%) rotate(0deg); }
-    to   { transform: translateY(-50%) rotate(360deg); }
-  }
-  .hero-inner {
-    position: relative; z-index: 2;
-    padding: 6rem 3rem 3rem;
-    width: 100%; max-width: 1080px; margin: 0 auto;
-    display: grid; grid-template-columns: 1fr auto;
-    gap: 4rem; align-items: center;
-  }
-  .hero-photo-wrap {
-    position: relative; flex-shrink: 0;
-    display: flex; align-items: center; justify-content: center;
-  }
-  .hero-photo-ring {
-    position: absolute; inset: -14px;
-    border-radius: 50%; border: 1px solid var(--border-2);
-    animation: pulse-ring 3s ease-in-out infinite;
-  }
-  .hero-photo-ring-2 {
-    position: absolute; inset: -28px;
-    border-radius: 50%; border: 1px solid var(--border);
-    animation: pulse-ring 3s ease-in-out infinite 0.8s;
-  }
-  @keyframes pulse-ring {
-    0%,100% { opacity: 0.5; transform: scale(1); }
-    50%      { opacity: 1; transform: scale(1.02); }
-  }
-  .hero-photo {
-    width: 260px; height: 260px;
-    border-radius: 50%; object-fit: cover; object-position: center 40%;
-    border: 2px solid var(--cyan-2);
-    box-shadow: 0 0 40px rgba(0,212,224,0.2), 0 0 80px rgba(0,212,224,0.08);
-    display: block;
-  }
-  .hero-photo-badge {
-    position: absolute; bottom: 8px; right: 8px;
-    background: var(--navy-2); border: 1px solid var(--border-2);
-    border-radius: 20px; padding: 0.3rem 0.75rem;
-    font-family: 'JetBrains Mono', monospace; font-size: 0.65rem;
-    color: var(--cyan); display: flex; align-items: center; gap: 0.4rem;
-  }
-  .badge-dot { width: 6px; height: 6px; border-radius: 50%; background: #00FF88; animation: blink 2s ease-in-out infinite; }
-  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
-  .eyebrow {
-    font-family: 'JetBrains Mono', monospace; font-size: 0.72rem;
-    color: var(--cyan); letter-spacing: 0.15em; text-transform: uppercase;
-    display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem;
-  }
-  .eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--cyan); }
-  .hero-name {
-    font-family: 'Space Grotesk', sans-serif; font-weight: 700;
-    font-size: clamp(3.2rem, 8vw, 5.5rem); line-height: 0.95;
-    letter-spacing: -0.035em; margin-bottom: 1.5rem;
-  }
-  .hero-name .w { color: var(--text); display: block; }
-  .hero-name .c { color: var(--cyan); display: block; }
-  .hero-roles { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-bottom: 1.75rem; }
-  .role {
-    font-family: 'JetBrains Mono', monospace; font-size: 0.7rem;
-    padding: 0.3rem 0.8rem; border-radius: 4px;
-    border: 1px solid var(--border); color: var(--text-2); background: var(--navy-2);
-    letter-spacing: 0.04em;
-  }
-  .role.hi { border-color: var(--cyan-2); color: var(--cyan); background: var(--cyan-glow); }
-  .hero-bio { font-size: 1rem; color: var(--text-2); max-width: 500px; line-height: 1.8; margin-bottom: 2.5rem; }
-  .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
-  .btn-p {
-    padding: 0.75rem 1.75rem; background: var(--cyan); color: var(--navy); font-family: 'Space Grotesk', sans-serif;
-    font-weight: 700; font-size: 0.9rem; border: none; border-radius: 6px;
-    text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;
-    transition: all 0.2s; cursor: pointer;
-  }
-  .btn-p:hover { background: #00b8c4; transform: translateY(-2px); }
-  .btn-o {
-    padding: 0.75rem 1.75rem; background: transparent; color: var(--text); font-family: 'Space Grotesk', sans-serif;
-    font-weight: 500; font-size: 0.9rem; border: 1px solid var(--border-2); border-radius: 6px;
-    text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; transition: all 0.2s;
-  }
-  .btn-o:hover { border-color: var(--cyan-2); color: var(--cyan); }
-  .scroll-hint {
-    position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
-    font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em;
-    color: var(--text-3); display: flex; flex-direction: column; align-items: center; gap: 6px;
-    animation: float 2.5s ease-in-out infinite;
-  }
-  @keyframes float {
-    0%,100% { transform: translateX(-50%) translateY(0); }
-    50%      { transform: translateX(-50%) translateY(6px); }
-  }
 
-  /* ── SECTIONS ── */
-  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 3rem; }
-  section { padding: 6rem 0; }
-  .sec-label {
-    font-family: 'JetBrains Mono', monospace; font-size: 0.7rem;
-    color: var(--cyan); letter-spacing: 0.15em; text-transform: uppercase;
-    display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.6rem;
-  }
-  .sec-label::before { content: ''; width: 22px; height: 1px; background: var(--cyan); }
-  .sec-title {
-    font-family: 'Space Grotesk', sans-serif; font-weight: 700;
-    font-size: clamp(1.75rem, 4vw, 2.5rem); letter-spacing: -0.025em;
-    margin-bottom: 3rem; color: var(--text);
-  }
-  .divider { border: none; border-top: 1px solid var(--border); margin: 0; }
 
-  /* ── ABOUT ── */
-  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3.5rem; align-items: start; }
-  .about-text p { color: var(--text-2); line-height: 1.85; margin-bottom: 1.25rem; font-size: 0.95rem; }
-  .contact-row { display: flex; align-items: center; gap: 0.7rem; font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: var(--text-2); margin-bottom: 0.6rem; }
-  .contact-row .lbl { color: var(--cyan); width: 18px; text-align: center; }
-  .skills-box { background: var(--navy-2); border: 1px solid var(--border); border-radius: 12px; padding: 1.75rem; }
-  .sk-cat { margin-bottom: 1.4rem; }
-  .sk-cat h4 { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; color: var(--cyan); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.7rem; }
-  .sk-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
-  .sk-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; padding: 0.22rem 0.6rem; background: var(--navy); border: 1px solid var(--border); border-radius: 4px; color: var(--text-2); }
 
-  /* ── TIMELINE ── */
-  .timeline { position: relative; padding-left: 2rem; }
-  .timeline::before {
-    content: ''; position: absolute; left: 0; top: 10px; bottom: 0;
-    width: 1px; background: linear-gradient(to bottom, var(--cyan), transparent);
-  }
-  .tl-item { position: relative; margin-bottom: 2.75rem; }
-  .tl-dot {
-    position: absolute; left: -2rem; top: 10px;
-    width: 10px; height: 10px; border-radius: 50%; background: var(--cyan);
-    transform: translateX(-4.5px);
-    box-shadow: 0 0 0 3px var(--navy), 0 0 0 4px var(--border-2);
-  }
-  .tl-dot.dim { background: var(--navy-4); box-shadow: 0 0 0 3px var(--navy), 0 0 0 4px var(--border); }
-  .tl-period { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--cyan-2); margin-bottom: 0.3rem; }
-  .tl-role { font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; font-weight: 600; color: var(--text); margin-bottom: 0.15rem; }
-  .tl-co { font-size: 0.85rem; color: var(--text-3); margin-bottom: 0.65rem; }
-  .tl-desc { list-style: none; }
-  .tl-desc li { font-size: 0.88rem; color: var(--text-2); line-height: 1.7; margin-bottom: 0.35rem; padding-left: 1.1rem; position: relative; }
-  .tl-desc li::before { content: '→'; position: absolute; left: 0; color: var(--cyan-2); font-size: 0.78rem; }
 
-  /* ── PROJECTS ── */
-  .proj-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.4rem; }
-  .proj-card {
-    background: var(--navy-2); border: 1px solid var(--border); border-radius: 12px;
-    position: relative; overflow: hidden; transition: all 0.3s;
-  }
-  .proj-card::before {
-    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; z-index: 1;
-    background: linear-gradient(to right, var(--cyan), transparent); opacity: 0; transition: opacity 0.3s;
-  }
-  .proj-card:hover { border-color: var(--cyan-2); transform: translateY(-4px); box-shadow: 0 20px 48px rgba(0,0,0,0.4); }
-  .proj-card:hover::before { opacity: 1; }
-  .proj-card:hover .proj-img-slide.active { transform: scale(1.04); }
-  .proj-img-wrap { position: relative; aspect-ratio: 16/9; overflow: hidden; border-bottom: 1px solid var(--border); background: var(--navy-3); }
-  .proj-img-slide {
-    position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;
-    opacity: 0; transition: opacity 0.7s ease, transform 0.4s ease;
-  }
-  .proj-img-slide.active { opacity: 1; }
-  .proj-img-dots { position: absolute; bottom: 0.6rem; right: 0.7rem; display: flex; gap: 5px; z-index: 2; }
-  .proj-img-dot { width: 5px; height: 5px; border-radius: 50%; background: rgba(255,255,255,0.35); transition: background 0.3s, transform 0.3s; }
-  .proj-img-dot.active { background: var(--cyan); transform: scale(1.3); }
-  .proj-body { padding: 1.75rem; }
-  .proj-num { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; color: var(--cyan-2); opacity: 0.5; margin-bottom: 0.6rem; }
-  .proj-title { font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; font-weight: 600; color: var(--text); margin-bottom: 0.6rem; }
-  .proj-chips { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.9rem; }
-  .chip { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; padding: 0.18rem 0.5rem; border-radius: 3px; background: var(--cyan-glow); border: 1px solid var(--border-2); color: var(--cyan-2); }
-  .proj-desc { font-size: 0.86rem; color: var(--text-2); line-height: 1.65; }
 
-  /* ── CERTS ── */
-  .certs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
-  .cert-card {
-    background: var(--navy-2); border: 1px solid var(--border); border-radius: 10px;
-    padding: 1.2rem 1.4rem; display: flex; align-items: center; gap: 1rem;
-  }
-  .cert-icon {
-    width: 40px; height: 40px; background: var(--cyan-glow-2); border-radius: 8px;
-    display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0;
-  }
-  .cert-name { font-family: 'Space Grotesk', sans-serif; font-size: 0.88rem; font-weight: 500; color: var(--text); }
 
-  /* ── STRENGTHS ── */
-  .str-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; }
-  .str-card {
-    background: var(--navy-2); border: 1px solid var(--border); border-radius: 10px;
-    padding: 1.25rem; text-align: center;
-  }
-  .str-icon { font-size: 1.75rem; margin-bottom: 0.5rem; }
-  .str-label { font-family: 'Space Grotesk', sans-serif; font-size: 0.85rem; font-weight: 500; color: var(--text-2); }
 
-  /* ── MUSIC ── */
-  #music { background: var(--navy-2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 5rem 0; }
-  .music-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3.5rem; align-items: center; }
-  .music-text h2 { font-family: 'Space Grotesk', sans-serif; font-size: 2rem; font-weight: 700; letter-spacing: -0.025em; margin-bottom: 1rem; line-height: 1.2; }
-  .music-text p { color: var(--text-2); line-height: 1.8; font-size: 0.95rem; margin-bottom: 0.75rem; }
-  .sp-widget {
-    background: var(--navy); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; overflow: hidden;
-  }
-  .sp-head { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.25rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
-  .sp-logo { width: 32px; height: 32px; background: #1DB954; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 0.75rem; flex-shrink: 0; }
-  .sp-headtext strong { display: block; font-size: 0.9rem; color: var(--text); font-family: 'Space Grotesk', sans-serif; }
-  .sp-headtext span { font-size: 0.75rem; color: var(--text-3); font-family: 'JetBrains Mono', monospace; }
-  .sp-track { display: flex; align-items: center; gap: 0.75rem; padding: 0.55rem 0; border-bottom: 1px solid var(--border); }
-  .sp-track:last-child { border-bottom: none; }
-  .sp-n { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: var(--text-3); width: 14px; text-align: center; flex-shrink: 0; }
-  .sp-art { width: 34px; height: 34px; background: var(--navy-3); border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; flex-shrink: 0; }
-  .sp-info { flex: 1; }
-  .sp-song { font-size: 0.82rem; color: var(--text); }
-  .sp-artist { font-size: 0.72rem; color: var(--text-3); font-family: 'JetBrains Mono', monospace; }
-  .sp-bar { width: 52px; height: 3px; background: var(--navy-3); border-radius: 2px; flex-shrink: 0; }
-  .sp-fill { height: 100%; border-radius: 2px; background: #1DB954; }
-  .sp-note { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: var(--text-3); text-align: center; margin-top: 1rem; }
-  /* Actual Spotify embed zone */
-  .sp-embed-zone { margin-top: 1.25rem; border-radius: 8px; overflow: hidden; }
 
-  /* ── LIVE NOW PLAYING ── */
-  .sp-now {
-    display: flex; align-items: center; gap: 1.1rem;
-    background: var(--navy-2); border: 1px solid var(--border); border-radius: 10px;
-    padding: 1.1rem 1.25rem; margin-top: 1rem;
-  }
-  .sp-now-art { width: 64px; height: 64px; border-radius: 6px; background: var(--navy-3); flex-shrink: 0; object-fit: cover; }
-  img.sp-now-art { display: block; }
-  .sp-now-info { flex: 1; min-width: 0; }
-  .sp-now-song { font-size: 1.05rem; font-weight: 600; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 0.2rem; }
-  .sp-now-artist { font-size: 0.85rem; color: var(--text-3); font-family: 'JetBrains Mono', monospace; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .sp-now-badge {
-    font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; letter-spacing: 0.05em;
-    padding: 0.32rem 0.75rem; border-radius: 12px; flex-shrink: 0; white-space: nowrap;
-  }
-  .sp-now-badge.live { color: #00FF88; background: rgba(0,255,136,0.1); border: 1px solid rgba(0,255,136,0.25); }
-  .sp-now-badge.last { color: var(--text-3); background: var(--navy); border: 1px solid var(--border); }
 
-  /* ── TRAVELS ── */
-  .travel-intro { color: var(--text-2); max-width: 600px; margin-bottom: 2.5rem; line-height: 1.8; font-size: 0.95rem; }
-  .travel-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
-  .travel-card {
-    border-radius: 10px; overflow: hidden; aspect-ratio: 4/3;
-    background: var(--navy-3); border: 1px solid var(--border);
-    display: flex; align-items: center; justify-content: center; position: relative;
-    transition: all 0.3s; cursor: pointer;
-  }
-  .travel-card:first-child { grid-column: span 2; aspect-ratio: 16/9; }
-  .travel-card:hover { border-color: var(--cyan-2); transform: scale(1.02); }
-  .travel-card img { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; }
-  .travel-ph { font-size: 2rem; opacity: 0.25; }
-  .travel-badge {
-    position: absolute; bottom: 0; left: 0; right: 0; padding: 0.6rem 0.85rem;
-    background: linear-gradient(to top, rgba(7,14,26,0.92), transparent);
-    font-family: 'Space Grotesk', sans-serif; font-size: 0.78rem; font-weight: 500; color: var(--text);
-  }
 
-  /* ── RETRO ── */
-  #retro { background: var(--navy-2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 5rem 0; }
-  .retro-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
-  .retro-text h2 { font-family: 'Space Grotesk', sans-serif; font-size: 2rem; font-weight: 700; letter-spacing: -0.025em; margin-bottom: 1rem; line-height: 1.2; }
-  .retro-text p { color: var(--text-2); line-height: 1.8; font-size: 0.95rem; margin-bottom: 1.25rem; }
-  .game-tags { display: flex; flex-wrap: wrap; gap: 0.45rem; }
-  .game-tag {
-    font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; padding: 0.3rem 0.75rem;
-    border-radius: 4px; border: 1px solid rgba(0,255,136,0.25); background: rgba(0,255,136,0.05); color: #00cc66;
-  }
-  .terminal {
-    background: var(--navy); border: 1px solid var(--border); border-radius: 10px; overflow: hidden;
-    font-family: 'JetBrains Mono', monospace; font-size: 0.78rem;
-  }
-  .term-bar { display: flex; align-items: center; gap: 0.4rem; padding: 0.6rem 1rem; background: var(--navy-3); border-bottom: 1px solid var(--border); }
-  .dot-r { width: 10px; height: 10px; border-radius: 50%; background: #FF5F57; }
-  .dot-y { width: 10px; height: 10px; border-radius: 50%; background: #FFBC2E; }
-  .dot-g { width: 10px; height: 10px; border-radius: 50%; background: #28C840; }
-  .term-body { padding: 1.25rem; line-height: 1.9; color: #00cc66; }
-  .term-body .tc { color: var(--cyan); }
-  .term-body .tw { color: var(--text); }
-  .cursor { display: inline-block; width: 8px; height: 14px; background: #00cc66; vertical-align: text-bottom; animation: blink 1s steps(1) infinite; }
 
-  .plat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 3rem; }
-  .plat-card { background: var(--navy); border: 1px solid var(--border); border-radius: 10px; padding: 1rem 1.1rem; }
-  .plat-head { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.6rem; }
-  .plat-icon { width: 30px; height: 30px; border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 0.95rem; flex-shrink: 0; }
-  .plat-name { font-family: 'Space Grotesk', sans-serif; font-size: 0.85rem; font-weight: 600; color: var(--text); }
-  .plat-stat { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; color: var(--cyan-2); margin-left: auto; white-space: nowrap; }
-  .plat-game { font-size: 0.8rem; color: var(--text-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .plat-ra-current { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.7rem; }
-  .plat-ra-current img { width: 38px; height: 38px; border-radius: 6px; object-fit: cover; flex-shrink: 0; background: var(--navy-3); }
-  .plat-ra-current-title { font-size: 0.8rem; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .plat-ra-list { display: flex; flex-direction: column; gap: 0.4rem; padding-top: 0.6rem; border-top: 1px solid var(--border); }
-  .plat-ra-item { display: flex; align-items: center; gap: 0.5rem; }
-  .plat-ra-item img { width: 20px; height: 20px; border-radius: 4px; object-fit: cover; flex-shrink: 0; background: var(--navy-3); }
-  .plat-ra-item span { font-size: 0.7rem; color: var(--text-3); font-family: 'JetBrains Mono', monospace; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
 
-  /* ── CONTACT ── */
-  .contact-center { text-align: center; padding: 5rem 2rem; }
-  .contact-center h2 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 700; letter-spacing: -0.03em; margin-bottom: 1rem; }
-  .contact-center p { color: var(--text-2); max-width: 460px; margin: 0 auto 2.5rem; line-height: 1.75; }
-  .contact-links { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
 
-  /* ── FOOTER ── */
-  footer {
-    border-top: 1px solid var(--border); padding: 1.75rem 3rem;
-    display: flex; justify-content: space-between; align-items: center;
-    font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; color: var(--text-3);
-  }
-  footer .fc { color: var(--cyan); }
-
-  /* ── RESPONSIVE ── */
-  @media (max-width: 900px) {
-    .hero-inner { grid-template-columns: 1fr; text-align: center; padding: 5rem 1.5rem 3rem; }
-    .hero-photo-wrap { justify-content: center; order: -1; }
-    .hero-photo { width: 200px; height: 200px; }
-    .eyebrow { justify-content: center; }
-    .hero-roles { justify-content: center; }
-    .hero-cta { justify-content: center; }
-    .hero-bio { margin-left: auto; margin-right: auto; }
-  }
-  @media (max-width: 768px) {
-    nav { padding: 0 1.5rem; }
-    .nav-right { gap: 0.85rem; }
-    .nav-links { gap: 1rem; }
-    .wrap { padding: 0 1.5rem; }
-    section { padding: 4rem 0; }
-    .about-grid, .proj-grid, .music-grid, .retro-grid { grid-template-columns: 1fr; }
-    .plat-grid { grid-template-columns: 1fr; }
-    .travel-grid { grid-template-columns: 1fr 1fr; }
-    .travel-card:first-child { grid-column: span 2; }
-    footer { flex-direction: column; gap: 0.5rem; text-align: center; padding: 1.5rem; }
-  }
-</style>
 </head>
 <body>
+<x-dc>
+<helmet data-dc-atomics="">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<style>/* cyrillic-ext */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("assets/fonts/jetbrains-mono-cyrillic-ext.woff2") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("assets/fonts/jetbrains-mono-cyrillic.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("assets/fonts/jetbrains-mono-greek.woff2") format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("assets/fonts/jetbrains-mono-vietnamese.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("assets/fonts/jetbrains-mono-latin-ext.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("assets/fonts/jetbrains-mono-latin.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("assets/fonts/jetbrains-mono-cyrillic-ext.woff2") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("assets/fonts/jetbrains-mono-cyrillic.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("assets/fonts/jetbrains-mono-greek.woff2") format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("assets/fonts/jetbrains-mono-vietnamese.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("assets/fonts/jetbrains-mono-latin-ext.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("assets/fonts/jetbrains-mono-latin.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("assets/fonts/space-grotesk-vietnamese.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("assets/fonts/space-grotesk-latin-ext.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("assets/fonts/space-grotesk-latin.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("assets/fonts/space-grotesk-vietnamese.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("assets/fonts/space-grotesk-latin-ext.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("assets/fonts/space-grotesk-latin.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("assets/fonts/space-grotesk-vietnamese.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("assets/fonts/space-grotesk-latin-ext.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("assets/fonts/space-grotesk-latin.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+</style>
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#101010;color:#f2f2ee;font-family:'Space Grotesk',sans-serif;--ka-accent:oklch(0.85 0.19 125);--ka-photo-filter:grayscale(35%) contrast(1.05)}
+a{color:inherit}a:hover{opacity:.75}
+::placeholder{color:rgba(242,242,238,.4)}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+</style>
+</helmet>
 
-<!-- NAV -->
-<nav>
-  <div class="nav-logo">KA.dev</div>
-  <div class="nav-right">
-    <ul class="nav-links">
-      <li><a href="#about">// about</a></li>
-      <li><a href="#experience">// exp</a></li>
-      <li><a href="#projects">// projects</a></li>
-      <li><a href="#music">// music</a></li>
-      <li><a href="#travels">// travels</a></li>
-      <li><a href="#contact">// contact</a></li>
-    </ul>
-    <div class="lang-switch" id="langSwitch" role="button" aria-label="Cambiar idioma / Switch language">
-      <span class="lang-opt active" data-lang="es">ES</span>
-      <span class="lang-opt" data-lang="en">EN</span>
+<header style="position:sticky;top:0;z-index:10;display:flex;justify-content:space-between;align-items:center;padding:20px 48px;border-bottom:1px solid rgba(242,242,238,.14);background:rgba(16,16,16,.92);backdrop-filter:blur(8px)">
+  <a href="#inicio" style="font:700 15px 'Space Grotesk',sans-serif;letter-spacing:.05em;text-decoration:none">KA—26</a>
+  <div style="display:flex;align-items:center;gap:26px">
+    <nav style="display:flex;gap:26px;font:500 11px 'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase">
+      <a href="#sobre-mi" style="text-decoration:none">{{ t.navAbout }}</a>
+      <a href="#experiencia" style="text-decoration:none">{{ t.navExp }}</a>
+      <a href="#proyectos" style="text-decoration:none">{{ t.navProj }}</a>
+      <a href="#viajes" style="text-decoration:none">{{ t.navTravel }}</a>
+      <a href="#contacto" style="text-decoration:none;color:var(--ka-accent)">{{ t.navContact }}</a>
+    </nav>
+    <div style="display:flex;gap:2px;border:1px solid rgba(242,242,238,.2);border-radius:20px;padding:3px">
+      <button type="button" onclick="{{ setEs }}" style="border:none;cursor:pointer;font:500 10px 'JetBrains Mono',monospace;padding:5px 11px;border-radius:14px;background:{{ esBg }};color:{{ esColor }}">ES</button>
+      <button type="button" onclick="{{ setEn }}" style="border:none;cursor:pointer;font:500 10px 'JetBrains Mono',monospace;padding:5px 11px;border-radius:14px;background:{{ enBg }};color:{{ enColor }}">EN</button>
     </div>
   </div>
-</nav>
+</header>
 
-<!-- HERO -->
-<div id="hero">
-  <div class="hero-bg"></div>
-  <div class="dots"></div>
-
-  <!-- Geometric polygon -->
-  <svg class="geo" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <polygon points="150,8 285,78 285,222 150,292 15,222 15,78" stroke="#00D4E0" stroke-width="0.8" fill="none"/>
-    <polygon points="150,38 258,100 258,200 150,262 42,200 42,100" stroke="#00D4E0" stroke-width="0.5" fill="none" opacity="0.6"/>
-    <polygon points="150,68 231,122 231,178 150,232 69,178 69,122" stroke="#00D4E0" stroke-width="0.5" fill="none" opacity="0.4"/>
-    <line x1="150" y1="8" x2="150" y2="68" stroke="#00D4E0" stroke-width="0.4" opacity="0.4"/>
-    <line x1="285" y1="78" x2="231" y2="122" stroke="#00D4E0" stroke-width="0.4" opacity="0.4"/>
-    <line x1="285" y1="222" x2="231" y2="178" stroke="#00D4E0" stroke-width="0.4" opacity="0.4"/>
-    <line x1="150" y1="292" x2="150" y2="232" stroke="#00D4E0" stroke-width="0.4" opacity="0.4"/>
-    <line x1="15" y1="222" x2="69" y2="178" stroke="#00D4E0" stroke-width="0.4" opacity="0.4"/>
-    <line x1="15" y1="78" x2="69" y2="122" stroke="#00D4E0" stroke-width="0.4" opacity="0.4"/>
-    <circle cx="150" cy="150" r="5" fill="#00D4E0" opacity="0.9"/>
-    <circle cx="150" cy="8" r="3" fill="#00D4E0" opacity="0.6"/>
-    <circle cx="285" cy="78" r="3" fill="#00D4E0" opacity="0.6"/>
-    <circle cx="285" cy="222" r="3" fill="#00D4E0" opacity="0.6"/>
-    <circle cx="150" cy="292" r="3" fill="#00D4E0" opacity="0.6"/>
-    <circle cx="15" cy="222" r="3" fill="#00D4E0" opacity="0.6"/>
-    <circle cx="15" cy="78" r="3" fill="#00D4E0" opacity="0.6"/>
-  </svg>
-
-  <div class="hero-inner">
-    <!-- Text -->
-    <div class="hero-content">
-      <div class="eyebrow" data-en="Available for projects">Disponible para proyectos</div>
-      <div class="hero-name">
-        <span class="w">Kennet</span>
-        <span class="c">Andino</span>
-      </div>
-      <div class="hero-roles">
-        <span class="role hi">Backend Dev</span>
-        <span class="role hi">Salesforce / Apex</span>
-        <span class="role hi">UX / UI</span>
-        <span class="role">Node.js</span>
-        <span class="role">Supabase</span>
-        <span class="role" data-en="REST APIs">APIs REST</span>
-        <span class="role">LWC</span>
-      </div>
-      <p class="hero-bio" data-en="Software developer experienced in backend, web development, and UX/UI design. I turn business ideas into practical, appealing, and easy-to-use applications.">
-        Desarrollador de software con experiencia en backend, web y diseño UX/UI. Convierto ideas de negocio en aplicaciones prácticas, atractivas y fáciles de usar.
-      </p>
-      <div class="hero-cta">
-        <a href="#projects" class="btn-p" data-en="View projects →">Ver proyectos →</a>
-        <a href="mailto:kennethandino71@gmail.com" class="btn-o" data-en="✉ Email me">✉ Escribirme</a>
-        <a href="https://www.linkedin.com/in/kenneth-andino-7247b113a/" target="_blank" rel="noopener" class="btn-o">in LinkedIn</a>
-      </div>
-    </div>
-    <!-- Photo -->
-    <div class="hero-photo-wrap">
-      <div class="hero-photo-ring-2"></div>
-      <div class="hero-photo-ring"></div>
-      <img class="hero-photo" src="kennet.jpeg" alt="Kennet Andino">
-      <div class="hero-photo-badge">
-        <div class="badge-dot"></div>
-        <span data-en="Available">Disponible</span>
-      </div>
-    </div>
+<section id="inicio" data-screen-label="Hero" style="position:relative;min-height:82vh;padding:80px 48px 72px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:40px">
+  <div style="position:absolute;right:34px;top:96px;writing-mode:vertical-rl;font:500 12px 'JetBrains Mono',monospace;letter-spacing:.5em;color:var(--ka-accent)">NICARAGUA</div>
+  <div style="position:absolute;left:34px;top:96px;display:flex;flex-direction:column;gap:12px">
+    <a href="https://www.linkedin.com/in/kenneth-andino-7247b113a/" target="_blank" rel="noopener" title="LinkedIn" style="width:36px;height:36px;border:1px solid rgba(242,242,238,.3);display:grid;place-items:center;font:500 10px 'JetBrains Mono',monospace;text-decoration:none;border-radius:50%" style-hover="border-color:var(--ka-accent);color:var(--ka-accent)">IN</a>
+    <a href="mailto:kennethandino71@gmail.com" title="Email" style="width:36px;height:36px;border:1px solid rgba(242,242,238,.3);display:grid;place-items:center;font:500 10px 'JetBrains Mono',monospace;text-decoration:none;border-radius:50%" style-hover="border-color:var(--ka-accent);color:var(--ka-accent)">✉</a>
+    <a href="#side-quests" title="Gaming" style="width:36px;height:36px;border:1px solid rgba(242,242,238,.3);display:grid;place-items:center;font:500 10px 'JetBrains Mono',monospace;text-decoration:none;border-radius:50%" style-hover="border-color:var(--ka-accent);color:var(--ka-accent)">🎮</a>
   </div>
+  <div style="display:flex;align-items:center;gap:8px;font:400 11px 'JetBrains Mono',monospace;color:var(--ka-accent);border:1px solid rgba(242,242,238,.18);padding:6px 14px;border-radius:20px">
+    <span style="width:7px;height:7px;border-radius:50%;background:var(--ka-accent);animation:blink 2s ease-in-out infinite"></span>
+    {{ t.avail }}
+  </div>
+  <h1 style="margin:0;font:700 clamp(64px,10vw,132px)/0.95 'Space Grotesk',sans-serif;letter-spacing:-.03em;text-align:center;text-transform:uppercase">Kennet<br><span style="color:var(--ka-accent)">Andino</span></h1>
+  <div style="width:680px;max-width:78%;height:300px;overflow:hidden;border:1px solid rgba(242,242,238,.18)">
+    <img src="assets/hero.jpg" alt="Kennet Andino" style="width:100%;height:100%;object-fit:cover;object-position:center 30%;display:block;filter:var(--ka-photo-filter);transition:filter .4s ease">
+  </div>
+  <p style="margin:0;font:400 13px/1.7 'JetBrains Mono',monospace;color:rgba(242,242,238,.65);text-align:center">{{ t.heroSub1 }}<br><span style="color:var(--ka-accent)">{{ t.heroSub2 }}</span></p>
+</section>
 
-  <div class="scroll-hint">
-    scroll
-    <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><path d="M7 9.5L2 4.5h10L7 9.5z"/></svg>
+<div style="overflow:hidden;border-top:1px solid rgba(242,242,238,.14);border-bottom:1px solid rgba(242,242,238,.14);padding:14px 0">
+  <div style="display:flex;gap:48px;width:max-content;animation:marquee 22s linear infinite;font:500 13px 'JetBrains Mono',monospace;letter-spacing:.15em;color:rgba(242,242,238,.5);text-transform:uppercase;white-space:nowrap">
+    <span>salesforce</span><span>·</span><span>apex</span><span>·</span><span>lwc</span><span>·</span><span>node.js</span><span>·</span><span>supabase</span><span>·</span><span>apis rest</span><span>·</span><span>ux/ui</span><span>·</span><span>salesforce</span><span>·</span><span>apex</span><span>·</span><span>lwc</span><span>·</span><span>node.js</span><span>·</span><span>supabase</span><span>·</span><span>apis rest</span><span>·</span><span>ux/ui</span><span>·</span>
   </div>
 </div>
 
-<!-- ABOUT -->
-<section id="about">
-  <div class="wrap">
-    <div class="sec-label" data-en="About me">Sobre mí</div>
-    <h2 class="sec-title" data-en="Who I am">Quién soy</h2>
-    <div class="about-grid">
-      <div class="about-text">
-        <p data-en="I'm a software developer experienced in backend, web development, and UX/UI design. I enjoy turning business ideas and needs into practical, appealing, and easy-to-use applications.">Soy desarrollador de software con experiencia en backend, desarrollo web y diseño UX/UI. Disfruto convertir ideas y necesidades de negocio en aplicaciones prácticas, atractivas y fáciles de usar.</p>
-        <p data-en="I work with Salesforce, Apex, LWC, JavaScript, Node.js, Supabase, SQL, APIs, and integrations with external services. I consider myself creative, adaptable, and committed to continuous learning.">Trabajo con Salesforce, Apex, LWC, JavaScript, Node.js, Supabase, SQL, APIs e integraciones con servicios externos. Me considero una persona creativa, adaptable y comprometida con el aprendizaje continuo.</p>
-        <p data-en="My greatest satisfaction is seeing a solution I designed and built create real impact in a team's day-to-day work.">Mi mayor satisfacción es ver una solución que diseñé y construí generando impacto real en el día a día de un equipo.</p>
-        <br>
-        <div class="contact-row"><span class="lbl">📍</span> Managua, Nicaragua</div>
-        <div class="contact-row"><span class="lbl">📱</span> +505 7782-4787</div>
-        <div class="contact-row"><span class="lbl">✉</span> kennethandino71@gmail.com</div>
-        <div class="contact-row"><span class="lbl">in</span> <a href="https://www.linkedin.com/in/kenneth-andino-7247b113a/" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">linkedin.com/in/kenneth-andino-7247b113a</a></div>
-      </div>
-      <div class="skills-box">
-        <div class="sk-cat">
-          <h4>Salesforce</h4>
-          <div class="sk-tags">
-            <span class="sk-tag">CRM</span><span class="sk-tag">Apex</span><span class="sk-tag">LWC</span><span class="sk-tag">SOQL</span><span class="sk-tag">SOSL</span>
-          </div>
-        </div>
-        <div class="sk-cat">
-          <h4>Web / Backend</h4>
-          <div class="sk-tags">
-            <span class="sk-tag">JavaScript</span><span class="sk-tag">Node.js</span><span class="sk-tag">HTML</span><span class="sk-tag">CSS</span><span class="sk-tag" data-en="REST APIs">APIs REST</span><span class="sk-tag">OAuth 2.0</span><span class="sk-tag">Webhooks</span>
-          </div>
-        </div>
-        <div class="sk-cat">
-          <h4 data-en="Data & DevOps">Datos & DevOps</h4>
-          <div class="sk-tags">
-            <span class="sk-tag">Supabase</span><span class="sk-tag">PostgreSQL</span><span class="sk-tag">SQL</span><span class="sk-tag">Git / GitHub</span><span class="sk-tag">Postman</span>
-          </div>
-        </div>
-        <div class="sk-cat">
-          <h4 data-en="Design & Tools">Diseño & Herramientas</h4>
-          <div class="sk-tags">
-            <span class="sk-tag">UX / UI</span><span class="sk-tag">Web Components</span><span class="sk-tag">React</span><span class="sk-tag">shadcn/ui</span><span class="sk-tag">Lovable</span><span class="sk-tag">Vite</span>
-          </div>
+<section id="sobre-mi" data-screen-label="Sobre mí" style="padding:72px 48px 70px;display:grid;grid-template-columns:1fr 1fr;gap:64px">
+  <div style="display:flex;flex-direction:column;gap:22px">
+    <h2 style="margin:0;font:700 48px 'Space Grotesk',sans-serif;text-transform:uppercase;letter-spacing:-.02em">{{ t.aboutTitle }}<span style="color:var(--ka-accent)">_</span></h2>
+    <p style="margin:0;font:400 14px/1.8 'Space Grotesk',sans-serif;color:rgba(242,242,238,.75)">{{ t.aboutP1 }}</p>
+    <p style="margin:0;font:400 14px/1.8 'Space Grotesk',sans-serif;color:rgba(242,242,238,.75)">{{ t.aboutP2 }}</p>
+    <p style="margin:0;font:400 13px/1.7 'JetBrains Mono',monospace;color:rgba(242,242,238,.5)">{{ t.aboutP3 }}</p>
+    <div style="display:flex;flex-direction:column;gap:8px;font:400 12px 'JetBrains Mono',monospace;color:rgba(242,242,238,.65)">
+      <span><span style="color:var(--ka-accent)">loc</span> managua, nicaragua</span>
+      <span><span style="color:var(--ka-accent)">tel</span> +505 7782-4787</span>
+      <span><span style="color:var(--ka-accent)">eml</span> kennethandino71@gmail.com</span>
+    </div>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:22px;border:1px solid rgba(242,242,238,.14);background:#181818;padding:28px">
+    <span style="font:500 11px 'JetBrains Mono',monospace;letter-spacing:.2em;color:rgba(242,242,238,.5)">STACK_</span>
+    <sc-for list="{{ skillCats }}" as="cat" hint-placeholder-count="4">
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <h4 style="margin:0;font:500 11px 'JetBrains Mono',monospace;letter-spacing:.15em;text-transform:uppercase;color:var(--ka-accent)">{{ cat.name }}</h4>
+        <div style="display:flex;flex-wrap:wrap;gap:6px">
+          <sc-for list="{{ cat.tags }}" as="tg" hint-placeholder-count="5">
+            <span style="font:400 11px 'JetBrains Mono',monospace;padding:4px 10px;border:1px solid rgba(242,242,238,.18);color:rgba(242,242,238,.7)">{{ tg }}</span>
+          </sc-for>
         </div>
       </div>
+    </sc-for>
+  </div>
+</section>
+
+<section id="experiencia" data-screen-label="Experiencia" style="padding:72px 48px 70px;border-top:1px solid rgba(242,242,238,.14)">
+  <h2 style="margin:0 0 40px;font:700 48px 'Space Grotesk',sans-serif;text-transform:uppercase;letter-spacing:-.02em">{{ t.expTitle }}<span style="color:var(--ka-accent)">_</span></h2>
+  <div style="display:flex;flex-direction:column">
+    <sc-for list="{{ jobs }}" as="j" hint-placeholder-count="5">
+      <article style="display:grid;grid-template-columns:210px 1fr;gap:32px;padding:26px 0;border-top:1px solid rgba(242,242,238,.14)">
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <span style="font:400 11px 'JetBrains Mono',monospace;color:var(--ka-accent)">{{ j.period }}</span>
+          <sc-if value="{{ j.url }}" hint-placeholder-val="{{ false }}">
+            <a href="{{ j.url }}" target="_blank" rel="noopener" style="font:400 11px 'JetBrains Mono',monospace;color:rgba(242,242,238,.45);text-decoration:underline;text-underline-offset:3px" style-hover="color:var(--ka-accent)">{{ j.co }} ↗</a>
+          </sc-if>
+          <sc-if value="{{ j.noUrl }}" hint-placeholder-val="{{ true }}">
+            <span style="font:400 11px 'JetBrains Mono',monospace;color:rgba(242,242,238,.45)">{{ j.co }}</span>
+          </sc-if>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <h3 style="margin:0;font:700 20px 'Space Grotesk',sans-serif;text-transform:uppercase">{{ j.role }}</h3>
+          <p style="margin:0;font:400 13px/1.7 'Space Grotesk',sans-serif;color:rgba(242,242,238,.65);max-width:640px">{{ j.desc }}</p>
+        </div>
+      </article>
+    </sc-for>
+  </div>
+</section>
+
+<section id="proyectos" data-screen-label="Proyectos" style="padding:72px 0 70px;border-top:1px solid rgba(242,242,238,.14)">
+  <div style="display:flex;justify-content:space-between;align-items:baseline;padding:0 48px 34px">
+    <h2 style="margin:0;font:700 48px 'Space Grotesk',sans-serif;text-transform:uppercase;letter-spacing:-.02em">{{ t.projTitle }}<span style="color:var(--ka-accent)">_</span></h2>
+    <span style="font:400 11px 'JetBrains Mono',monospace;color:rgba(242,242,238,.5)">{{ t.scrollHint }}</span>
+  </div>
+  <div style="display:flex;gap:24px;overflow-x:auto;padding:4px 48px 20px;scroll-snap-type:x mandatory">
+    <sc-for list="{{ projects }}" as="p" hint-placeholder-count="4">
+      <article style="flex:none;width:360px;scroll-snap-align:start;display:flex;flex-direction:column;gap:12px;border:1px solid rgba(242,242,238,.14);padding:16px;opacity:{{ p.op }};transform:{{ p.tx }};transition:{{ p.trans }}" style-hover="border-color:var(--ka-accent)">
+        <div style="display:flex;justify-content:space-between;font:400 10px 'JetBrains Mono',monospace;color:rgba(242,242,238,.5)"><span>{{ p.num }}</span><span style="color:var(--ka-accent)">{{ p.tag }}</span></div>
+        <div style="height:220px;width:100%;overflow:hidden;background:#1c1c1c">{{ p.imgNode }}</div>
+        <h3 style="margin:0;font:700 18px 'Space Grotesk',sans-serif;text-transform:uppercase">{{ p.name }}</h3>
+        <div style="display:flex;flex-wrap:wrap;gap:6px">
+          <sc-for list="{{ p.chips }}" as="c" hint-placeholder-count="3">
+            <span style="font:400 10px 'JetBrains Mono',monospace;padding:3px 8px;border:1px solid rgba(242,242,238,.18);color:var(--ka-accent)">{{ c }}</span>
+          </sc-for>
+        </div>
+        <p style="margin:0;font:400 12px/1.6 'JetBrains Mono',monospace;color:rgba(242,242,238,.6)">{{ p.desc }}</p>
+      </article>
+    </sc-for>
+  </div>
+</section>
+
+<section id="certificaciones" data-screen-label="Certificaciones" style="padding:72px 48px 70px;border-top:1px solid rgba(242,242,238,.14)">
+  <h2 style="margin:0 0 36px;font:700 48px 'Space Grotesk',sans-serif;text-transform:uppercase;letter-spacing:-.02em">{{ t.certTitle }}<span style="color:var(--ka-accent)">_</span></h2>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:18px">
+    <sc-for list="{{ certs }}" as="c" hint-placeholder-count="4">
+      <div style="border:1px solid rgba(242,242,238,.14);padding:22px;display:flex;flex-direction:column;gap:12px" style-hover="border-color:var(--ka-accent)">
+        <span style="font:400 11px 'JetBrains Mono',monospace;color:var(--ka-accent)">{{ c.num }}</span>
+        <span style="font:700 15px 'Space Grotesk',sans-serif;text-transform:uppercase;line-height:1.3">{{ c.name }}</span>
+        <span style="font:400 11px 'JetBrains Mono',monospace;color:rgba(242,242,238,.5)">{{ c.org }}</span>
+      </div>
+    </sc-for>
+  </div>
+</section>
+
+<section id="viajes" data-screen-label="Viajes" style="padding:72px 48px 70px;border-top:1px solid rgba(242,242,238,.14)">
+  <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:16px">
+    <h2 style="margin:0;font:700 48px 'Space Grotesk',sans-serif;text-transform:uppercase;letter-spacing:-.02em">{{ t.travelTitle }}<span style="color:var(--ka-accent)">_</span></h2>
+    <span style="font:400 11px 'JetBrains Mono',monospace;color:rgba(242,242,238,.5)">{{ t.travelTag }}</span>
+  </div>
+  <p style="margin:0 0 36px;font:400 13px/1.7 'JetBrains Mono',monospace;color:rgba(242,242,238,.6);max-width:560px">{{ t.travelP }}</p>
+  <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px">
+    <sc-for list="{{ travels }}" as="tr" hint-placeholder-count="8">
+      <div style="display:flex;flex-direction:column;gap:8px;min-width:0;grid-column:{{ tr.span }}">
+        <div style="position:relative;width:100%;min-width:0;overflow:hidden;height:{{ tr.h }};background:#1c1c1c">{{ tr.imgNode }}</div>
+        <span style="font:400 11px 'JetBrains Mono',monospace;color:rgba(242,242,238,.6)">{{ tr.label }}</span>
+      </div>
+    </sc-for>
+  </div>
+</section>
+
+<section id="side-quests" data-screen-label="Side quests" style="padding:72px 48px 70px;border-top:1px solid rgba(242,242,238,.14);background:#151515">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;margin-bottom:44px">
+    <div style="display:flex;flex-direction:column;gap:20px">
+      <span style="font:500 11px 'JetBrains Mono',monospace;letter-spacing:.2em;color:var(--ka-accent)">SIDE_QUESTS</span>
+      <h2 style="margin:0;font:700 48px 'Space Grotesk',sans-serif;text-transform:uppercase;letter-spacing:-.02em;line-height:1">RetroArch<br><span style="color:var(--ka-accent)">&amp; Gaming_</span></h2>
+      <p style="margin:0;font:400 13px/1.7 'JetBrains Mono',monospace;color:rgba(242,242,238,.6);max-width:420px">{{ t.sqP }}</p>
+      <div style="display:flex;flex-wrap:wrap;gap:8px">
+        <sc-for list="{{ gameTags }}" as="g" hint-placeholder-count="6">
+          <span style="font:400 11px 'JetBrains Mono',monospace;padding:5px 12px;border:1px solid rgba(242,242,238,.18);color:var(--ka-accent)">{{ g }}</span>
+        </sc-for>
+      </div>
+    </div>
+    <div style="border:1px solid rgba(242,242,238,.14);background:#101010;font:400 12px/1.9 'JetBrains Mono',monospace">
+      <div style="display:flex;align-items:center;gap:6px;padding:10px 16px;border-bottom:1px solid rgba(242,242,238,.14);background:#181818">
+        <span style="width:10px;height:10px;border-radius:50%;background:#FF5F57"></span>
+        <span style="width:10px;height:10px;border-radius:50%;background:#FFBC2E"></span>
+        <span style="width:10px;height:10px;border-radius:50%;background:#28C840"></span>
+        <span style="margin-left:8px;color:rgba(242,242,238,.4);font-size:11px">kennet@portfolio ~ $</span>
+      </div>
+      <div style="padding:20px 22px;color:var(--ka-accent)">
+        <span style="color:rgba(242,242,238,.4)">$</span> kennet --status<br><br>
+        NAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#f2f2ee">Kennet Andino</span><br>
+        ROLE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#f2f2ee">Software Developer</span><br>
+        LOCATION&nbsp;<span style="color:#f2f2ee">Managua, NI 🇳🇮</span><br>
+        STATUS&nbsp;&nbsp;&nbsp;<span style="color:#28C840">● {{ t.termAvail }}</span><br>
+        STACK&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#f2f2ee">Salesforce / Node / React</span><br>
+        HOBBY&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#f2f2ee">RetroGaming 🎮</span><br><br>
+        <span style="color:rgba(242,242,238,.4)">$</span> <span style="display:inline-block;width:8px;height:14px;background:var(--ka-accent);vertical-align:text-bottom;animation:blink 1s steps(1) infinite"></span>
+      </div>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px">
+    <div style="border:1px solid rgba(242,242,238,.14);background:#101010;padding:20px;display:flex;flex-direction:column;gap:14px">
+      <div style="display:flex;align-items:center;gap:10px">
+        <span style="font-size:18px">🏆</span>
+        <span style="font:700 14px 'Space Grotesk',sans-serif;text-transform:uppercase">RetroAchievements</span>
+        <span style="margin-left:auto;font:400 11px 'JetBrains Mono',monospace;color:var(--ka-accent)">{{ raPoints }} pts</span>
+      </div>
+      <sc-for list="{{ raGames }}" as="g" hint-placeholder-count="3">
+        <div style="display:flex;align-items:center;gap:10px;border-top:1px solid rgba(242,242,238,.1);padding-top:10px">
+          <div style="width:32px;height:32px;flex:none;background:#242424">{{ g.imgNode }}</div>
+          <div style="flex:1;min-width:0;display:flex;flex-direction:column">
+            <span style="font:500 12px 'Space Grotesk',sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ g.title }}</span>
+            <span style="font:400 10px 'JetBrains Mono',monospace;color:rgba(242,242,238,.45)">{{ g.console }}</span>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+    <div style="border:1px solid rgba(242,242,238,.14);background:#101010;padding:20px;display:flex;flex-direction:column;gap:14px;align-self:start">
+      <div style="display:flex;align-items:center;gap:10px">
+        <span style="font-size:18px">🎮</span>
+        <span style="font:700 14px 'Space Grotesk',sans-serif;text-transform:uppercase">Xbox</span>
+        <span style="margin-left:auto;font:400 11px 'JetBrains Mono',monospace;color:var(--ka-accent)">⚡ {{ xboxGs }} GS</span>
+      </div>
+      <div style="border-top:1px solid rgba(242,242,238,.1);padding-top:10px;font:400 12px 'JetBrains Mono',monospace;color:rgba(242,242,238,.65)">{{ xboxTag }}</div>
+      <div style="font:400 12px 'JetBrains Mono',monospace;color:rgba(242,242,238,.65)">{{ t.lastGame }} <span style="color:#f2f2ee">{{ xboxGame }}</span></div>
     </div>
   </div>
 </section>
 
-<hr class="divider">
-
-<!-- EXPERIENCE -->
-<section id="experience">
-  <div class="wrap">
-    <div class="sec-label" data-en="Journey">Trayectoria</div>
-    <h2 class="sec-title" data-en="Experience">Experiencia</h2>
-    <div class="timeline">
-
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <div class="tl-period">Sep 2023 — Jun 2026</div>
-        <div class="tl-role" data-en="Web / Backend Developer & UX/UI Designer">Desarrollador Web / Backend & Diseñador UX/UI</div>
-        <div class="tl-co">Pangea Financial Group · Managua</div>
-        <ul class="tl-desc">
-          <li data-en="Designed and developed web tools and internal interfaces to improve operational and administrative processes.">Diseñé y desarrollé herramientas web e interfaces internas para mejorar procesos operativos y administrativos.</li>
-          <li data-en="Implemented backend logic, data structures, and automations to centralize information and reduce manual tasks.">Implementé lógica backend, estructuras de datos y automatizaciones para centralizar información y reducir tareas manuales.</li>
-          <li data-en="Integrated REST APIs, OAuth authentication, and third-party services; performed testing, error diagnosis, and technical documentation.">Integré APIs REST, autenticación OAuth y servicios de terceros; realicé pruebas, diagnóstico de errores y documentación técnica.</li>
-          <li data-en="Turned business needs into concrete features, participating in the full cycle: analysis, design, development, validation, and continuous improvement.">Transformé necesidades del negocio en funcionalidades concretas, participando en todo el ciclo: análisis, diseño, desarrollo, validación y mejora continua.</li>
-        </ul>
-      </div>
-
-      <div class="tl-item">
-        <div class="tl-dot dim"></div>
-        <div class="tl-period" data-en="May 2023 — Aug 2023">May 2023 — Ago 2023</div>
-        <div class="tl-role" data-en="Sales Advisor">Asesor Comercial</div>
-        <div class="tl-co">Lendinero · Managua</div>
-        <ul class="tl-desc">
-          <li data-en="Phone sales of credit and financing solutions for businesses in the U.S.">Venta telefónica de créditos y soluciones de financiamiento para negocios en EE. UU.</li>
-          <li data-en="Contacted and qualified leads, handled objections, and followed up on the sales process.">Contacto y calificación de clientes potenciales, manejo de objeciones y seguimiento del proceso de venta.</li>
-        </ul>
-      </div>
-
-      <div class="tl-item">
-        <div class="tl-dot dim"></div>
-        <div class="tl-period" data-en="Oct 2022 — Apr 2023">Oct 2022 — Abr 2023</div>
-        <div class="tl-role" data-en="Sales Manager">Jefe de Ventas</div>
-        <div class="tl-co">Globalpro · Managua</div>
-        <ul class="tl-desc">
-          <li data-en="Customer service and advisory, sales follow-up, and management of laptop sales.">Atención y asesoría a clientes, seguimiento comercial y gestión de ventas de equipos portátiles.</li>
-        </ul>
-      </div>
-
-      <div class="tl-item">
-        <div class="tl-dot dim"></div>
-        <div class="tl-period">Mar 2020</div>
-        <div class="tl-role" data-en="Database Administrator">Administrador de Base de Datos</div>
-        <div class="tl-co" data-en='"El Éxito" Project · Managua'>Proyecto "El Éxito" · Managua</div>
-        <ul class="tl-desc">
-          <li data-en="Designed a database for a control and sales system; defined the structure and organization of information.">Diseño de base de datos para sistema de control y ventas; definición de estructura y organización de la información.</li>
-        </ul>
-      </div>
-
-      <div class="tl-item">
-        <div class="tl-dot dim"></div>
-        <div class="tl-period" data-en="Aug 2018">Ago 2018</div>
-        <div class="tl-role">Desarrollador de Software · Geolator</div>
-        <div class="tl-co" data-en="UNI Academic Project · Managua">Proyecto Académico UNI · Managua</div>
-        <ul class="tl-desc">
-          <li data-en="Educational app for calculating geometric shapes, designed to support elementary students' learning.">App educativa para cálculo de figuras geométricas, diseñada como apoyo al aprendizaje de estudiantes de primaria.</li>
-        </ul>
-      </div>
-
+<section id="contacto" data-screen-label="Contacto" style="padding:72px 48px 80px;border-top:1px solid rgba(242,242,238,.14);display:grid;grid-template-columns:1fr 1fr;gap:64px">
+  <div style="display:flex;flex-direction:column;gap:24px">
+    <h2 style="margin:0;font:700 48px 'Space Grotesk',sans-serif;text-transform:uppercase">{{ t.contactTitle }}<span style="color:var(--ka-accent)">_</span></h2>
+    <p style="margin:0;font:400 13px/1.7 'JetBrains Mono',monospace;color:rgba(242,242,238,.65);max-width:400px">{{ t.contactP1 }}<br><span style="color:rgba(242,242,238,.45)">{{ t.contactP2 }}</span></p>
+    <div style="display:flex;flex-direction:column;gap:10px;font:400 13px 'JetBrains Mono',monospace;color:var(--ka-accent)">
+      <a href="mailto:kennethandino71@gmail.com" style="text-decoration:none">kennethandino71@gmail.com</a>
+      <a href="tel:+50577824787" style="text-decoration:none">+505 7782-4787</a>
+      <span>managua, nicaragua</span>
+    </div>
+    <div style="display:flex;gap:18px;font:500 11px 'JetBrains Mono',monospace;text-transform:uppercase">
+      <a href="https://www.linkedin.com/in/kenneth-andino-7247b113a/" target="_blank" rel="noopener" style="text-decoration:none">LinkedIn</a>
     </div>
   </div>
+  <form style="display:flex;flex-direction:column;gap:14px;background:#181818;padding:30px;border:1px solid rgba(242,242,238,.14)">
+    <span style="font:500 11px 'JetBrains Mono',monospace;letter-spacing:.2em;color:rgba(242,242,238,.5)">CONTACT_FORM</span>
+    <input value="{{ formName }}" onchange="{{ onName }}" placeholder="{{ t.phName }}" style="border:1px solid rgba(242,242,238,.2);background:transparent;padding:12px;font:400 13px 'JetBrains Mono',monospace;outline:none;color:#f2f2ee" style-focus="border-color:var(--ka-accent)">
+    <input value="{{ formEmail }}" onchange="{{ onEmail }}" placeholder="email" style="border:1px solid rgba(242,242,238,.2);background:transparent;padding:12px;font:400 13px 'JetBrains Mono',monospace;outline:none;color:#f2f2ee" style-focus="border-color:var(--ka-accent)">
+    <textarea value="{{ formMsg }}" onchange="{{ onMsg }}" placeholder="{{ t.phMsg }}" rows="5" style="border:1px solid rgba(242,242,238,.2);background:transparent;padding:12px;font:400 13px 'JetBrains Mono',monospace;outline:none;resize:none;color:#f2f2ee" style-focus="border-color:var(--ka-accent)"></textarea>
+    <div style="display:flex;align-items:center;gap:16px">
+      <button type="button" onclick="{{ onSend }}" style="padding:13px 38px;background:var(--ka-accent);color:#101010;border:none;font:700 13px 'Space Grotesk',sans-serif;letter-spacing:.08em;cursor:pointer" style-hover="background:#f2f2ee">SEND →</button>
+      <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
+        <span style="font:400 12px 'JetBrains Mono',monospace;color:var(--ka-accent)">{{ t.sentMsg }}</span>
+      </sc-if>
+    </div>
+  </form>
 </section>
 
-<hr class="divider">
-
-<!-- PROJECTS -->
-<section id="projects">
-  <div class="wrap">
-    <div class="sec-label" data-en="Portfolio">Portafolio</div>
-    <h2 class="sec-title" data-en="Featured projects">Proyectos destacados</h2>
-    <div class="proj-grid">
-
-      <div class="proj-card">
-        <div class="proj-img-wrap">
-          <img class="proj-img-slide active" src="images/project-rfp1.png" alt="Plataforma Request for Proposal — captura 1">
-          <img class="proj-img-slide" src="images/project-rfp2.png" alt="Plataforma Request for Proposal — captura 2">
-          <img class="proj-img-slide" src="images/project-rfp3.png" alt="Plataforma Request for Proposal — captura 3">
-          <img class="proj-img-slide" src="images/project-rfp4.png" alt="Plataforma Request for Proposal — captura 4">
-          <img class="proj-img-slide" src="images/project-rfp5.png" alt="Plataforma Request for Proposal — captura 5">
-        </div>
-        <div class="proj-body">
-          <div class="proj-num">01 / RFP PLATFORM</div>
-          <div class="proj-title" data-en="Request for Proposal Platform">Plataforma Request for Proposal</div>
-          <div class="proj-chips">
-            <span class="chip">Salesforce</span><span class="chip">Apex</span><span class="chip">LWC</span><span class="chip" data-en="REST APIs">APIs REST</span><span class="chip">Webhooks</span>
-          </div>
-          <p class="proj-desc" data-en="Automates requests to insurance carriers: maps the group census, automatically generates the required Excel files, and attaches them to the email. AI module that processes quote PDFs and generates summaries of the most suitable plans based on each employee's profile.">Automatización de solicitudes a carriers de seguros: mapea el censo del grupo, genera automáticamente los archivos Excel requeridos y los adjunta al correo. Módulo de IA que procesa PDFs de cotización y genera resúmenes de los planes más convenientes según el perfil de cada empleado.</p>
-        </div>
-      </div>
-
-      <div class="proj-card">
-        <div class="proj-img-wrap">
-          <img class="proj-img-slide active" src="images/project-bcc1.png" alt="Business Card Connect — captura 1">
-          <img class="proj-img-slide" src="images/project-bcc2.png" alt="Business Card Connect — captura 2">
-        </div>
-        <div class="proj-body">
-          <div class="proj-num">02 / BUSINESS CARD CONNECT</div>
-          <div class="proj-title">Business Card Connect</div>
-          <div class="proj-chips">
-            <span class="chip">React</span><span class="chip">TanStack</span><span class="chip">Supabase</span><span class="chip">QR Code API</span>
-          </div>
-          <p class="proj-desc" data-en="Web app to create and manage digital business cards with a shareable public profile. Automatically generates downloadable VCF files and a unique QR code per profile to make exchanging contacts at meetings and events easier.">App web para crear y gestionar tarjetas de presentación digitales con perfil público shareable. Genera archivos VCF descargables automáticamente y un código QR único por perfil para facilitar el intercambio de contactos en reuniones y eventos.</p>
-        </div>
-      </div>
-
-      <div class="proj-card">
-        <div class="proj-img-wrap">
-          <img class="proj-img-slide active" src="images/project-design-system1.png" alt="Librería de Cards · Design System — captura 1">
-          <img class="proj-img-slide" src="images/project-design-system2.png" alt="Librería de Cards · Design System — captura 2">
-          <img class="proj-img-slide" src="images/project-design-system3.png" alt="Librería de Cards · Design System — captura 3">
-          <img class="proj-img-slide" src="images/project-design-system4.png" alt="Librería de Cards · Design System — captura 4">
-        </div>
-        <div class="proj-body">
-          <div class="proj-num">03 / DESIGN SYSTEM</div>
-          <div class="proj-title" data-en="Card Library · Design System">Librería de Cards · Design System</div>
-          <div class="proj-chips">
-            <span class="chip">Web Components</span><span class="chip">JavaScript</span><span class="chip">Remote Bundle</span>
-          </div>
-          <p class="proj-desc" data-en="Centralized design system with 11 embeddable Web Component types for the RFP module. Decoupled architecture — components load via a remote bundle, ensuring visual consistency across the entire Pangea ecosystem without duplicating code.">Sistema de diseño centralizado con 11 tipos de Web Components embebibles para el módulo RFP. Arquitectura desacoplada — los componentes se cargan vía bundle remoto, garantizando consistencia visual en todo el ecosistema Pangea sin duplicar código.</p>
-        </div>
-      </div>
-
-      <div class="proj-card">
-        <div class="proj-img-wrap">
-          <img class="proj-img-slide active" src="images/project-meeting-notes1.png" alt="Meeting Notes Hub — captura 1">
-          <img class="proj-img-slide" src="images/project-meeting-notes2.png" alt="Meeting Notes Hub — captura 2">
-        </div>
-        <div class="proj-body">
-          <div class="proj-num">04 / MEETING NOTES HUB</div>
-          <div class="proj-title">Meeting Notes Hub</div>
-          <div class="proj-chips">
-            <span class="chip">React</span><span class="chip">Vite</span><span class="chip">Salesforce Lookup</span><span class="chip">shadcn/ui</span>
-          </div>
-          <p class="proj-desc" data-en="Internal tool to capture and organize client meeting notes, including dates, review statuses, and enrollment periods. Assigns tasks to Salesforce users via integrated lookup, centralizing agreement tracking.">Herramienta interna para capturar y organizar notas de reuniones con clientes, incluyendo fechas, estados de revisión y períodos de inscripción. Asignación de tareas a usuarios de Salesforce mediante lookup integrado, centralizando la trazabilidad de acuerdos.</p>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<hr class="divider">
-
-<!-- CERTIFICATIONS -->
-<section id="certs">
-  <div class="wrap">
-    <div class="sec-label" data-en="Education">Formación</div>
-    <h2 class="sec-title" data-en="Certifications">Certificaciones</h2>
-    <div class="certs-grid">
-      <div class="cert-card"><div class="cert-icon">☁️</div><div class="cert-name">Salesforce Certified Administrator</div></div>
-      <div class="cert-card"><div class="cert-icon">🌐</div><div class="cert-name" data-en="Web Page Designer">Diseñador de Páginas Web</div></div>
-      <div class="cert-card"><div class="cert-icon">🇺🇸</div><div class="cert-name" data-en="English Course · Cornerstone">Curso de Inglés · Cornerstone</div></div>
-      <div class="cert-card"><div class="cert-icon">🤖</div><div class="cert-name" data-en="AI Course · Skool">Curso de IA · Skool</div></div>
-    </div>
-  </div>
-</section>
-
-<hr class="divider">
-
-<!-- STRENGTHS -->
-<section>
-  <div class="wrap">
-    <div class="sec-label" data-en="Skills">Competencias</div>
-    <h2 class="sec-title" data-en="Strengths">Fortalezas</h2>
-    <div class="str-grid">
-      <div class="str-card"><div class="str-icon">🎨</div><div class="str-label" data-en="UX / UI Design">Diseño UX / UI</div></div>
-      <div class="str-card"><div class="str-icon">🏗</div><div class="str-label" data-en="Solution architecture">Arquitectura de soluciones</div></div>
-      <div class="str-card"><div class="str-icon">🗄</div><div class="str-label" data-en="Data modeling">Modelado de datos</div></div>
-      <div class="str-card"><div class="str-icon">⚡</div><div class="str-label" data-en="Process automation">Automatización de procesos</div></div>
-      <div class="str-card"><div class="str-icon">🔍</div><div class="str-label" data-en="Problem solving">Resolución de problemas</div></div>
-      <div class="str-card"><div class="str-icon">📚</div><div class="str-label" data-en="Adaptability & learning">Adaptabilidad y aprendizaje</div></div>
-      <div class="str-card"><div class="str-icon">🤝</div><div class="str-label" data-en="Collaborative work">Trabajo colaborativo</div></div>
-    </div>
-  </div>
-</section>
-
-<!-- MUSIC -->
-<div id="music">
-  <div class="wrap">
-    <div class="sec-label" data-en="What's playing">Lo que suena</div>
-    <div class="music-grid">
-      <div class="music-text">
-        <h2 data-en-html='The music that<br><span style="color:var(--cyan)">keeps me company</span>'>La música que<br><span style="color:var(--cyan)">me acompaña</span></h2>
-        <p data-en="Between commits, designs, and coffee. This is what's in rotation while I work or just relax.">Entre commits, diseños y cafés. Esto es lo que está en rotación mientras trabajo o simplemente descanso.</p>
-      </div>
-      <div class="sp-widget">
-        <div class="sp-head">
-          <div class="sp-logo">♫</div>
-          <div class="sp-headtext">
-            <strong>Spotify</strong>
-            <span data-en="What I'm listening to">Lo que estoy escuchando</span>
-          </div>
-        </div>
-        <div class="sp-now" id="spNow" style="display:none;">
-          <div class="sp-now-art" id="spNowArt"></div>
-          <div class="sp-now-info">
-            <div class="sp-now-song" id="spNowSong"></div>
-            <div class="sp-now-artist" id="spNowArtist"></div>
-          </div>
-          <div class="sp-now-badge" id="spNowBadge"></div>
-        </div>
-        <div class="sp-embed-zone">
-          <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1F5p3rmiWPIYgZ?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- TRAVELS -->
-<section id="travels">
-  <div class="wrap">
-    <div class="sec-label" data-en="Outside the code">Fuera del código</div>
-    <h2 class="sec-title" data-en="Travels & Places">Viajes & Lugares</h2>
-    <p class="travel-intro" data-en="Life isn't just code. These are some of the places that have inspired me, given me perspective, and reminded me that the world is huge — and worth exploring.">
-      La vida no es solo código. Estos son algunos de los lugares que me han inspirado, dado perspectiva y recordado que el mundo es enorme — y que vale la pena explorarlo.
-    </p>
-    <div class="travel-grid">
-      <!-- INSTRUCCIONES: Reemplaza las tarjetas de abajo con tus fotos reales.
-           Agrega <img src="ruta_a_tu_foto.jpg" alt="descripcion"> dentro de cada .travel-card
-           y ajusta el texto del .travel-badge con el nombre del lugar. -->
-      <div class="travel-card">
-        <img src="images/travel-main.jpg" alt="Atardecer frente al mar">
-        <div class="travel-badge" data-en="🌅 Sunset by the sea">🌅 Atardecer frente al mar</div>
-      </div>
-      <div class="travel-card">
-        <img src="images/travel-main2.jpg" alt="Nuestra boda">
-        <div class="travel-badge" data-en="💍 Our wedding">💍 Nuestra boda</div>
-      </div>
-      <div class="travel-card">
-        <img src="images/travel-main3.jpg" alt="Arquitectura colonial">
-        <div class="travel-badge" data-en="⛪ Colonial architecture">⛪ Arquitectura colonial</div>
-      </div>
-      <div class="travel-card">
-        <img src="images/travel-main4.jpg" alt="Vista de Managua">
-        <div class="travel-badge" data-en="🏙️ Managua skyline">🏙️ Vista de Managua</div>
-      </div>
-      <div class="travel-card">
-        <img src="images/travel-main5.jpg" alt="Atardecer en la playa">
-        <div class="travel-badge" data-en="🏖️ Beach evening">🏖️ Tarde de playa</div>
-      </div>
-      <div class="travel-card">
-        <img src="images/travel-main6.jpg" alt="En familia">
-        <div class="travel-badge" data-en="👨‍👦 Family time">👨‍👦 En familia</div>
-      </div>
-      <div class="travel-card">
-        <img src="images/travel-main7.jpg" alt="Estadio Nacional Soberanía">
-        <div class="travel-badge" data-en="🎤 Live concert">🎤 Concierto en vivo</div>
-      </div>
-      <div class="travel-card">
-        <img src="images/travel-main8.jpg" alt="Palapa frente al mar">
-        <div class="travel-badge" data-en="🌴 Beachside palapa">🌴 Palapa frente al mar</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- RETRO / GAMING -->
-<div id="retro">
-  <div class="wrap">
-    <div class="retro-grid">
-      <div class="retro-text">
-        <div class="sec-label">Side quests</div>
-        <h2>RetroArch<br><span style="color:var(--cyan)">&amp; Gaming</span></h2>
-        <p data-en="When I'm not coding, you'll find me in RetroArch going through classics from SNES, GBA, and PS1. Retro video games taught me systems thinking, patience, and problem-solving long before any course did.">Cuando no estoy programando, me encontrarás en RetroArch recorriendo clásicos de SNES, GBA y PS1. Los videojuegos retro me enseñaron pensamiento sistémico, paciencia y resolución de problemas mucho antes que cualquier curso.</p>
-        <div class="game-tags">
-          <span class="game-tag">🎮 SNES</span>
-          <span class="game-tag">🟡 GBA</span>
-          <span class="game-tag">🔵 PS1</span>
-          <span class="game-tag">🎯 N64</span>
-          <span class="game-tag">⚡ RetroArch</span>
-          <span class="game-tag">📺 EmulationStation</span>
-        </div>
-      </div>
-      <div class="terminal">
-        <div class="term-bar">
-          <div class="dot-r"></div><div class="dot-y"></div><div class="dot-g"></div>
-          <span style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--text-3);margin-left:0.5rem;">kennet@portfolio ~ $</span>
-        </div>
-        <div class="term-body">
-<span style="color:var(--text-3)">$</span> kennet <span class="tc">--status</span><br>
-<br>
-<span class="tc">NAME     </span><span class="tw"> Kennet Andino</span><br>
-<span class="tc">ROLE     </span><span class="tw"> Software Developer</span><br>
-<span class="tc">LOCATION </span><span class="tw"> Managua, NI 🇳🇮</span><br>
-<span class="tc">STATUS   </span><span style="color:#00FF88"> ● Available</span><br>
-<span class="tc">STACK    </span><span class="tw"> Salesforce / Node / React</span><br>
-<span class="tc">CERTS    </span><span class="tw"> Salesforce Admin ✓</span><br>
-<span class="tc">HOBBY    </span><span class="tw"> RetroGaming 🎮</span><br>
-<span class="tc">VIBE     </span><span class="tw"> Building things that matter</span><br>
-<br>
-<span style="color:var(--text-3)">$</span> <span class="cursor"></span>
-        </div>
-      </div>
-    </div>
-
-    <div class="plat-grid">
-      <div class="plat-card" id="platRA" style="display:none;">
-        <div class="plat-head">
-          <div class="plat-icon" style="background:rgba(201,166,74,0.15);color:#C9A64A;">🏆</div>
-          <div class="plat-name">RetroAchievements</div>
-          <div class="plat-stat" id="platRAStat"></div>
-        </div>
-        <div class="plat-ra-current" id="platRACurrent"></div>
-        <div class="plat-ra-list" id="platRAList"></div>
-      </div>
-      <div class="plat-card" id="platXbox" style="display:none;">
-        <div class="plat-head">
-          <div class="plat-icon" style="background:rgba(16,124,16,0.15);color:#3BC33B;">🎮</div>
-          <div class="plat-name">Xbox</div>
-          <div class="plat-stat" id="platXboxStat"></div>
-        </div>
-        <div class="plat-game" id="platXboxGame"></div>
-      </div>
-      <div class="plat-card" id="platPsn" style="display:none;">
-        <div class="plat-head">
-          <div class="plat-icon" style="background:rgba(0,112,209,0.15);color:#2E9BFF;">🎮</div>
-          <div class="plat-name">PlayStation</div>
-          <div class="plat-stat" id="platPsnStat"></div>
-        </div>
-        <div class="plat-game" id="platPsnGame"></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- CONTACT -->
-<section id="contact">
-  <div class="wrap">
-    <div class="contact-center">
-      <div class="sec-label" style="justify-content:center;" data-en="Let's talk">Hablemos</div>
-      <h2 data-en-html='Do you have a project<br><span style="color:var(--cyan)">in mind?</span>'>¿Tienes un proyecto<br><span style="color:var(--cyan)">en mente?</span></h2>
-      <p data-en="I'm available for freelance projects, collaborations, and opportunities. Reach out and let's talk.">Estoy disponible para proyectos freelance, colaboraciones y oportunidades. Escríbeme y lo conversamos.</p>
-      <div class="contact-links">
-        <a href="mailto:kennethandino71@gmail.com" class="btn-p">✉ kennethandino71@gmail.com</a>
-        <a href="tel:+50577824787" class="btn-o">📱 +505 7782-4787</a>
-        <a href="https://www.linkedin.com/in/kenneth-andino-7247b113a/" target="_blank" rel="noopener" class="btn-o">in LinkedIn</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <span class="fc">KA.dev</span>
-  <span data-en-html='Designed with ♥ — <span class="fc">Kennet Andino</span> · 2026'>Diseñado con ♥ — <span class="fc">Kennet Andino</span> · 2026</span>
-  <span>Managua, Nicaragua 🇳🇮</span>
+<footer style="display:flex;justify-content:space-between;padding:22px 48px;border-top:1px solid rgba(242,242,238,.14);font:400 11px 'JetBrains Mono',monospace;color:rgba(242,242,238,.45)">
+  <span>© 2026 kennet andino</span>
+  <span>{{ t.footerMade }}</span>
 </footer>
 
-<script>
-  // Nav highlight on scroll
-  const allSections = document.querySelectorAll('[id]');
-  const links = document.querySelectorAll('.nav-links a');
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        links.forEach(l => {
-          l.style.color = l.getAttribute('href') === '#' + e.target.id ? 'var(--cyan)' : '';
-        });
-      }
-    });
-  }, { threshold: 0.35 });
-  allSections.forEach(s => obs.observe(s));
+</x-dc>
+<script type="text/x-dc" data-dc-script="" data-props="{
+  &quot;accentColor&quot;: {&quot;editor&quot;: &quot;color&quot;, &quot;default&quot;: &quot;oklch(0.85 0.19 125)&quot;, &quot;options&quot;: [&quot;oklch(0.85 0.19 125)&quot;, &quot;#00D4E0&quot;, &quot;#FF9F43&quot;, &quot;#FF5C8A&quot;], &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Estilo&quot;},
+  &quot;photoMood&quot;: {&quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;duotono&quot;, &quot;blanco y negro&quot;, &quot;color&quot;], &quot;default&quot;: &quot;duotono&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Estilo&quot;},
+  &quot;projAnimation&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Animación Proyectos (cola)&quot;},
+  &quot;projAnimDirection&quot;: {&quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;derecha&quot;, &quot;izquierda&quot;], &quot;default&quot;: &quot;derecha&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Animación Proyectos (cola)&quot;},
+  &quot;projAnimStagger&quot;: {&quot;editor&quot;: &quot;range&quot;, &quot;default&quot;: 120, &quot;min&quot;: 0, &quot;max&quot;: 400, &quot;step&quot;: 20, &quot;unit&quot;: &quot;ms&quot;, &quot;tsType&quot;: &quot;number&quot;, &quot;section&quot;: &quot;Animación Proyectos (cola)&quot;},
+  &quot;projAnimDuration&quot;: {&quot;editor&quot;: &quot;range&quot;, &quot;default&quot;: 600, &quot;min&quot;: 200, &quot;max&quot;: 1500, &quot;step&quot;: 50, &quot;unit&quot;: &quot;ms&quot;, &quot;tsType&quot;: &quot;number&quot;, &quot;section&quot;: &quot;Animación Proyectos (cola)&quot;}
+}">
+class Component extends DCLogic {
+  state = {
+    lang: (typeof localStorage !== "undefined" && localStorage.getItem("portfolio-lang")) === "en" ? "en" : "es",
+    formName: "", formEmail: "", formMsg: "", sent: false,
+    spotify: null, gaming: null, projIn: false
+  };
 
-  // Scroll reveal — fade in sections
-  const revealObs = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) { e.target.style.opacity = '1'; e.target.style.transform = 'translateY(0)'; }
-    });
-  }, { threshold: 0.08 });
-  document.querySelectorAll('.proj-card, .cert-card, .str-card, .tl-item, .travel-card').forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(20px)';
-    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-    revealObs.observe(el);
-  });
-
-  // Project card image carousels
-  document.querySelectorAll('.proj-img-wrap').forEach(wrap => {
-    const slides = wrap.querySelectorAll('.proj-img-slide');
-    if (slides.length <= 1) return;
-
-    const dotsWrap = document.createElement('div');
-    dotsWrap.className = 'proj-img-dots';
-    slides.forEach((_, i) => {
-      const dot = document.createElement('span');
-      dot.className = 'proj-img-dot' + (i === 0 ? ' active' : '');
-      dotsWrap.appendChild(dot);
-    });
-    wrap.appendChild(dotsWrap);
-    const dots = dotsWrap.querySelectorAll('.proj-img-dot');
-
-    let idx = 0;
-    setInterval(() => {
-      slides[idx].classList.remove('active');
-      dots[idx].classList.remove('active');
-      idx = (idx + 1) % slides.length;
-      slides[idx].classList.add('active');
-      dots[idx].classList.add('active');
-    }, 3200);
-  });
-
-  // Language switch (ES / EN)
-  (function () {
-    const titles = {
-      es: 'Kennet Andino — Desarrollador de Software',
-      en: 'Kennet Andino — Software Developer'
+  applyTheme() {
+    const accent = this.props.accentColor ?? "oklch(0.85 0.19 125)";
+    const mood = this.props.photoMood ?? "duotono";
+    const filters = {
+      "duotono": "grayscale(35%) contrast(1.05)",
+      "blanco y negro": "grayscale(100%) contrast(1.1)",
+      "color": "none"
     };
-    const textEls = document.querySelectorAll('[data-en]');
-    const htmlEls = document.querySelectorAll('[data-en-html]');
+    document.body.style.setProperty("--ka-accent", accent);
+    document.body.style.setProperty("--ka-photo-filter", filters[mood] || filters["duotono"]);
+  }
 
-    textEls.forEach(el => { el.dataset.es = el.textContent; });
-    htmlEls.forEach(el => { el.dataset.esHtml = el.innerHTML; });
-
-    const switchEl = document.getElementById('langSwitch');
-    const opts = switchEl.querySelectorAll('.lang-opt');
-
-    function setLang(lang) {
-      textEls.forEach(el => { el.textContent = lang === 'en' ? el.dataset.en : el.dataset.es; });
-      htmlEls.forEach(el => { el.innerHTML = lang === 'en' ? el.dataset.enHtml : el.dataset.esHtml; });
-      document.documentElement.lang = lang;
-      document.title = titles[lang];
-      opts.forEach(o => o.classList.toggle('active', o.dataset.lang === lang));
-      localStorage.setItem('portfolio-lang', lang);
-      document.dispatchEvent(new CustomEvent('langchange', { detail: { lang } }));
+  componentDidUpdate(prevProps) {
+    this.applyTheme();
+    const animKeys = ["projAnimation", "projAnimDirection", "projAnimStagger", "projAnimDuration"];
+    if (animKeys.some(k => prevProps[k] !== this.props[k]) && (this.props.projAnimation ?? true)) {
+      this.setState({ projIn: false });
+      clearTimeout(this._replayT);
+      this._replayT = setTimeout(() => this.setState({ projIn: true }), 120);
     }
+  }
 
-    switchEl.addEventListener('click', () => {
-      const current = document.documentElement.lang === 'en' ? 'en' : 'es';
-      setLang(current === 'en' ? 'es' : 'en');
+  componentDidMount() {
+    this.applyTheme();
+    this._obs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          this.setState({ projIn: true });
+          this._obs.disconnect();
+        }
+      });
+    }, { threshold: 0.15 });
+    const attach = (tries) => {
+      const projSec = document.getElementById("proyectos");
+      if (projSec) { this._obs.observe(projSec); return; }
+      if (tries > 0) setTimeout(() => attach(tries - 1), 200);
+    };
+    attach(50);
+    this._fallbackT = setTimeout(() => {
+      if (!this.state.projIn) this.setState({ projIn: true });
+    }, 4000);
+    fetch((window.__resources && window.__resources.spotifyJson) || "spotify-now-playing.json", { cache: "no-store" })
+      .then(r => r.ok ? r.json() : null)
+      .then(spotify => spotify && this.setState({ spotify }))
+      .catch(() => {});
+    fetch((window.__resources && window.__resources.gamingJson) || "gaming-status.json", { cache: "no-store" })
+      .then(r => r.ok ? r.json() : null)
+      .then(gaming => gaming && this.setState({ gaming }))
+      .catch(() => {});
+  }
+
+  setLang(lang) {
+    this.setState({ lang });
+    try { localStorage.setItem("portfolio-lang", lang); } catch (e) {}
+  }
+
+  renderVals() {
+    const lang = this.state.lang;
+    const en = lang === "en";
+    const sp = this.state.spotify || {};
+    const gm = this.state.gaming || {};
+    const retro = gm.retro || {};
+    const xbox = gm.xbox || {};
+
+    const t = en ? {
+      navAbout: "About me", navExp: "Experience", navProj: "Projects", navMusic: "Music", navTravel: "Travels", navContact: "Contact",
+      avail: "available for projects",
+      heroSub1: "software developer — backend, web & ux/ui",
+      heroSub2: "// desarrollador de software — managua",
+      aboutTitle: "About me",
+      aboutP1: "I'm a software developer experienced in backend, web development, and UX/UI design. I enjoy turning business ideas and needs into practical, appealing, and easy-to-use applications.",
+      aboutP2: "I work with Salesforce, Apex, LWC, JavaScript, Node.js, Supabase, SQL, APIs, and integrations with external services. I'm creative, adaptable, and committed to continuous learning.",
+      aboutP3: "// my greatest satisfaction is seeing a solution I built create real impact in a team's day-to-day work.",
+      expTitle: "Experience", projTitle: "Projects", certTitle: "Certifications",
+      scrollHint: "← scroll →",
+      musicTitle1: "The music that", musicTitle2: "keeps me company_",
+      musicP1: "between commits, designs, and coffee. this is what's in rotation while I work.",
+      musicP2: "// lo que suena mientras trabajo.",
+      travelTitle: "Travels & Places", travelTag: "// outside the code",
+      travelP: "life isn't just code. these are some of the places that have inspired me and given me perspective.",
+      sqP: "when I'm not coding, you'll find me in retroarch going through classics from snes, gba, and ps1. retro games taught me systems thinking and patience long before any course did.",
+      termAvail: "Available", lastGame: "last game:",
+      contactTitle: "Contact",
+      contactP1: "have a project in mind? I'm available for freelance, collaborations, and opportunities.",
+      contactP2: "// ¿tienes un proyecto en mente? hablemos.",
+      phName: "name", phMsg: "message",
+      sentMsg: "✓ message sent",
+      footerMade: "made in nicaragua 🌋"
+    } : {
+      navAbout: "Sobre mí", navExp: "Experiencia", navProj: "Proyectos", navMusic: "Música", navTravel: "Viajes", navContact: "Contacto",
+      avail: "disponible para proyectos",
+      heroSub1: "desarrollador de software — backend, web & ux/ui",
+      heroSub2: "// software developer — managua",
+      aboutTitle: "Sobre mí",
+      aboutP1: "Soy desarrollador de software con experiencia en backend, desarrollo web y diseño UX/UI. Disfruto convertir ideas y necesidades de negocio en aplicaciones prácticas, atractivas y fáciles de usar.",
+      aboutP2: "Trabajo con Salesforce, Apex, LWC, JavaScript, Node.js, Supabase, SQL, APIs e integraciones con servicios externos. Me considero una persona creativa, adaptable y comprometida con el aprendizaje continuo.",
+      aboutP3: "// mi mayor satisfacción es ver una solución que diseñé generando impacto real en el día a día de un equipo.",
+      expTitle: "Experiencia", projTitle: "Proyectos", certTitle: "Certificaciones",
+      scrollHint: "← desliza / scroll →",
+      musicTitle1: "La música que", musicTitle2: "me acompaña_",
+      musicP1: "entre commits, diseños y cafés. esto es lo que está en rotación mientras trabajo.",
+      musicP2: "// what's playing while I work.",
+      travelTitle: "Viajes & Lugares", travelTag: "// fuera del código",
+      travelP: "la vida no es solo código. estos son algunos de los lugares que me han inspirado y dado perspectiva.",
+      sqP: "cuando no estoy programando, me encontrarás en retroarch recorriendo clásicos de snes, gba y ps1. los videojuegos retro me enseñaron pensamiento sistémico y paciencia antes que cualquier curso.",
+      termAvail: "Available", lastGame: "último juego:",
+      contactTitle: "Contacto",
+      contactP1: "¿tienes un proyecto en mente? estoy disponible para freelance, colaboraciones y oportunidades.",
+      contactP2: "// have a project in mind? let's talk.",
+      phName: "nombre", phMsg: "mensaje",
+      sentMsg: "✓ mensaje enviado",
+      footerMade: "hecho en nicaragua 🌋"
+    };
+
+    const jobs = en ? [
+      { period: "Sep 2023 — Jun 2026", co: "Pangea Financial Group", role: "Web / Backend Developer & UX-UI Designer", desc: "Web tools and internal interfaces to improve operations. Backend logic, automations, REST API integrations, OAuth and third-party services. Full cycle: analysis, design, development, validation, and continuous improvement." },
+      { period: "May 2023 — Aug 2023", co: "Lendinero", role: "Sales Advisor", desc: "Phone sales of credit and financing for U.S. businesses. Lead qualification, objection handling, and sales follow-up." },
+      { period: "Oct 2022 — Apr 2023", co: "Globalpro", role: "Sales Manager", desc: "Customer service and advisory, sales follow-up, and laptop sales management." },
+      { period: "Mar 2020", co: "\"El Éxito\" Project", role: "Database Administrator", desc: "Database design for a control and sales system; information structure and organization." },
+      { period: "Aug 2018", co: "UNI Academic Project", role: "Developer · Geolator", desc: "Educational app for geometric calculations, supporting elementary students' learning." }
+    ] : [
+      { period: "Sep 2023 — Jun 2026", co: "Pangea Financial Group", role: "Desarrollador Web / Backend & UX-UI", desc: "Herramientas web e interfaces internas para mejorar procesos operativos. Lógica backend, automatizaciones, integración de APIs REST, OAuth y servicios de terceros. Ciclo completo: análisis, diseño, desarrollo, validación y mejora continua." },
+      { period: "May 2023 — Ago 2023", co: "Lendinero", role: "Asesor Comercial", desc: "Venta telefónica de créditos y financiamiento para negocios en EE. UU. Calificación de leads, manejo de objeciones y seguimiento comercial." },
+      { period: "Oct 2022 — Abr 2023", co: "Globalpro", role: "Jefe de Ventas", desc: "Atención y asesoría a clientes, seguimiento comercial y gestión de ventas de equipos portátiles." },
+      { period: "Mar 2020", co: "Proyecto \"El Éxito\"", role: "Administrador de Base de Datos", desc: "Diseño de base de datos para sistema de control y ventas; estructura y organización de la información." },
+      { period: "Ago 2018", co: "Proyecto Académico UNI", role: "Desarrollador · Geolator", desc: "App educativa para cálculo de figuras geométricas, como apoyo al aprendizaje de estudiantes de primaria." }
+    ];
+
+    const projects = en ? [
+      { num: "(01)", name: "RFP Platform", tag: "SALESFORCE", chips: ["Apex", "LWC", "REST APIs", "Webhooks"], desc: "Automates requests to insurance carriers: maps the census, generates the required Excel files, and attaches them to the email. AI module that processes quote PDFs and summarizes the best plans.", placeholder: "rfp screenshot" },
+      { num: "(02)", name: "Business Card Connect", tag: "WEB APP", chips: ["React", "TanStack", "Supabase", "QR API"], desc: "Digital business cards with a public profile, downloadable VCF files, and a unique QR code per profile.", placeholder: "bcc screenshot" },
+      { num: "(03)", name: "Card Library · Design System", tag: "DESIGN SYSTEM", chips: ["Web Components", "JavaScript", "Remote Bundle"], desc: "Design system with 11 embeddable Web Components via remote bundle — visual consistency across the ecosystem without duplicating code.", placeholder: "design system screenshot" },
+      { num: "(04)", name: "Meeting Notes Hub", tag: "INTERNAL TOOL", chips: ["React", "Vite", "Salesforce Lookup", "shadcn/ui"], desc: "Captures and organizes client meeting notes; assigns tasks to Salesforce users via integrated lookup.", placeholder: "notes hub screenshot" }
+    ] : [
+      { num: "(01)", name: "RFP Platform", tag: "SALESFORCE", chips: ["Apex", "LWC", "APIs REST", "Webhooks"], desc: "Automatización de solicitudes a carriers de seguros: mapea el censo, genera los Excel requeridos y los adjunta al correo. Módulo de IA que procesa PDFs de cotización y resume los mejores planes.", placeholder: "captura rfp" },
+      { num: "(02)", name: "Business Card Connect", tag: "WEB APP", chips: ["React", "TanStack", "Supabase", "QR API"], desc: "Tarjetas de presentación digitales con perfil público, archivos VCF descargables y código QR único por perfil.", placeholder: "captura bcc" },
+      { num: "(03)", name: "Card Library · Design System", tag: "DESIGN SYSTEM", chips: ["Web Components", "JavaScript", "Remote Bundle"], desc: "Sistema de diseño con 11 Web Components embebibles vía bundle remoto — consistencia visual en todo el ecosistema sin duplicar código.", placeholder: "captura design system" },
+      { num: "(04)", name: "Meeting Notes Hub", tag: "INTERNAL TOOL", chips: ["React", "Vite", "Salesforce Lookup", "shadcn/ui"], desc: "Captura y organiza notas de reuniones con clientes; asigna tareas a usuarios de Salesforce mediante lookup integrado.", placeholder: "captura notes hub" }
+    ];
+
+    const certs = en ? [
+      { num: "(01)", name: "Salesforce Certified Administrator", org: "Salesforce" },
+      { num: "(02)", name: "Web Page Designer", org: "Certification" },
+      { num: "(03)", name: "English Course", org: "Cornerstone" },
+      { num: "(04)", name: "AI Course", org: "Skool" }
+    ] : [
+      { num: "(01)", name: "Salesforce Certified Administrator", org: "Salesforce" },
+      { num: "(02)", name: "Diseñador de Páginas Web", org: "Certificación" },
+      { num: "(03)", name: "Curso de Inglés", org: "Cornerstone" },
+      { num: "(04)", name: "Curso de IA", org: "Skool" }
+    ];
+
+    const travels = [
+      { id: "travel1", span: "span 2", h: "260px", ph: en ? "photo: sunset by the sea" : "foto: atardecer frente al mar", label: en ? "🌅 sunset by the sea" : "🌅 atardecer frente al mar" },
+      { id: "travel2", span: "span 2", h: "260px", ph: en ? "photo: our wedding" : "foto: nuestra boda", label: en ? "💍 our wedding" : "💍 nuestra boda" },
+      { id: "travel3", span: "auto", h: "200px", ph: en ? "photo: colonial architecture" : "foto: arquitectura colonial", label: en ? "⛪ colonial architecture" : "⛪ arquitectura colonial" },
+      { id: "travel4", span: "auto", h: "200px", ph: en ? "photo: managua skyline" : "foto: vista de managua", label: en ? "🏙️ managua skyline" : "🏙️ vista de managua" },
+      { id: "travel5", span: "auto", h: "200px", ph: en ? "photo: beach evening" : "foto: tarde de playa", label: en ? "🏖️ beach evening" : "🏖️ tarde de playa" },
+      { id: "travel6", span: "auto", h: "200px", ph: en ? "photo: family time" : "foto: en familia", label: en ? "👨‍👦 family time" : "👨‍👦 en familia" },
+      { id: "travel7", span: "span 2", h: "220px", ph: en ? "photo: live concert" : "foto: concierto en vivo", label: en ? "🎤 live concert" : "🎤 concierto en vivo" },
+      { id: "travel8", span: "span 2", h: "220px", ph: en ? "photo: beachside palapa" : "foto: palapa frente al mar", label: en ? "🌴 beachside palapa" : "🌴 palapa frente al mar" }
+    ];
+
+    const coUrls = { "Pangea Financial Group": "https://pangea.us", "Lendinero": "https://www.lendinero.com", "Globalpro": "https://globalpronic.com" };
+    jobs.forEach(j => { j.url = coUrls[j.co] || null; j.noUrl = !j.url; });
+    const R = window.__resources || {};
+    const projImgs = [R.projRfp || "assets/project-rfp1.png", R.projBcc || "assets/project-bcc1.png", R.projDs || "assets/project-design-system1.png", R.projNotes || "assets/project-meeting-notes1.png"];
+    travels.forEach((tr, i) => {
+      const src = R["travel" + (i + 1)] || (i === 0 ? "assets/travel-main.jpg" : "assets/travel-main" + (i + 1) + ".jpg");
+      tr.imgNode = React.createElement("img", { src, alt: tr.label, style: { width: "100%", height: "100%", objectFit: "cover", display: "block" } });
     });
-
-    const saved = localStorage.getItem('portfolio-lang');
-    if (saved === 'en') setLang('en');
-  })();
-
-  // Live "now playing" status, updated periodically by a GitHub Action
-  (function () {
-    const wrap = document.getElementById('spNow');
-    const artEl = document.getElementById('spNowArt');
-    const songEl = document.getElementById('spNowSong');
-    const artistEl = document.getElementById('spNowArtist');
-    const badgeEl = document.getElementById('spNowBadge');
-    let data = null;
-
-    function render(lang) {
-      if (!data || !data.track) return;
-      songEl.textContent = data.track;
-      artistEl.textContent = data.artist || '';
-      badgeEl.textContent = data.isPlaying
-        ? (lang === 'en' ? '● LIVE' : '● EN VIVO')
-        : (lang === 'en' ? 'LAST PLAYED' : 'ÚLTIMA VEZ');
-      badgeEl.className = 'sp-now-badge ' + (data.isPlaying ? 'live' : 'last');
-      if (data.albumArt && artEl.tagName === 'DIV') {
-        const img = document.createElement('img');
-        img.className = 'sp-now-art';
-        img.src = data.albumArt;
-        img.alt = data.track;
-        artEl.replaceWith(img);
+    const lime = "var(--ka-accent)";
+    const animOn = this.props.projAnimation ?? true;
+    const fromLeft = (this.props.projAnimDirection ?? "derecha") === "izquierda";
+    const stagger = this.props.projAnimStagger ?? 120;
+    const dur = this.props.projAnimDuration ?? 600;
+    const shown = !animOn || this.state.projIn;
+    const animProjects = projects.map((p, i) => ({
+      ...p,
+      imgNode: React.createElement("img", { src: projImgs[i], alt: p.name, style: { height: 220, width: "100%", objectFit: "cover", objectPosition: "top", display: "block" } }),
+      op: shown ? "1" : "0",
+      tx: shown ? "translateX(0)" : "translateX(" + (fromLeft ? "-" : "") + "90px)",
+      trans: animOn
+        ? "transform " + dur + "ms cubic-bezier(.22,1,.36,1) " + (i * stagger) + "ms, opacity " + dur + "ms ease " + (i * stagger) + "ms"
+        : "none"
+    }));
+    return {
+      t, jobs, projects: animProjects, certs, travels,
+      skillCats: [
+        { name: "Salesforce", tags: ["CRM", "Apex", "LWC", "SOQL", "SOSL"] },
+        { name: "Web / Backend", tags: ["JavaScript", "Node.js", "HTML", "CSS", en ? "REST APIs" : "APIs REST", "OAuth 2.0", "Webhooks"] },
+        { name: en ? "Data & DevOps" : "Datos & DevOps", tags: ["Supabase", "PostgreSQL", "SQL", "Git / GitHub", "Postman"] },
+        { name: en ? "Design & Tools" : "Diseño & Herramientas", tags: ["UX / UI", "Web Components", "React", "shadcn/ui", "Vite"] }
+      ],
+      gameTags: ["🎮 SNES", "🟡 GBA", "🔵 PS1", "🎯 N64", "⚡ RetroArch", "📺 EmulationStation"],
+      raPoints: retro.points != null ? String(retro.points) : "—",
+      raGames: (retro.recentGames || []).slice(0, 4).map(g => ({
+        ...g,
+        imgNode: g.image ? React.createElement("img", { src: g.image, alt: g.title, style: { width: 32, height: 32, objectFit: "cover", display: "block" } }) : null
+      })),
+      xboxGs: xbox.gamerscore || "—",
+      xboxTag: xbox.gamertag ? "gamertag: " + xbox.gamertag : "",
+      xboxGame: xbox.recentGame || "—",
+      spTrack: sp.track || "…",
+      spArtist: sp.artist || "",
+      spArtImg: sp.albumArt ? React.createElement("img", { src: sp.albumArt, alt: "album", style: { width: 56, height: 56, objectFit: "cover", display: "block" } }) : null,
+      spBadge: sp.isPlaying ? (en ? "● LIVE" : "● EN VIVO") : (en ? "LAST PLAYED" : "ÚLTIMA VEZ"),
+      setEs: () => this.setLang("es"),
+      setEn: () => this.setLang("en"),
+      esBg: en ? "transparent" : lime,
+      esColor: en ? "rgba(242,242,238,.5)" : "#101010",
+      enBg: en ? lime : "transparent",
+      enColor: en ? "#101010" : "rgba(242,242,238,.5)",
+      formName: this.state.formName,
+      formEmail: this.state.formEmail,
+      formMsg: this.state.formMsg,
+      sent: this.state.sent,
+      onName: (e) => this.setState({ formName: e.target.value, sent: false }),
+      onEmail: (e) => this.setState({ formEmail: e.target.value, sent: false }),
+      onMsg: (e) => this.setState({ formMsg: e.target.value, sent: false }),
+      onSend: () => {
+        if (!this.state.formName && !this.state.formEmail && !this.state.formMsg) return;
+        this.setState({ sent: true, formName: "", formEmail: "", formMsg: "" });
       }
-      wrap.style.display = 'flex';
-    }
-
-    fetch('spotify-now-playing.json', { cache: 'no-store' })
-      .then(r => (r.ok ? r.json() : null))
-      .then(json => {
-        data = json;
-        render(document.documentElement.lang === 'en' ? 'en' : 'es');
-      })
-      .catch(() => {});
-
-    document.addEventListener('langchange', e => render(e.detail.lang));
-  })();
-
-  // Gaming profile cards (RetroAchievements / Xbox / PlayStation)
-  (function () {
-    function showCard(cardId, statId, gameId, statText, gameText) {
-      document.getElementById(statId).textContent = statText;
-      document.getElementById(gameId).textContent = gameText || '';
-      document.getElementById(cardId).style.display = 'block';
-    }
-
-    fetch('gaming-status.json', { cache: 'no-store' })
-      .then(r => (r.ok ? r.json() : null))
-      .then(data => {
-        if (!data) return;
-
-        if (data.retro && data.retro.points != null) {
-          document.getElementById('platRAStat').textContent = `${data.retro.points} pts`;
-
-          const games = data.retro.recentGames || [];
-          const current = games[0];
-          const currentEl = document.getElementById('platRACurrent');
-          if (current) {
-            currentEl.innerHTML = '';
-            if (current.image) {
-              const img = document.createElement('img');
-              img.src = current.image;
-              img.alt = current.title;
-              currentEl.appendChild(img);
-            }
-            const title = document.createElement('div');
-            title.className = 'plat-ra-current-title';
-            title.textContent = current.title;
-            currentEl.appendChild(title);
-          }
-
-          const listEl = document.getElementById('platRAList');
-          listEl.innerHTML = '';
-          games.slice(1, 4).forEach(g => {
-            const item = document.createElement('div');
-            item.className = 'plat-ra-item';
-            if (g.image) {
-              const img = document.createElement('img');
-              img.src = g.image;
-              img.alt = g.title;
-              item.appendChild(img);
-            }
-            const span = document.createElement('span');
-            span.textContent = g.title;
-            item.appendChild(span);
-            listEl.appendChild(item);
-          });
-
-          document.getElementById('platRA').style.display = 'block';
-        }
-
-        if (data.xbox && data.xbox.gamerscore != null) {
-          showCard(
-            'platXbox', 'platXboxStat', 'platXboxGame',
-            `⚡ ${data.xbox.gamerscore} GS`,
-            data.xbox.recentGame ? `🎮 ${data.xbox.recentGame}` : ''
-          );
-        }
-
-        if (data.psn && data.psn.level != null) {
-          const gameText = data.psn.isPlaying && data.psn.currentGame
-            ? `● ${data.psn.currentGame}`
-            : '';
-          showCard(
-            'platPsn', 'platPsnStat', 'platPsnGame',
-            `Lv. ${data.psn.level}`,
-            gameText
-          );
-        }
-      })
-      .catch(() => {});
-  })();
+    };
+  }
+}
 </script>
-</body>
-</html>
+
+
+</body></html>
