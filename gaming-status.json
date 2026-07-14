@@ -3,7 +3,7 @@
     "username": "Maximostarlord03",
     "points": 4,
     "rank": null,
-    "totalRanked": 153017,
+    "totalRanked": 153023,
     "userPic": "https://media.retroachievements.org/UserPic/Maximostarlord03.png",
     "recentGame": "New Super Mario Bros.",
     "recentGames": [
@@ -40,11 +40,11 @@
     ]
   },
   "xbox": {
-    "gamertag": "StarlordMax1818",
-    "gamerscore": "1625",
-    "gamerpic": "https://images-eds-ssl.xboxlive.com/image?url=8Oaj9Ryq1G1_p3lLnXlsaZgGzAie6Mnu24_PawYuDYIoH77pJ.X5Z.MqQPibUVTcS9jr0n8i7LY1tL3U7AiafbJpCp1P4NE9.MGs216IQhsfpil.xkCidK6D.Ocu_4wN&format=png",
+    "gamertag": null,
+    "gamerscore": null,
+    "gamerpic": null,
     "recentGame": "Minecraft for Android"
   },
   "psn": null,
-  "updatedAt": "2026-07-14T11:00:09.337Z"
+  "updatedAt": "2026-07-14T12:13:48.567Z"
 }
