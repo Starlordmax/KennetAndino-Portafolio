@@ -214,18 +214,52 @@
 }
 </style>
 <style>
+*,*::before,*::after{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;background:#101010;color:#f2f2ee;font-family:'Space Grotesk',sans-serif;--ka-accent:oklch(0.85 0.19 125);--ka-photo-filter:grayscale(35%) contrast(1.05)}
+body{margin:0;background:#101010;color:#f2f2ee;font-family:'Space Grotesk',sans-serif;--ka-accent:oklch(0.85 0.19 125);--ka-photo-filter:grayscale(35%) contrast(1.05);overflow-x:hidden;max-width:100vw}
 a{color:inherit}a:hover{opacity:.75}
 ::placeholder{color:rgba(242,242,238,.4)}
+img{max-width:100%}
+.sq-cards>div{min-width:0}
 @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+
+/* ── RESPONSIVE ── */
+@media (max-width:860px){
+  header{padding:16px 20px!important;flex-wrap:wrap!important;row-gap:10px!important}
+  .hdr-right{width:100%;justify-content:space-between!important;gap:12px!important}
+  header nav{gap:12px!important;flex-wrap:wrap!important;font-size:10px!important}
+
+  section{padding-left:20px!important;padding-right:20px!important}
+  footer{padding-left:20px!important;padding-right:20px!important;flex-wrap:wrap!important;gap:8px!important}
+  section h2{font-size:32px!important}
+
+  #inicio{padding-top:104px!important;padding-bottom:40px!important;min-height:auto!important;gap:26px!important}
+  .hero-side-label{display:none!important}
+  .hero-icons{position:static!important;flex-direction:row!important;justify-content:center!important;margin-bottom:6px!important}
+  .hero-photo{width:100%!important;max-width:100%!important;height:220px!important}
+
+  #sobre-mi,#contacto,.sq-top,.sq-cards{grid-template-columns:1fr!important;gap:28px!important}
+  #experiencia article{grid-template-columns:1fr!important;gap:10px!important}
+
+  .proj-scroll{padding:4px 20px 20px!important}
+  .proj-card{width:min(80vw,320px)!important}
+
+  .certs-grid{grid-template-columns:repeat(2,1fr)!important}
+  .travel-grid{grid-template-columns:repeat(2,1fr)!important;gap:10px!important}
+}
+
+@media (max-width:480px){
+  #inicio h1{font-size:44px!important}
+  section h2{font-size:26px!important}
+  .hero-photo{height:180px!important}
+}
 </style>
 </helmet>
 
 <header style="position:sticky;top:0;z-index:10;display:flex;justify-content:space-between;align-items:center;padding:20px 48px;border-bottom:1px solid rgba(242,242,238,.14);background:rgba(16,16,16,.92);backdrop-filter:blur(8px)">
   <a href="#inicio" style="font:700 15px 'Space Grotesk',sans-serif;letter-spacing:.05em;text-decoration:none">KA—26</a>
-  <div style="display:flex;align-items:center;gap:26px">
+  <div class="hdr-right" style="display:flex;align-items:center;gap:26px">
     <nav style="display:flex;gap:26px;font:500 11px 'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase">
       <a href="#sobre-mi" style="text-decoration:none">{{ t.navAbout }}</a>
       <a href="#experiencia" style="text-decoration:none">{{ t.navExp }}</a>
@@ -241,8 +275,8 @@ a{color:inherit}a:hover{opacity:.75}
 </header>
 
 <section id="inicio" data-screen-label="Hero" style="position:relative;min-height:82vh;padding:80px 48px 72px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:40px">
-  <div style="position:absolute;right:34px;top:96px;writing-mode:vertical-rl;font:500 12px 'JetBrains Mono',monospace;letter-spacing:.5em;color:var(--ka-accent)">NICARAGUA</div>
-  <div style="position:absolute;left:34px;top:96px;display:flex;flex-direction:column;gap:12px">
+  <div class="hero-side-label" style="position:absolute;right:34px;top:96px;writing-mode:vertical-rl;font:500 12px 'JetBrains Mono',monospace;letter-spacing:.5em;color:var(--ka-accent)">NICARAGUA</div>
+  <div class="hero-icons" style="position:absolute;left:34px;top:96px;display:flex;flex-direction:column;gap:12px">
     <a href="https://www.linkedin.com/in/kenneth-andino-7247b113a/" target="_blank" rel="noopener" title="LinkedIn" style="width:36px;height:36px;border:1px solid rgba(242,242,238,.3);display:grid;place-items:center;font:500 10px 'JetBrains Mono',monospace;text-decoration:none;border-radius:50%" style-hover="border-color:var(--ka-accent);color:var(--ka-accent)">IN</a>
     <a href="mailto:kennethandino71@gmail.com" title="Email" style="width:36px;height:36px;border:1px solid rgba(242,242,238,.3);display:grid;place-items:center;font:500 10px 'JetBrains Mono',monospace;text-decoration:none;border-radius:50%" style-hover="border-color:var(--ka-accent);color:var(--ka-accent)">✉</a>
     <a href="#side-quests" title="Gaming" style="width:36px;height:36px;border:1px solid rgba(242,242,238,.3);display:grid;place-items:center;font:500 10px 'JetBrains Mono',monospace;text-decoration:none;border-radius:50%" style-hover="border-color:var(--ka-accent);color:var(--ka-accent)">🎮</a>
@@ -252,7 +286,7 @@ a{color:inherit}a:hover{opacity:.75}
     {{ t.avail }}
   </div>
   <h1 style="margin:0;font:700 clamp(64px,10vw,132px)/0.95 'Space Grotesk',sans-serif;letter-spacing:-.03em;text-align:center;text-transform:uppercase">Kennet<br><span style="color:var(--ka-accent)">Andino</span></h1>
-  <div style="width:680px;max-width:78%;height:300px;overflow:hidden;border:1px solid rgba(242,242,238,.18)">
+  <div class="hero-photo" style="width:680px;max-width:78%;height:300px;overflow:hidden;border:1px solid rgba(242,242,238,.18)">
     <img src="assets/hero.jpg" alt="Kennet Andino" style="width:100%;height:100%;object-fit:cover;object-position:center 30%;display:block;filter:var(--ka-photo-filter);transition:filter .4s ease">
   </div>
   <p style="margin:0;font:400 13px/1.7 'JetBrains Mono',monospace;color:rgba(242,242,238,.65);text-align:center">{{ t.heroSub1 }}<br><span style="color:var(--ka-accent)">{{ t.heroSub2 }}</span></p>
@@ -319,9 +353,9 @@ a{color:inherit}a:hover{opacity:.75}
     <h2 style="margin:0;font:700 48px 'Space Grotesk',sans-serif;text-transform:uppercase;letter-spacing:-.02em">{{ t.projTitle }}<span style="color:var(--ka-accent)">_</span></h2>
     <span style="font:400 11px 'JetBrains Mono',monospace;color:rgba(242,242,238,.5)">{{ t.scrollHint }}</span>
   </div>
-  <div style="display:flex;gap:24px;overflow-x:auto;padding:4px 48px 20px;scroll-snap-type:x mandatory">
+  <div class="proj-scroll" style="display:flex;gap:24px;overflow-x:auto;padding:4px 48px 20px;scroll-snap-type:x mandatory">
     <sc-for list="{{ projects }}" as="p" hint-placeholder-count="4">
-      <article style="flex:none;width:360px;scroll-snap-align:start;display:flex;flex-direction:column;gap:12px;border:1px solid rgba(242,242,238,.14);padding:16px;opacity:{{ p.op }};transform:{{ p.tx }};transition:{{ p.trans }}" style-hover="border-color:var(--ka-accent)">
+      <article class="proj-card" style="flex:none;width:360px;scroll-snap-align:start;display:flex;flex-direction:column;gap:12px;border:1px solid rgba(242,242,238,.14);padding:16px;opacity:{{ p.op }};transform:{{ p.tx }};transition:{{ p.trans }}" style-hover="border-color:var(--ka-accent)">
         <div style="display:flex;justify-content:space-between;font:400 10px 'JetBrains Mono',monospace;color:rgba(242,242,238,.5)"><span>{{ p.num }}</span><span style="color:var(--ka-accent)">{{ p.tag }}</span></div>
         <div style="height:220px;width:100%;overflow:hidden;background:#1c1c1c">{{ p.imgNode }}</div>
         <h3 style="margin:0;font:700 18px 'Space Grotesk',sans-serif;text-transform:uppercase">{{ p.name }}</h3>
@@ -338,7 +372,7 @@ a{color:inherit}a:hover{opacity:.75}
 
 <section id="certificaciones" data-screen-label="Certificaciones" style="padding:72px 48px 70px;border-top:1px solid rgba(242,242,238,.14)">
   <h2 style="margin:0 0 36px;font:700 48px 'Space Grotesk',sans-serif;text-transform:uppercase;letter-spacing:-.02em">{{ t.certTitle }}<span style="color:var(--ka-accent)">_</span></h2>
-  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:18px">
+  <div class="certs-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:18px">
     <sc-for list="{{ certs }}" as="c" hint-placeholder-count="4">
       <div style="border:1px solid rgba(242,242,238,.14);padding:22px;display:flex;flex-direction:column;gap:12px" style-hover="border-color:var(--ka-accent)">
         <span style="font:400 11px 'JetBrains Mono',monospace;color:var(--ka-accent)">{{ c.num }}</span>
@@ -355,9 +389,9 @@ a{color:inherit}a:hover{opacity:.75}
     <span style="font:400 11px 'JetBrains Mono',monospace;color:rgba(242,242,238,.5)">{{ t.travelTag }}</span>
   </div>
   <p style="margin:0 0 36px;font:400 13px/1.7 'JetBrains Mono',monospace;color:rgba(242,242,238,.6);max-width:560px">{{ t.travelP }}</p>
-  <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px">
+  <div class="travel-grid" style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px">
     <sc-for list="{{ travels }}" as="tr" hint-placeholder-count="8">
-      <div style="display:flex;flex-direction:column;gap:8px;min-width:0;grid-column:{{ tr.span }}">
+      <div class="travel-item" style="display:flex;flex-direction:column;gap:8px;min-width:0;grid-column:{{ tr.span }}">
         <div style="position:relative;width:100%;min-width:0;overflow:hidden;height:{{ tr.h }};background:#1c1c1c">{{ tr.imgNode }}</div>
         <span style="font:400 11px 'JetBrains Mono',monospace;color:rgba(242,242,238,.6)">{{ tr.label }}</span>
       </div>
@@ -366,7 +400,7 @@ a{color:inherit}a:hover{opacity:.75}
 </section>
 
 <section id="side-quests" data-screen-label="Side quests" style="padding:72px 48px 70px;border-top:1px solid rgba(242,242,238,.14);background:#151515">
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;margin-bottom:44px">
+  <div class="sq-top" style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;margin-bottom:44px">
     <div style="display:flex;flex-direction:column;gap:20px">
       <span style="font:500 11px 'JetBrains Mono',monospace;letter-spacing:.2em;color:var(--ka-accent)">SIDE_QUESTS</span>
       <h2 style="margin:0;font:700 48px 'Space Grotesk',sans-serif;text-transform:uppercase;letter-spacing:-.02em;line-height:1">RetroArch<br><span style="color:var(--ka-accent)">&amp; Gaming_</span></h2>
@@ -396,7 +430,7 @@ a{color:inherit}a:hover{opacity:.75}
       </div>
     </div>
   </div>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px">
+  <div class="sq-cards" style="display:grid;grid-template-columns:1fr 1fr;gap:18px">
     <div style="border:1px solid rgba(242,242,238,.14);background:#101010;padding:20px;display:flex;flex-direction:column;gap:14px">
       <div style="display:flex;align-items:center;gap:10px">
         <span style="font-size:18px">🏆</span>
