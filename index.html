@@ -237,7 +237,7 @@ img{max-width:100%}
   #inicio{padding-top:104px!important;padding-bottom:40px!important;min-height:auto!important;gap:26px!important}
   .hero-side-label{display:none!important}
   .hero-icons{position:static!important;flex-direction:row!important;justify-content:center!important;margin-bottom:6px!important}
-  .hero-photo{width:100%!important;max-width:100%!important;height:220px!important}
+  .hero-photo{width:100%!important;max-width:260px!important}
 
   #sobre-mi,#contacto,.sq-top,.sq-cards{grid-template-columns:1fr!important;gap:28px!important}
   #experiencia article{grid-template-columns:1fr!important;gap:10px!important}
@@ -252,7 +252,7 @@ img{max-width:100%}
 @media (max-width:480px){
   #inicio h1{font-size:44px!important}
   section h2{font-size:26px!important}
-  .hero-photo{height:180px!important}
+  .hero-photo{max-width:220px!important}
 }
 </style>
 </helmet>
@@ -286,8 +286,8 @@ img{max-width:100%}
     {{ t.avail }}
   </div>
   <h1 style="margin:0;font:700 clamp(64px,10vw,132px)/0.95 'Space Grotesk',sans-serif;letter-spacing:-.03em;text-align:center;text-transform:uppercase">Kennet<br><span style="color:var(--ka-accent)">Andino</span></h1>
-  <div class="hero-photo" style="width:680px;max-width:78%;height:300px;overflow:hidden;border:1px solid rgba(242,242,238,.18)">
-    <img src="assets/hero.jpg" alt="Kennet Andino" style="width:100%;height:100%;object-fit:cover;object-position:center 30%;display:block;filter:var(--ka-photo-filter);transition:filter .4s ease">
+  <div class="hero-photo" style="width:400px;max-width:78%;aspect-ratio:4/5;overflow:hidden;border:1px solid rgba(242,242,238,.18)">
+    <img src="assets/hero.jpg" alt="Kennet Andino" style="width:100%;height:100%;object-fit:cover;object-position:center 12%;display:block;filter:var(--ka-photo-filter);transition:filter .4s ease">
   </div>
   <p style="margin:0;font:400 13px/1.7 'JetBrains Mono',monospace;color:rgba(242,242,238,.65);text-align:center">{{ t.heroSub1 }}<br><span style="color:var(--ka-accent)">{{ t.heroSub2 }}</span></p>
 </section>
