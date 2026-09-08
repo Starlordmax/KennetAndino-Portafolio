@@ -231,13 +231,14 @@ img{max-width:100%}
   header nav{gap:12px!important;flex-wrap:wrap!important;font-size:10px!important}
 
   section{padding-left:20px!important;padding-right:20px!important}
+  #inicio{padding-left:0!important;padding-right:0!important}
   footer{padding-left:20px!important;padding-right:20px!important;flex-wrap:wrap!important;gap:8px!important}
   section h2{font-size:32px!important}
 
-  #inicio{padding-top:104px!important;padding-bottom:40px!important;min-height:auto!important;gap:26px!important}
-  .hero-side-label{display:none!important}
-  .hero-icons{position:static!important;flex-direction:row!important;justify-content:center!important;margin-bottom:6px!important}
-  .hero-photo{width:100%!important;max-width:260px!important}
+  .hero-grid{grid-template-columns:1fr!important;min-height:auto!important}
+  .hero-grid>div:first-child{padding:96px 20px 32px!important}
+  .hero-photo-wrap{min-height:380px!important}
+  .hero-badge-rail{flex-direction:row!important;padding:22px 20px!important;gap:14px!important}
 
   #sobre-mi,#contacto,.sq-top,.sq-cards{grid-template-columns:1fr!important;gap:28px!important}
   #experiencia article{grid-template-columns:1fr!important;gap:10px!important}
@@ -252,7 +253,7 @@ img{max-width:100%}
 @media (max-width:480px){
   #inicio h1{font-size:44px!important}
   section h2{font-size:26px!important}
-  .hero-photo{max-width:220px!important}
+  .hero-grid>div:first-child p[style*="font:500 22px"]{font-size:18px!important}
 }
 </style>
 </helmet>
@@ -274,22 +275,44 @@ img{max-width:100%}
   </div>
 </header>
 
-<section id="inicio" data-screen-label="Hero" style="position:relative;min-height:82vh;padding:80px 48px 72px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:40px">
-  <div class="hero-side-label" style="position:absolute;right:34px;top:96px;writing-mode:vertical-rl;font:500 12px 'JetBrains Mono',monospace;letter-spacing:.5em;color:var(--ka-accent)">NICARAGUA</div>
-  <div class="hero-icons" style="position:absolute;left:34px;top:96px;display:flex;flex-direction:column;gap:12px">
-    <a href="https://www.linkedin.com/in/kenneth-andino-7247b113a/" target="_blank" rel="noopener" title="LinkedIn" style="width:36px;height:36px;border:1px solid rgba(242,242,238,.3);display:grid;place-items:center;font:500 10px 'JetBrains Mono',monospace;text-decoration:none;border-radius:50%" style-hover="border-color:var(--ka-accent);color:var(--ka-accent)">IN</a>
-    <a href="mailto:kennethandino71@gmail.com" title="Email" style="width:36px;height:36px;border:1px solid rgba(242,242,238,.3);display:grid;place-items:center;font:500 10px 'JetBrains Mono',monospace;text-decoration:none;border-radius:50%" style-hover="border-color:var(--ka-accent);color:var(--ka-accent)">✉</a>
-    <a href="#side-quests" title="Gaming" style="width:36px;height:36px;border:1px solid rgba(242,242,238,.3);display:grid;place-items:center;font:500 10px 'JetBrains Mono',monospace;text-decoration:none;border-radius:50%" style-hover="border-color:var(--ka-accent);color:var(--ka-accent)">🎮</a>
+<section id="inicio" data-screen-label="Hero" style="position:relative;background:#ECE7E2;color:#101010">
+  <div class="hero-grid" style="display:grid;grid-template-columns:1.25fr 1fr 150px;min-height:86vh">
+    <div style="display:flex;flex-direction:column;justify-content:center;gap:20px;padding:120px 40px 56px 48px">
+      <div style="display:flex;flex-direction:column;gap:3px">
+        <span style="font:700 12px 'JetBrains Mono',monospace;letter-spacing:.1em;text-transform:uppercase">Kennet Andino</span>
+        <span style="font:400 11px 'JetBrains Mono',monospace;letter-spacing:.06em;text-transform:uppercase;color:rgba(16,16,16,.5)">{{ t.heroKicker }}</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;font:400 11px 'JetBrains Mono',monospace;color:#101010;border:1px solid rgba(16,16,16,.25);padding:6px 14px;border-radius:20px;width:fit-content">
+        <span style="width:7px;height:7px;border-radius:50%;background:var(--ka-accent);animation:blink 2s ease-in-out infinite"></span>
+        {{ t.avail }}
+      </div>
+      <h1 style="margin:0;font:800 clamp(48px,7vw,100px)/0.94 'Space Grotesk',sans-serif;letter-spacing:-.03em;text-transform:uppercase">Kennet<br>Andino</h1>
+      <div>
+        <p style="margin:0;font:500 22px/1.35 'Space Grotesk',sans-serif;color:#101010">{{ t.heroTagline1 }}</p>
+        <p style="margin:0;font:500 22px/1.35 'Space Grotesk',sans-serif;color:#54611f">{{ t.heroTagline2 }}</p>
+      </div>
+      <div style="width:56px;height:2px;background:#101010"></div>
+      <p style="margin:0;max-width:440px;font:400 13px/1.8 'JetBrains Mono',monospace;color:rgba(16,16,16,.62)">{{ t.heroDesc }}</p>
+      <div style="display:flex;gap:12px;margin-top:6px">
+        <a href="https://www.linkedin.com/in/kenneth-andino-7247b113a/" target="_blank" rel="noopener" title="LinkedIn" style="width:34px;height:34px;border:1px solid rgba(16,16,16,.25);display:grid;place-items:center;font:500 10px 'JetBrains Mono',monospace;text-decoration:none;border-radius:50%;color:#101010" style-hover="border-color:#101010;background:#101010;color:#ECE7E2">IN</a>
+        <a href="mailto:kennethandino71@gmail.com" title="Email" style="width:34px;height:34px;border:1px solid rgba(16,16,16,.25);display:grid;place-items:center;font:500 10px 'JetBrains Mono',monospace;text-decoration:none;border-radius:50%;color:#101010" style-hover="border-color:#101010;background:#101010;color:#ECE7E2">✉</a>
+        <a href="#side-quests" title="Gaming" style="width:34px;height:34px;border:1px solid rgba(16,16,16,.25);display:grid;place-items:center;font:500 10px 'JetBrains Mono',monospace;text-decoration:none;border-radius:50%;color:#101010" style-hover="border-color:#101010;background:#101010;color:#ECE7E2">🎮</a>
+      </div>
+    </div>
+
+    <div class="hero-photo-wrap" style="position:relative;min-height:340px">
+      <img src="assets/hero.jpg" alt="Kennet Andino" style="width:100%;height:100%;object-fit:cover;object-position:top;display:block">
+      <div style="position:absolute;left:20px;bottom:20px;display:flex;align-items:center;gap:6px;font:500 11px 'JetBrains Mono',monospace;background:#ECE7E2;padding:6px 12px;border-radius:20px;color:#101010;white-space:nowrap">
+        📍 managua, nicaragua
+      </div>
+    </div>
+
+    <div class="hero-badge-rail" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:20px 12px;text-align:center">
+      <span style="font:600 10px 'JetBrains Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:rgba(16,16,16,.55)">{{ t.badgeTop }}</span>
+      <div style="width:84px;height:84px;flex-shrink:0;border-radius:50%;border:1px solid rgba(16,16,16,.3);display:flex;align-items:center;justify-content:center;font:700 18px 'Space Grotesk',sans-serif;letter-spacing:-.02em">KA</div>
+      <span style="font:600 10px 'JetBrains Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:rgba(16,16,16,.55)">{{ t.badgeBottom }}</span>
+    </div>
   </div>
-  <div style="display:flex;align-items:center;gap:8px;font:400 11px 'JetBrains Mono',monospace;color:var(--ka-accent);border:1px solid rgba(242,242,238,.18);padding:6px 14px;border-radius:20px">
-    <span style="width:7px;height:7px;border-radius:50%;background:var(--ka-accent);animation:blink 2s ease-in-out infinite"></span>
-    {{ t.avail }}
-  </div>
-  <h1 style="margin:0;font:700 clamp(64px,10vw,132px)/0.95 'Space Grotesk',sans-serif;letter-spacing:-.03em;text-align:center;text-transform:uppercase">Kennet<br><span style="color:var(--ka-accent)">Andino</span></h1>
-  <div class="hero-photo" style="width:400px;max-width:78%;aspect-ratio:4/5;overflow:hidden;border:1px solid rgba(242,242,238,.18)">
-    <img src="assets/hero.jpg" alt="Kennet Andino" style="width:100%;height:100%;object-fit:cover;object-position:center 12%;display:block;filter:var(--ka-photo-filter);transition:filter .4s ease">
-  </div>
-  <p style="margin:0;font:400 13px/1.7 'JetBrains Mono',monospace;color:rgba(242,242,238,.65);text-align:center">{{ t.heroSub1 }}<br><span style="color:var(--ka-accent)">{{ t.heroSub2 }}</span></p>
 </section>
 
 <div style="overflow:hidden;border-top:1px solid rgba(242,242,238,.14);border-bottom:1px solid rgba(242,242,238,.14);padding:14px 0">
@@ -574,8 +597,11 @@ class Component extends DCLogic {
     const t = en ? {
       navAbout: "About me", navExp: "Experience", navProj: "Projects", navMusic: "Music", navTravel: "Travels", navContact: "Contact",
       avail: "available for projects",
-      heroSub1: "software developer — backend, web & ux/ui",
-      heroSub2: "// desarrollador de software — managua",
+      heroKicker: "Software Developer",
+      heroTagline1: "I build software that",
+      heroTagline2: "turns ideas into real products.",
+      heroDesc: "Backend, integrations, and UX/UI — I build practical, scalable solutions designed around the people who use them.",
+      badgeTop: "CLEAN CODE", badgeBottom: "REAL IMPACT",
       aboutTitle: "About me",
       aboutP1: "I'm a software developer experienced in backend, web development, and UX/UI design. I enjoy turning business ideas and needs into practical, appealing, and easy-to-use applications.",
       aboutP2: "I work with Salesforce, Apex, LWC, JavaScript, Node.js, Supabase, SQL, APIs, and integrations with external services. I'm creative, adaptable, and committed to continuous learning.",
@@ -598,8 +624,11 @@ class Component extends DCLogic {
     } : {
       navAbout: "Sobre mí", navExp: "Experiencia", navProj: "Proyectos", navMusic: "Música", navTravel: "Viajes", navContact: "Contacto",
       avail: "disponible para proyectos",
-      heroSub1: "desarrollador de software — backend, web & ux/ui",
-      heroSub2: "// software developer — managua",
+      heroKicker: "Desarrollador de Software",
+      heroTagline1: "Desarrollo software que",
+      heroTagline2: "convierte ideas en productos reales.",
+      heroDesc: "Backend, integraciones y UX/UI — construyo soluciones prácticas, escalables y pensadas para las personas que las usan.",
+      badgeTop: "CLEAN CODE", badgeBottom: "REAL IMPACT",
       aboutTitle: "Sobre mí",
       aboutP1: "Soy desarrollador de software con experiencia en backend, desarrollo web y diseño UX/UI. Disfruto convertir ideas y necesidades de negocio en aplicaciones prácticas, atractivas y fáciles de usar.",
       aboutP2: "Trabajo con Salesforce, Apex, LWC, JavaScript, Node.js, Supabase, SQL, APIs e integraciones con servicios externos. Me considero una persona creativa, adaptable y comprometida con el aprendizaje continuo.",
