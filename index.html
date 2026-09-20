@@ -377,7 +377,7 @@ img{max-width:100%}
     <span style="font:400 11px 'JetBrains Mono',monospace;color:rgba(242,242,238,.5)">{{ t.scrollHint }}</span>
   </div>
   <div class="proj-scroll" style="display:flex;gap:24px;overflow-x:auto;padding:4px 48px 20px;scroll-snap-type:x mandatory">
-    <sc-for list="{{ projects }}" as="p" hint-placeholder-count="4">
+    <sc-for list="{{ projects }}" as="p" hint-placeholder-count="5">
       <article class="proj-card" style="flex:none;width:360px;scroll-snap-align:start;display:flex;flex-direction:column;gap:12px;border:1px solid rgba(242,242,238,.14);padding:16px;opacity:{{ p.op }};transform:{{ p.tx }};transition:{{ p.trans }}" style-hover="border-color:var(--ka-accent)">
         <div style="display:flex;justify-content:space-between;font:400 10px 'JetBrains Mono',monospace;color:rgba(242,242,238,.5)"><span>{{ p.num }}</span><span style="color:var(--ka-accent)">{{ p.tag }}</span></div>
         <div style="height:220px;width:100%;overflow:hidden;background:#1c1c1c">{{ p.imgNode }}</div>
@@ -666,12 +666,14 @@ class Component extends DCLogic {
       { num: "(01)", name: "RFP Platform", tag: "SALESFORCE", chips: ["Apex", "LWC", "REST APIs", "Webhooks"], desc: "Automates requests to insurance carriers: maps the census, generates the required Excel files, and attaches them to the email. AI module that processes quote PDFs and summarizes the best plans.", placeholder: "rfp screenshot" },
       { num: "(02)", name: "Business Card Connect", tag: "WEB APP", chips: ["React", "TanStack", "Supabase", "QR API"], desc: "Digital business cards with a public profile, downloadable VCF files, and a unique QR code per profile.", placeholder: "bcc screenshot" },
       { num: "(03)", name: "Card Library · Design System", tag: "DESIGN SYSTEM", chips: ["Web Components", "JavaScript", "Remote Bundle"], desc: "Design system with 11 embeddable Web Components via remote bundle — visual consistency across the ecosystem without duplicating code.", placeholder: "design system screenshot" },
-      { num: "(04)", name: "Meeting Notes Hub", tag: "INTERNAL TOOL", chips: ["React", "Vite", "Salesforce Lookup", "shadcn/ui"], desc: "Captures and organizes client meeting notes; assigns tasks to Salesforce users via integrated lookup.", placeholder: "notes hub screenshot" }
+      { num: "(04)", name: "Meeting Notes Hub", tag: "INTERNAL TOOL", chips: ["React", "Vite", "Salesforce Lookup", "shadcn/ui"], desc: "Captures and organizes client meeting notes; assigns tasks to Salesforce users via integrated lookup.", placeholder: "notes hub screenshot" },
+      { num: "(05)", name: "Cloudtopost", tag: "SAAS", chips: ["Google Drive API", "Meta Graph API", "AI Captioning", "Node.js"], desc: "SaaS that connects a business's Google Drive to Facebook and Instagram: every new photo or video is analyzed by AI, gets a caption written in the brand's voice, and is published automatically — no manual posting, no extra apps.", placeholder: "cloudtopost screenshot" }
     ] : [
       { num: "(01)", name: "RFP Platform", tag: "SALESFORCE", chips: ["Apex", "LWC", "APIs REST", "Webhooks"], desc: "Automatización de solicitudes a carriers de seguros: mapea el censo, genera los Excel requeridos y los adjunta al correo. Módulo de IA que procesa PDFs de cotización y resume los mejores planes.", placeholder: "captura rfp" },
       { num: "(02)", name: "Business Card Connect", tag: "WEB APP", chips: ["React", "TanStack", "Supabase", "QR API"], desc: "Tarjetas de presentación digitales con perfil público, archivos VCF descargables y código QR único por perfil.", placeholder: "captura bcc" },
       { num: "(03)", name: "Card Library · Design System", tag: "DESIGN SYSTEM", chips: ["Web Components", "JavaScript", "Remote Bundle"], desc: "Sistema de diseño con 11 Web Components embebibles vía bundle remoto — consistencia visual en todo el ecosistema sin duplicar código.", placeholder: "captura design system" },
-      { num: "(04)", name: "Meeting Notes Hub", tag: "INTERNAL TOOL", chips: ["React", "Vite", "Salesforce Lookup", "shadcn/ui"], desc: "Captura y organiza notas de reuniones con clientes; asigna tareas a usuarios de Salesforce mediante lookup integrado.", placeholder: "captura notes hub" }
+      { num: "(04)", name: "Meeting Notes Hub", tag: "INTERNAL TOOL", chips: ["React", "Vite", "Salesforce Lookup", "shadcn/ui"], desc: "Captura y organiza notas de reuniones con clientes; asigna tareas a usuarios de Salesforce mediante lookup integrado.", placeholder: "captura notes hub" },
+      { num: "(05)", name: "Cloudtopost", tag: "SAAS", chips: ["Google Drive API", "Meta Graph API", "IA para copys", "Node.js"], desc: "SaaS que conecta el Google Drive de un negocio con Facebook e Instagram: cada foto o video nuevo se analiza con IA, genera un copy con la voz de la marca, y se publica automáticamente — sin publicar a mano, sin apps extra.", placeholder: "captura cloudtopost" }
     ];
 
     const certs = en ? [
@@ -700,7 +702,7 @@ class Component extends DCLogic {
     const coUrls = { "Pangea Financial Group": "https://pangea.us", "Lendinero": "https://www.lendinero.com", "Globalpro": "https://globalpronic.com" };
     jobs.forEach(j => { j.url = coUrls[j.co] || null; j.noUrl = !j.url; });
     const R = window.__resources || {};
-    const projImgs = [R.projRfp || "assets/project-rfp1.png", R.projBcc || "assets/project-bcc1.png", R.projDs || "assets/project-design-system1.png", R.projNotes || "assets/project-meeting-notes1.png"];
+    const projImgs = [R.projRfp || "assets/project-rfp1.png", R.projBcc || "assets/project-bcc1.png", R.projDs || "assets/project-design-system1.png", R.projNotes || "assets/project-meeting-notes1.png", R.projCtp || "assets/project-cloudtopost1.png"];
     travels.forEach((tr, i) => {
       const src = R["travel" + (i + 1)] || (i === 0 ? "assets/travel-main.jpg" : "assets/travel-main" + (i + 1) + ".jpg");
       tr.imgNode = React.createElement("img", { src, alt: tr.label, style: { width: "100%", height: "100%", objectFit: "cover", display: "block" } });
