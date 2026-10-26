@@ -3,10 +3,16 @@
     "username": "Maximostarlord03",
     "points": 4,
     "rank": null,
-    "totalRanked": 170259,
+    "totalRanked": 170289,
     "userPic": "https://media.retroachievements.org/UserPic/Maximostarlord03.png",
-    "recentGame": "New Super Mario Bros.",
+    "recentGame": "FIFA 2000",
     "recentGames": [
+      {
+        "title": "FIFA 2000",
+        "console": "PlayStation",
+        "image": "https://media.retroachievements.org/Images/112591.png",
+        "lastPlayed": "2026-10-26 05:49:53"
+      },
       {
         "title": "New Super Mario Bros.",
         "console": "Nintendo DS",
@@ -30,12 +36,6 @@
         "console": "Nintendo DSi",
         "image": "https://media.retroachievements.org/Images/067821.png",
         "lastPlayed": "2026-05-14 06:16:41"
-      },
-      {
-        "title": "Mario Kart DS",
-        "console": "Nintendo DS",
-        "image": "https://media.retroachievements.org/Images/072928.png",
-        "lastPlayed": "2026-05-14 05:23:30"
       }
     ]
   },
@@ -43,8 +43,8 @@
     "gamertag": "StarlordMax1818",
     "gamerscore": "2285",
     "gamerpic": "https://images-eds-ssl.xboxlive.com/image?url=8Oaj9Ryq1G1_p3lLnXlsaZgGzAie6Mnu24_PawYuDYIoH77pJ.X5Z.MqQPibUVTcS9jr0n8i7LY1tL3U7AiafbJpCp1P4NE9.MGs216IQhsfpil.xkCidK6D.Ocu_4wN&format=png",
-    "recentGame": "Minecraft for Windows"
+    "recentGame": "Minecraft for Android"
   },
   "psn": null,
-  "updatedAt": "2026-10-26T01:15:56.941Z"
+  "updatedAt": "2026-10-26T06:16:03.327Z"
 }
